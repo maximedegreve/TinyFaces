@@ -2,12 +2,14 @@
 
 A basic vapor template for starting a new Vapor web application. If you're using vapor toolbox, you can use: `vapor new --template=basic`
 
-## 📖 How to build this?
+## 🤖 Before building (Dependencies)
 
-1. If on Mac OSX run "brew install gd"
-3. If on Mac OSX run "brew install mysql" followed by "mysql_secure_installation" to setup a database.
-2. If on Ubuntu (server) run "sudo apt-get install libgd-dev"
-3. If on Ubuntu (server) run "apt-get install libmysqlclient-dev"
+1. If on macOS run "brew install gd"
+2. If on macOS run "brew install mysql" followed by "mysql_secure_installation" to setup a database.
+3. If on Ubuntu (server) run "sudo apt-get install libgd-dev"
+4. If on Ubuntu (server) run "apt-get install libmysqlclient-dev"
+5. Install [Xcode](https://developer.apple.com/xcode/)
+6. Install [Vapor Toolbox](https://github.com/vapor/toolbox)
 
 ## 📖 Documentation
 
