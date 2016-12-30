@@ -4,6 +4,8 @@
 
 Avatars & Random data for your designs
 
+Also check out [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFaces-Sketch-Plugin)
+
 ## 🤖 Before building (Dependencies)
 
 1. If on macOS run "brew install gd"
