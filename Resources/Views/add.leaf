@@ -1,0 +1,34 @@
+#extend("base")
+
+#export("head") {
+  <title>TinyFaces 👦🏼👨🏾👩🏻 - Add your own photo</title>
+}
+
+#export("body") {
+
+  <div class="bg-snow--d padding-l paddingTop-l" style="height:216px">
+    <div class="textAlign-center width-100 pageWrap pageWrap--l">
+        <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">
+            <div class="marginBottom-xl"><img width="93" height="auto" src="images/logo.png" alt="Marvel Logo"></div>
+            <div class="position-absolute"><img width="119" height="119" src="images/single.png"></div>
+        </div>
+    </div>
+  </div>
+
+<div class="textAlign-center padding-m paddingBottom-l">
+<div class="display-inlineBlock textAlign-left pageWrap pageWrap--l paddingTop-m" style="max-width:700px;">
+<h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">By adding your Facebook profile picture you agree that:</h1>
+      <ul class="c-silver list list--unordered fontSize-l lineHeight-l fontWeight-3 display-inlineBlock marginBottom-l marginTop-m " style="padding-left: 0">
+        <li>It can be used by anyone in live websites, screenshots, mockups, posters...</li>
+        <li>It should never be  used in adult or discrimating related content.</li>
+        <li>You are recognisable in this picture.</li>
+        <li>You are the only one in this picture.</li>
+        <li>You have the copyright rights of this picture.</li>
+        <li>This picture doesn’t include any racist or discrimating content.</li>
+      </ul>
+
+      <a class="button button--l button--flat bg-marvel" href="/login-with-facebook?redirect=/new-face">Add my Facebook avatar</a>
+    </div>
+  </div>
+
+}
