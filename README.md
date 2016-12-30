@@ -1,5 +1,7 @@
 # TinyFaces 👦🏼👨🏾👩🏻
 
+<img src="/Public/images/github-header.png?raw=true" width="888">
+
 Avatars & Random data for your designs
 
 ## 🤖 Before building (Dependencies)
