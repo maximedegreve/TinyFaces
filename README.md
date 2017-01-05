@@ -23,7 +23,7 @@ Also check out [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFa
 
 ### Database:
 * Create a MySQL database called ```marvel_faces```, e.g. using the mysql CLI: ```CREATE DATABASE marvel_faces;```
-* Config/mysql.json contains the database credentials
+* [Config/mysql.json](Config/mysql.json) contains the database credentials
 
 ## 🚧 Building
 
