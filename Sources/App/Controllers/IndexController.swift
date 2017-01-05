@@ -12,7 +12,8 @@ final class IndexController {
         
         let userQuery = try User.query()
         userQuery.limit = Limit(count: 36, offset: 0)
-        let users = try userQuery.filter("approved", .equals, true).all()
+        let users = try userQuery.filter("approved", .equals, true).sort("quality", Sort.Direction.descending).all()
+        
         
         var avatars = [String]()
         
