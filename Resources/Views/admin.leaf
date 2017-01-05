@@ -19,13 +19,17 @@
 #loop(faces, "face") {
 <div class="display-tableRow">
 <div class="display-tableCell" style="width:100px;"><img class="borderRadius-m" width="100" height="100" src="https://graph.facebook.com/#(face.facebook_id)/picture?width=1024&height=1024"/></div>
-<div class="display-tableCell verticalAlign-middle">#(face.name)</div>
+<div class="display-tableCell verticalAlign-middle">
+#(face.name)<br>
+<a href="mailto:#(face.email)">#(face.email)</a>
+</div>
 <div class="display-tableCell verticalAlign-middle">
 
 <form action="/admin" method="POST">
 <input type="hidden" name="accept_id" value="#(face.id)" />
 <input class="button add-to-plan-button button--flat button--m bg-positive float-right" type="submit" value="Accept">
 </form>
+
 
 </div>
 </div>
