@@ -9,23 +9,27 @@ Also check out [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFa
 ## 🤖 Before building (dependencies)
 
 * Install [Vapor Toolbox](https://github.com/vapor/toolbox)
-* Create a MySQL database called ```marvel_faces```, e.g. using the mysql CLI: ```CREATE DATABASE marvel_faces;```
-
 
 ### macOS:
 * Run ```brew install gd```
 * Run ```brew install mysql``` followed by ```mysql_secure_installation``` to setup a database
 * Install [Xcode](https://developer.apple.com/xcode/)
 * Run ```vapor xcode```, this will create the Xcode project
-* Run the ```App``` target in Xcode
-* TinyFaces should now be running on [http://localhost:8080](http://localhost:8080)
+
 
 ### Ubuntu (server):
 * Run ```sudo apt-get install libgd-dev```
 * Run ```apt-get install libmysqlclient-dev```
 
+### Database:
+* Create a MySQL database called ```marvel_faces```, e.g. using the mysql CLI: ```CREATE DATABASE marvel_faces;```
+* Config/mysql.json contains the database credentials
 
+## 🚧 Building
 
+### macOS:
+* Run the ```App``` target in Xcode
+* TinyFaces should now be running on [http://localhost:8080](http://localhost:8080)
 
 ## 📖 Documentation
 
