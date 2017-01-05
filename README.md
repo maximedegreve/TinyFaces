@@ -6,14 +6,30 @@ Avatars & Random data for your designs
 
 Also check out [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFaces-Sketch-Plugin)
 
-## 🤖 Before building (Dependencies)
+## 🤖 Before building (dependencies)
 
-1. If on macOS run "brew install gd"
-2. If on macOS run "brew install mysql" followed by "mysql_secure_installation" to setup a database.
-3. If on Ubuntu (server) run "sudo apt-get install libgd-dev"
-4. If on Ubuntu (server) run "apt-get install libmysqlclient-dev"
-5. Install [Xcode](https://developer.apple.com/xcode/)
-6. Install [Vapor Toolbox](https://github.com/vapor/toolbox)
+* Install [Vapor Toolbox](https://github.com/vapor/toolbox)
+
+### macOS:
+* Run ```brew install gd```
+* Run ```brew install mysql``` followed by ```mysql_secure_installation``` to setup a database
+* Install [Xcode](https://developer.apple.com/xcode/)
+* Run ```vapor xcode```, this will create the Xcode project
+
+
+### Ubuntu (server):
+* Run ```sudo apt-get install libgd-dev```
+* Run ```apt-get install libmysqlclient-dev```
+
+### Database:
+* Create a MySQL database called ```marvel_faces```, e.g. using the mysql CLI: ```CREATE DATABASE marvel_faces;```
+* [Config/mysql.json](Config/mysql.json) contains the database credentials
+
+## 🚧 Building
+
+### macOS:
+* Run the ```App``` target in Xcode
+* TinyFaces should now be running on [http://localhost:8080](http://localhost:8080)
 
 ## 📖 Documentation
 
@@ -21,7 +37,7 @@ Visit the Vapor web framework's [documentation](http://docs.vapor.codes) for ins
 
 ## 💧 Community
 
-Join the welcoming community of fellow Vapor developers in [slack](http://vapor.team).
+Join the welcoming community of fellow Vapor developers in [Slack](http://vapor.team).
 
 ## 🔧 Compatibility
 
