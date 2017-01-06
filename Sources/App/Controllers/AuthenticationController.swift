@@ -20,21 +20,21 @@ final class AuthenticationController {
     let facebook = Facebook(clientID: drop.config["facebook", "app_id"]?.string ?? "", clientSecret: drop.config["facebook", "app_secret"]?.string ?? "")
     let loginFacebookURL = "login-with-facebook"
     
-    func addRoutes(drop: Droplet){
+    func addRoutes(drop: Droplet) {
         drop.get(loginFacebookURL, handler: loginWithFacebook)
         drop.get(loginFacebookURL,"consumer", handler: getAccessToken)
     }
     
-    func getAccessToken(request: Request) throws -> ResponseRepresentable{
+    func getAccessToken(request: Request) throws -> ResponseRepresentable {
         
         let accessTokenInSession = getFBTokenAndSaveInSession(request: request)
         
         if accessTokenInSession{
-            if let state = request.data["state"]?.string{
+            if let state = request.data["state"]?.string {
                 
-                if let decoded = state.fromBase64(){
+                if let decoded = state.fromBase64() {
                     
-                    if let characterIndex = decoded.range(of: "redirect=")?.upperBound{
+                    if let characterIndex = decoded.range(of: "redirect=")?.upperBound {
                         let redirect = decoded.substring(from: characterIndex)
                         return Response(redirect: redirect)
                     }
@@ -51,7 +51,7 @@ final class AuthenticationController {
 
     }
     
-    func getFBTokenAndSaveInSession(request: Request) -> Bool{
+    func getFBTokenAndSaveInSession(request: Request) -> Bool {
 
         guard let state = request.cookies["OAuthState"] else {
             return false
@@ -73,13 +73,13 @@ final class AuthenticationController {
         
     }
     
-    func loginWithFacebook(request: Request) throws -> ResponseRepresentable{
+    func loginWithFacebook(request: Request) throws -> ResponseRepresentable {
         
         let state = "secure=\(URandom().secureToken)&\(request.uri.query ?? "")"
         let state64 = state.toBase64()
         
         var portString = ""
-        if let port = request.uri.port{
+        if let port = request.uri.port {
             portString = ":" + String(port)
         }
  

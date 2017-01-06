@@ -7,7 +7,7 @@ final class UserController: ResourceRepresentable {
     
     func index(request: Request) throws -> ResponseRepresentable {
         
-        let face = try User.query().filter("approved", .equals, true).sort("quality", Sort.Direction.descending)
+        let face = try User.query().filter("approved", .equals, true).sort("quality", .descending)
         face.limit = Limit(count: 30, offset: 0)
         return try face.all().makeJSON(request: request)
     }

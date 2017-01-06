@@ -37,7 +37,7 @@ final class Avatar: Model {
     func makeJSON(request: Request) throws -> JSON {
         
         var portString = ""
-        if let port = request.uri.port{
+        if let port = request.uri.port {
             portString = ":" + String(port)
         }
         

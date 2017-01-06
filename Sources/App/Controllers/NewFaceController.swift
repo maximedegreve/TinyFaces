@@ -12,24 +12,24 @@ import SMTP
 
 final class NewFaceController {
     
-    func addRoutes(drop: Droplet){
+    func addRoutes(drop: Droplet) {
         drop.get("new-face",handler: newFace)
         drop.get("add") { (request) -> ResponseRepresentable in
             return try drop.view.make("add")
         }
     }
     
-    func newFace(request: Request) throws -> ResponseRepresentable{
+    func newFace(request: Request) throws -> ResponseRepresentable {
         
         guard let access_token = try request.session().data["accessToken"]?.string else {
             return try drop.view.make("index")
         }
 
-        if var face = self.facebookUserDataToFace(accessToken: access_token){
+        if var face = self.facebookUserDataToFace(accessToken: access_token) {
             
             let found = try User.query().filter("facebook_id", face.facebookId).all()
             
-            if found.count == 0{
+            if found.isEmpty {
                 
                 try face.save()
                 
@@ -40,7 +40,7 @@ final class NewFaceController {
                 
             } else {
                 
-                if found[0].approved == true{
+                if found[0].approved == true {
                     return try drop.view.make("success", [
                         "title": "Your avatar was approved and added to the API.",
                         "subtitle": "If at any point you have any questions don't hesitate to contact us."
@@ -63,7 +63,7 @@ final class NewFaceController {
         
     }
     
-    func uploadFacebookImageForFace(user: User){
+    func uploadFacebookImageForFace(user: User) {
         
         let imageUrl = "https://graph.facebook.com/" + String(user.facebookId) + "/picture?width=1024&height=1024"
         var result: Response?
@@ -82,7 +82,7 @@ final class NewFaceController {
         
     }
     
-    func facebookUserDataToFace(accessToken: String) -> User?{
+    func facebookUserDataToFace(accessToken: String) -> User? {
         do {
             let response = try drop.client.get("https://graph.facebook.com/v2.5/me/?fields=id,name,email,link,gender,verified&access_token=" + accessToken, headers: ["Content-Type": "application/json", "Accept": "application/json"])
             

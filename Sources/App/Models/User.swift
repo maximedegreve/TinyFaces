@@ -53,12 +53,15 @@ final class User: Model {
     }
     
     func makeJSON(request: Request) throws -> JSON {
-        
-        var genderSet = FakeGenerator.Gender.Other
-        if let genderMatch = FakeGenerator.Gender(rawValue: gender){
+		
+        let genderSet: FakeGenerator.Gender
+		
+        if let genderMatch = FakeGenerator.Gender(rawValue: gender) {
             genderSet = genderMatch
+        } else {
+            genderSet = .other
         }
-        
+			
         let avatarOrigin = try Node(node: [
             "id": id,
             "name": name,
@@ -66,7 +69,7 @@ final class User: Model {
             ])
         
         return try JSON(node: [
-            "first_name": FakeGenerator.firstName(gender: genderSet),
+            "first_name": FakeGenerator.firstName(for: genderSet),
             "last_name": FakeGenerator.lastName(),
             "gender": gender,
             "avatars": avatars().all().makeJSON(request: request),
@@ -88,7 +91,7 @@ final class User: Model {
             faces.string("facebook_profile_link", length: 200, optional: false)
             faces.string("email", length: 200, optional: false)
             faces.string("gender", length: 250, optional: false)
-            faces.int("verified", optional:  false)
+            faces.int("verified", optional: false)
             faces.int("approved", optional: true, default: 0)
             faces.int("quality", optional: true, default: 1)
         }
