@@ -58,9 +58,9 @@ final class User: Model {
 		
         if let genderMatch = FakeGenerator.Gender(rawValue: gender) {
             genderSet = genderMatch
-		} else {
-			genderSet = .other
-		}
+        } else {
+            genderSet = .other
+        }
 			
         let avatarOrigin = try Node(node: [
             "id": id,
