@@ -54,8 +54,13 @@
           <div class="grid grid--s grid--4 breakPointM-grid--8 breakPointS-grid--6">
 
             #loop(avatars, "avatar") {
-                <div><img class="borderRadius-m width-100 height-auto"  src="#(avatar)"/></div>
+
+              <div class="aspectRatio aspectRatio--100" >
+                <div class="aspectRatio-content borderRadius-m backgroundSize-cover" style="background-image: url(#(avatar))"></div>
+              </div>
+
             }
+            
           </div>
         </div>
 
