@@ -54,7 +54,7 @@ final class User: Model {
     
     func makeJSON(request: Request) throws -> JSON {
 		
-		let genderSet: FakeGenerator.Gender
+        let genderSet: FakeGenerator.Gender
 		
         if let genderMatch = FakeGenerator.Gender(rawValue: gender) {
             genderSet = genderMatch
