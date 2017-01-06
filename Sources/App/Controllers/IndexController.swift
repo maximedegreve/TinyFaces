@@ -12,14 +12,14 @@ final class IndexController {
         
         let userQuery = try User.query()
         userQuery.limit = Limit(count: 24, offset: 0)
-        let users = try userQuery.filter("approved", .equals, true).sort("quality", Sort.Direction.descending).all()
+        let users = try userQuery.filter("approved", .equals, true).sort("quality", .descending).all()
         
         
         var avatars = [String]()
         
-        for user in users{
-            for avatar in try user.avatars().all(){
-                if avatar.size == "medium"{
+        for user in users {
+            for avatar in try user.avatars().all() {
+                if avatar.size == "medium" {
                     avatars.append(avatar.url)
                 }
             }
