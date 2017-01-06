@@ -55,12 +55,12 @@
 
             #loop(avatars, "avatar") {
 
-              <div class="aspectRatio aspectRatio--100" >
+              <div class="aspectRatio aspectRatio--100 margin-xxs" >
                 <div class="aspectRatio-content borderRadius-m backgroundSize-cover" style="background-image: url(#(avatar))"></div>
               </div>
 
             }
-            
+
           </div>
         </div>
 
