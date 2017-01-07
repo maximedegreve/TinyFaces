@@ -6,6 +6,9 @@ import HTTP
 
 let drop = Droplet()
 
+// Leave uncommented for release
+drop.log.enabled = LogLevel.all
+
 let memory = MemorySessions()
 
 try drop.addProvider(VaporMySQL.Provider.self)
