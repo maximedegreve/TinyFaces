@@ -38,9 +38,9 @@ final class LastName : Model{
     
     public static func prepare(_ database: Database) throws {
         
-        try database.create("random_last_names") { faces in
-            faces.id()
-            faces.string("name", length: 200, optional: false, unique: true)
+        try database.create("random_last_names") { name in
+            name.id()
+            name.string("name", length: 200, optional: false, unique: true)
         }
                 
     }
