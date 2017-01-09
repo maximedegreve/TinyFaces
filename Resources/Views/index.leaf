@@ -37,7 +37,7 @@
       <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-xs display-inlineBlock">We’re making a new tiny faces API</h1>
       <h2 class="c-silver fontSize-l lineHeight-l fontWeight-3 display-inlineBlock marginBottom-m">
         By authorizing you give consent that your avatar can be used on
-        live websites, screenshots, apps….
+        live websites, screenshots, apps, etc.
       </h2>
       <a class="button button--l button--flat bg-marvel" href="/add">Add your face</a>
     </div>
@@ -68,7 +68,7 @@
 
         <div class="width-100 display-block breakPointM-width-50 padding-m breakPointM-display-tableCell breakPointM-verticalAlign-top">
           <h3 class="fontSize-xl c-steel marginBottom-xs lineHeight-l">Yo! I’m a developer, how do I use this?</h3>
-          <p class="c-silver fontSize-l marginBottom-m lineHeight-l">Just make simple GET request and you're done 😎</p>
+          <p class="c-silver fontSize-l marginBottom-m lineHeight-l fontWeight-3">Just make simple GET request and you're done 😎</p>
           <pre>
             <code class="js">$.ajax({
   url: 'https://tinyfac.es/api/users',
@@ -79,18 +79,17 @@
 });</code>
           </pre>
 
+          <div class="marginTop-l">
+            <h3 class="fontSize-xl c-steel marginBottom-s marginTop-xs display-inlineBlock">Our rules</h3>
+            <ol class="c-silver fontWeight-3 fontSize-l list list--unordered lineHeight-l" style="padding-left: 0">
+              <li>You can’t use any of our content next to any adult or discrimating content.</li>
+              <li>You should never use the real name of the person in the photo in your designs.</li>
+              <li>Never use a photo for fake testimonals.</li>
+              <li>This list of rules might grow in the future and should be checked regulary.</li>
+            </ol>
+          </div>
         </div>
 
-      </div>
-
-      <div class="pageWrap pageWrap--l">
-        <h3 class="fontSize-xl c-steel marginBottom-s marginTop-xs display-inlineBlock">Our rules</h3>
-        <ol class="c-silver fontSize-l list list--unordered lineHeight-l" style="padding-left: 0">
-          <li>You can’t use any of our content next to any adult or discrimating content.</li>
-          <li>You should never use the real name of the person in the photo in your designs.</li>
-          <li>Never use a photo for fake testimonals.</li>
-          <li>This list of rules might grow in the future and should be checked regulary.</li>
-        </ol>
       </div>
 
     </div>
