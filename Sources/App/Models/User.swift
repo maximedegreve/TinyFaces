@@ -54,14 +54,6 @@ final class User: Model {
     
     func makeJSON(request: Request) throws -> JSON {
 		
-        let genderSet: FakeGenerator.Gender
-		
-        if let genderMatch = FakeGenerator.Gender(rawValue: gender) {
-            genderSet = genderMatch
-        } else {
-            genderSet = .other
-        }
-			
         let avatarOrigin = try Node(node: [
             "id": id,
             "name": name,
@@ -69,8 +61,8 @@ final class User: Model {
             ])
         
         return try JSON(node: [
-            "first_name": FakeGenerator.firstName(for: genderSet),
-            "last_name": FakeGenerator.lastName(),
+            "first_name": "",
+            "last_name": "",
             "gender": gender,
             "avatars": avatars().all().makeJSON(request: request),
             "avatars_origin": avatarOrigin,
