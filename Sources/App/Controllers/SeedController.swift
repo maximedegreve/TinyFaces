@@ -19,14 +19,11 @@ final class SeedController {
     func seed(request: Request) throws -> ResponseRepresentable {
 
         try background {
-            FirstName.seedMale()
-            FirstName.seedFemale()
+            FirstName.seed()
             LastName.seed()
         }
         
-        return try Response.async { portal in
-            portal.close(with: "Seeding started (Check the server logs to double check nothing fails)")
-        }
+        return Response(status: .ok, body: "Seeding started (Check the server logs to double check nothing fails)")
         
     }
 }

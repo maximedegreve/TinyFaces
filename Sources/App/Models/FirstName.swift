@@ -59,13 +59,29 @@ final class FirstName : Model{
                 
     }
     
-    public static func seedMale() {
+    public static func seed(){
         
         do {
+            
             let namesCount = try FirstName.query().count()
             if namesCount > 0{
                 return
             }
+            
+            seedMale()
+            seedFemale()
+            
+            Swift.print("Seeding all first names finished.")
+            
+        } catch let error {
+            Swift.print(error)
+        }
+    
+    }
+    
+    static func seedMale() {
+        
+        do {
             
             let documentPath = "/Data/FirstNamesMale.txt"
             let csvFileContents = try String(contentsOfFile: drop.resourcesDir + documentPath, encoding: .utf8)
@@ -80,14 +96,10 @@ final class FirstName : Model{
         
     }
     
-    public static func seedFemale() {
+    static func seedFemale() {
         
         do {
-            let namesCount = try FirstName.query().count()
-            if namesCount > 0{
-                return
-            }
-            
+
             let documentPath = "/Data/FirstNamesFemale.txt"
             let csvFileContents = try String(contentsOfFile: drop.resourcesDir + documentPath, encoding: .utf8)
             let csvLines = csvFileContents.components(separatedBy: "\n")

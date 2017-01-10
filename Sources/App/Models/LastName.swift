@@ -63,6 +63,8 @@ final class LastName : Model{
                 try name.save()
             }
             
+            Swift.print("Seeding all last names finished.")
+            
         } catch let error {
             Swift.print(error)
         }
