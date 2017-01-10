@@ -13,6 +13,8 @@ import Foundation
 
 final class FirstName : Model{
     
+    static var entity = "random_first_names"
+    
     enum Gender: Int {
         case male = 1
         case female = 2
@@ -22,6 +24,7 @@ final class FirstName : Model{
     var id: Node?
     var name: String
     var gender: Int
+    var exists: Bool = false
     
     init(name: String, gender: Gender) {
         self.name = name

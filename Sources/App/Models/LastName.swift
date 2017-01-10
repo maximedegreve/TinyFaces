@@ -13,8 +13,11 @@ import Foundation
 
 final class LastName : Model{
     
+    static var entity = "random_last_names"
+
     var id: Node?
     var name: String
+    var exists: Bool = false
     
     init(name: String) {
         self.name = name
@@ -48,6 +51,11 @@ final class LastName : Model{
     public static func seed() {
         
         do {
+            let namesCount = try LastName.query().count()
+            if namesCount > 0{
+                //return
+            }
+            
             let csvFileContents = try String(contentsOfFile: drop.resourcesDir + "/Data/LastNames.csv", encoding: .utf8)
             let csvLines = csvFileContents.components(separatedBy: "\r")
             for name in csvLines {
