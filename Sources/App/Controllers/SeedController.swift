@@ -17,10 +17,16 @@ final class SeedController {
     }
     
     func seed(request: Request) throws -> ResponseRepresentable {
-        FirstName.seedMale()
-        FirstName.seedFemale()
-        LastName.seed()
+
+        try background {
+            FirstName.seedMale()
+            FirstName.seedFemale()
+            LastName.seed()
+        }
         
-        return "Finished seeding (Check the server logs to double check nothing failed)"
+        return try Response.async { portal in
+            portal.close(with: "Seeding started (Check the server logs to double check nothing fails)")
+        }
+        
     }
 }

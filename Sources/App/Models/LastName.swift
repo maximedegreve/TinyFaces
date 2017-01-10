@@ -49,7 +49,7 @@ final class LastName : Model{
     }
     
     public static func seed() {
-        
+
         do {
             let namesCount = try LastName.query().count()
             if namesCount > 0{
