@@ -8,6 +8,7 @@
 
 import Vapor
 import HTTP
+import Fluent
 import FluentMySQL
 import Foundation
 
@@ -44,7 +45,7 @@ final class FirstName : Model{
             "gender": gender
             ])
     }
-    
+
     public static func revert(_ database: Database) throws {
         try database.delete("random_first_names")
     }
@@ -53,7 +54,7 @@ final class FirstName : Model{
         
         try database.create("random_first_names") { name in
             name.id()
-            name.string("name", length: 200, optional: false, unique: true)
+            name.string("name", length: 200, optional: false, unique: false)
             name.int("gender", optional: false)
         }
                 
