@@ -30,6 +30,7 @@ Also check out [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFa
 ### macOS:
 * Run the ```App``` target in Xcode
 * TinyFaces should now be running on [http://localhost:8080](http://localhost:8080)
+* First time run http://localhost:8080/seed/ to seed the database tables with default data.
 
 ## 📖 Documentation
 

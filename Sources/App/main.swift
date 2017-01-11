@@ -14,6 +14,14 @@ let memory = MemorySessions()
 try drop.addProvider(VaporMySQL.Provider.self)
 drop.preparations.append(User.self)
 drop.preparations.append(Avatar.self)
+drop.preparations.append(FirstName.self)
+drop.preparations.append(LastName.self)
+
+// Seed Data
+let seed = SeedController()
+seed.addRoutes(drop: drop)
+
+// Sessions
 
 let sessions = SessionsMiddleware(sessions: memory)
 drop.middleware.append(sessions)
@@ -36,5 +44,6 @@ admin.addRoutes(drop: drop)
 
 drop.resource("api/users", UserController())
 
-
 drop.run()
+
+
