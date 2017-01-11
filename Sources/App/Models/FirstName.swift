@@ -88,8 +88,10 @@ final class FirstName : Model{
             let csvFileContents = try String(contentsOfFile: drop.resourcesDir + documentPath, encoding: .utf8)
             let csvLines = csvFileContents.components(separatedBy: "\n")
             for name in csvLines {
-                var name = FirstName(name:name,gender:Gender.male)
-                try name.save()
+                if name.isEmpty == false {
+                    var name = FirstName(name:name,gender:Gender.male)
+                    try name.save()
+                }
             }
         } catch let error {
             Swift.print(error)
@@ -105,8 +107,10 @@ final class FirstName : Model{
             let csvFileContents = try String(contentsOfFile: drop.resourcesDir + documentPath, encoding: .utf8)
             let csvLines = csvFileContents.components(separatedBy: "\n")
             for name in csvLines {
-                var name = FirstName(name:name,gender:Gender.female)
-                try name.save()
+                if name.isEmpty == false {
+                    var name = FirstName(name:name,gender:Gender.male)
+                    try name.save()
+                }
             }
         } catch let error {
             Swift.print(error)
