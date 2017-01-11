@@ -29,7 +29,7 @@ final class RandomName : NSObject{
         was slow and took about 80ms for a LIMIT 1. */
         
         if let mysql = drop.database?.driver as? MySQLDriver {
-            let results = try mysql.raw("SELECT (SELECT name FROM random_last_names AS r1 JOIN (SELECT (RAND() * (SELECT MAX(id)FROM random_last_names)) AS id) AS r2 WHERE r1.id >= r2.id ORDER BY r1.id ASC LIMIT 1) as last_name, (SELECT name FROM random_first_names AS r1 JOIN (SELECT (RAND() * (SELECT MAX(id)FROM random_first_names)) AS id) AS r2 WHERE r1.id >= r2.id AND gender = \(gender.rawValue) ORDER BY r1.id ASC LIMIT 1) as first_name")
+            let results = try mysql.raw("SELECT (SELECT name FROM random_last_names AS r1 JOIN (SELECT (RAND() * (SELECT MAX(id)FROM random_last_names)) AS id) AS r2 WHERE r1.id >= r2.id ORDER BY r1.id ASC LIMIT 1) as last_name, (SELECT name FROM random_first_names AS r1 JOIN (SELECT (RAND() * (SELECT MAX(id) FROM random_first_names WHERE gender = \(gender.rawValue))) AS id) AS r2 WHERE r1.id >= r2.id AND gender = \(gender.rawValue) ORDER BY r1.id ASC LIMIT 1) as first_name")
             let firstName = results.array?.first?.object?["first_name"]?.string
             let lastName = results.array?.first?.object?["last_name"]?.string
             let randomName = RandomName(firstName: firstName ?? "", lastName: lastName ?? "")

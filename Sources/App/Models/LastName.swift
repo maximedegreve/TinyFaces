@@ -59,8 +59,10 @@ final class LastName : Model{
             let csvFileContents = try String(contentsOfFile: drop.resourcesDir + "/Data/LastNames.csv", encoding: .utf8)
             let csvLines = csvFileContents.components(separatedBy: "\r")
             for name in csvLines {
-                var name = LastName(name:name)
-                try name.save()
+                if name.isEmpty == false {
+                    var name = LastName(name:name)
+                    try name.save()
+                }
             }
             
             Swift.print("Seeding all last names finished.")
