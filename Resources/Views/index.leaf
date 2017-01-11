@@ -4,6 +4,7 @@
   <title>TinyFaces 👦🏼👨🏾👩🏻 - Avatars & Random data for your designs</title>
   <link rel="stylesheet" href="styles/default.css">
   <script src="scripts/highlight.pack.js"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script>
   //hljs.configure({useBR: true});
   hljs.initHighlightingOnLoad();
@@ -69,7 +70,7 @@
         <div class="width-100 display-block breakPointM-width-50 padding-m breakPointM-display-tableCell breakPointM-verticalAlign-top">
           <h3 class="fontSize-xl c-steel marginBottom-xs lineHeight-l">Yo! I’m a developer, how do I use this?</h3>
           <p class="c-silver fontSize-l marginBottom-m lineHeight-l fontWeight-3">Just make simple GET request and you're done 😎</p>
-          <pre>
+          <pre class="marginBottom-s">
             <code class="js">$.ajax({
   url: 'https://tinyfac.es/api/users',
   dataType: 'json',
@@ -78,6 +79,10 @@
   }
 });</code>
           </pre>
+
+        #raw() {
+        <a class="github-button" href="https://github.com/maximedegreve/TinyFaces" data-icon="octicon-star" data-count-href="/maximedegreve/TinyFaces/stargazers" data-count-api="/repos/maximedegreve/TinyFaces#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star maximedegreve/TinyFaces on GitHub">Star</a>
+        }
 
           <div class="marginTop-l">
             <h3 class="fontSize-xl c-steel marginBottom-s marginTop-xs display-inlineBlock">Our rules</h3>
