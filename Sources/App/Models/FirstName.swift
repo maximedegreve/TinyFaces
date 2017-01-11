@@ -108,7 +108,7 @@ final class FirstName : Model{
             let csvLines = csvFileContents.components(separatedBy: "\n")
             for name in csvLines {
                 if name.isEmpty == false {
-                    var name = FirstName(name:name,gender:Gender.male)
+                    var name = FirstName(name:name,gender:Gender.female)
                     try name.save()
                 }
             }
