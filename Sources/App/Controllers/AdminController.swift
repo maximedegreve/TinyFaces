@@ -25,6 +25,7 @@ final class AdminController {
     
     func addRoutes(drop: Droplet) {
         drop.get("admin", handler: index)
+        drop.get("admin", "approved", handler: index)
         drop.post("admin", handler: accept)
     }
     
@@ -44,6 +45,24 @@ final class AdminController {
             "faces": notApproved
             ])
                 
+    }
+    
+    func all(request: Request) throws -> ResponseRepresentable {
+        
+        guard let access_token = try request.session().data["accessToken"]?.string else {
+            return Response(redirect: "../login-with-facebook?redirect=/admin")
+        }
+        
+        if facebookUserIsAdminAllowed(accessToken: access_token) == false {
+            return Response(redirect: "../")
+        }
+        
+        let approved = try User.query().filter("approved", .equals, true).all().makeNode()
+        
+        return try drop.view.make("adminApproved", [
+            "faces": approved
+            ])
+        
     }
     
     func accept(request: Request) throws -> ResponseRepresentable {

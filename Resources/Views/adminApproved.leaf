@@ -1,0 +1,34 @@
+#extend("base")
+
+#export("head") {
+    <title>TinyFaces 👦🏼👨🏾👩🏻 - Admin</title>
+}
+
+#export("body") {
+
+<div class="bg-snow--d textAlign-center padding-l">
+    <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">
+      <img width="93" height="auto" src="images/logo.png" alt="Marvel Logo">
+    </div>
+  </div>
+
+  <div class="textAlign-center paddingTop-xl">
+    <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">
+
+<div class="box display-table">
+#loop(faces, "face") {
+<div class="display-tableRow">
+<div class="display-tableCell" style="width:100px;"><img class="borderRadius-m" width="100" height="100" src="https://graph.facebook.com/#(face.facebook_id)/picture?width=1024&height=1024"/></div>
+<div class="display-tableCell verticalAlign-middle">
+#(face.name)<br>
+<a href="mailto:#(face.email)">#(face.email)</a>
+</div>
+</div>
+}
+</div>
+
+
+    </div>
+  </div>
+
+}

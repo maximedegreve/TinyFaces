@@ -87,9 +87,7 @@ final class NewFaceController {
             let response = try drop.client.get("https://graph.facebook.com/v2.5/me/?fields=id,name,email,link,gender,verified&access_token=" + accessToken, headers: ["Content-Type": "application/json", "Accept": "application/json"])
             
             let failedMessage = "ERROR: Facebook user data could not be generated because of the missing field: "
-            
-            Swift.print(response.json.debugDescription)
-            
+                    
             guard let facebook_id = response.json?["id"]?.string else {
                 Swift.print(failedMessage + "id")
                 Swift.print(response.json.debugDescription)
