@@ -35,10 +35,9 @@
 
       <div class="marginBottom-l"><img width="93" height="auto" src="images/logo.png" alt="Marvel Logo"></div>
       <div class="marginBottom-m"><img style="max-width:398px;" class="width-100 height-auto" height="auto" src="images/front.png"/></div>
-      <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-xs display-inlineBlock">We’re making a new tiny faces API</h1>
+      <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-xs display-inlineBlock">Free stock avatars for everyone</h1>
       <h2 class="c-silver fontSize-l lineHeight-l fontWeight-3 display-inlineBlock marginBottom-m">
-        By authorizing you give consent that your avatar can be used on
-        live websites, screenshots, apps, etc.
+        Tiny Faces is a free crowd-sourced avatar gallery to use in your personal or commercial projects
       </h2>
       <a class="button button--l button--flat bg-marvel" href="/add">Add your face</a>
     </div>
