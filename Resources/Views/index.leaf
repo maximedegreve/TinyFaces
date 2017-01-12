@@ -23,6 +23,7 @@
 }
 
 #export("body") {
+
   <div class="bg-snow--d textAlign-center paddingTop-xl paddingBottom-xl">
     <div class="display-inlineBlock marginLeft-l marginRight-l" style="max-width:500px;">
 

@@ -57,7 +57,7 @@ final class NewFaceController {
 
         }
         
-        return try drop.view.make("index", [
+        return try drop.view.make("error", [
             "message": "Something went wrong adding you to the database."
             ])
         
@@ -86,15 +86,48 @@ final class NewFaceController {
         do {
             let response = try drop.client.get("https://graph.facebook.com/v2.5/me/?fields=id,name,email,link,gender,verified&access_token=" + accessToken, headers: ["Content-Type": "application/json", "Accept": "application/json"])
             
-            if let facebook_id = response.json?["id"]?.string,
-                let name = response.json?["name"]?.string,
-                let email = response.json?["email"]?.string,
-                let link = response.json?["link"]?.string,
-                let gender = response.json?["gender"]?.string,
-                let verified = response.json?["verified"]?.int{
-                
-                return User(facebookId: facebook_id, name: name, gender: gender, facebookProfileLink: link, email: email, verified: verified)
+            let failedMessage = "ERROR: Facebook user data could not be generated because of the missing field: "
+            
+            Swift.print(response.json.debugDescription)
+            
+            guard let facebook_id = response.json?["id"]?.string else {
+                Swift.print(failedMessage + "id")
+                Swift.print(response.json.debugDescription)
+                return nil
             }
+            
+            guard let name = response.json?["name"]?.string else {
+                Swift.print(failedMessage + "name")
+                Swift.print(response.json.debugDescription)
+                return nil
+            }
+            
+            guard let email = response.json?["email"]?.string else {
+                Swift.print(failedMessage + "email")
+                Swift.print(response.json.debugDescription)
+                return nil
+            }
+            
+            guard let link = response.json?["link"]?.string else {
+                Swift.print(failedMessage + "link")
+                Swift.print(response.json.debugDescription)
+                return nil
+            }
+            
+            guard let gender = response.json?["gender"]?.string else {
+                Swift.print(failedMessage + "gender")
+                Swift.print(response.json.debugDescription)
+                return nil
+            }
+            
+            guard let verified = response.json?["verified"]?.int else {
+                Swift.print(failedMessage + "verified")
+                Swift.print(response.json.debugDescription)
+                return nil
+            }
+            
+            return User(facebookId: facebook_id, name: name, gender: gender, facebookProfileLink: link, email: email, verified: verified)
+            
             
         } catch let error {
             Swift.print(error)
