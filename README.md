@@ -1,10 +1,11 @@
 # TinyFaces 👦🏼👨🏾👩🏻
+Free stock avatars for everyone
 
 <img src="/Public/images/github-header.png?raw=true" width="888">
 
-Avatars & Random data for your designs
+Tiny Faces is a free crowd-sourced avatar gallery to use in your personal or commercial projects
 
-Also check out [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFaces-Sketch-Plugin)
+Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFaces-Sketch-Plugin)
 
 ## 🤖 Before building (dependencies)
 
@@ -30,7 +31,7 @@ Also check out [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFa
 ### macOS:
 * Run the ```App``` target in Xcode
 * TinyFaces should now be running on [http://localhost:8080](http://localhost:8080)
-* First time run http://localhost:8080/seed/ to seed the database tables with default data.
+* First time run [http://localhost:8080/seed/](http://localhost:8080/seed/) to seed the database tables with default data.
 
 ## 📖 Documentation
 

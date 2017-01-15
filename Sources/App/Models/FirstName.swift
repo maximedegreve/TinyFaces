@@ -57,7 +57,7 @@ final class FirstName : Model{
             name.string("name", length: 200, optional: false, unique: false)
             name.int("gender", optional: false)
         }
-                
+
     }
     
     public static func seed(){
