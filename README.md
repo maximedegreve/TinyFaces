@@ -5,7 +5,7 @@ Free stock avatars for everyone
 
 Tiny Faces is a free crowd-sourced avatar gallery to use in your personal or commercial projects
 
-Also check out [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFaces-Sketch-Plugin)
+Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFaces-Sketch-Plugin)
 
 ## 🤖 Before building (dependencies)
 
