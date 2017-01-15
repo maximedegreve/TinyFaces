@@ -29,8 +29,11 @@ final class AdminController {
         drop.post("admin", handler: accept)
     }
     
+    
     func index(request: Request) throws -> ResponseRepresentable {
         
+        _ = try AdminMailer.send()
+
         guard let access_token = try request.session().data["accessToken"]?.string else {
             return Response(redirect: "../login-with-facebook?redirect=/admin")
         }

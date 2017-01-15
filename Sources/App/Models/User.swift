@@ -109,6 +109,10 @@ extension User {
     func avatars() throws -> Children<Avatar> {
         return children()
     }
+    
+    func approvedCount() throws -> Int {
+        return try User.query().filter("approved", .equals, true).count()
+    }
 
 }
 
