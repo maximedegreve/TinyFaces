@@ -1,0 +1,6 @@
+{
+    "user": "",
+    "pass": "",
+    "host": "smtp.mailgun.org",
+    "port": 587
+}

@@ -11,27 +11,51 @@ import Vapor
 import SMTP
 import Transport
 
-
 final class AdminMailer {
 
-    static func send(body: String) throws -> Bool {
+    // Mailing will not work in a local environment because sending from a non secure location
     
-        let credentials = SMTPCredentials(user: "maximedegreve@me.com", pass: "fGzdb6wRDHrYyUXp")
-        let from = EmailAddress(name: "Password Rest", address: "maximedegreve@me.com")
-        let to = EmailAddress(name: "Password Rest", address: "maximedegreve@me.com")
+    static let host = drop.config["smtp", "host"]?.string ?? ""
+    static let port = drop.config["smtp", "port"]?.int ?? 25
+    static let from = EmailAddress(name: "TinyFaces", address: "no-reply@tinyfac.es")
+    static let credentials = SMTPCredentials(user: drop.config["smtp", "user"]?.string ?? "", pass: drop.config["smtp", "pass"]?.string ?? "")
+    
+    static func sendApproved(user: User) throws -> Bool {
+    
+        let to = EmailAddress(name: user.name, address: user.email)
+
         let email = Email(
             from: from,
             to: to,
-            subject: "Vapor SMTP - Simple",
-            body: body
+            subject: "Your avatar on TinyFaces got accepted.",
+            body: "Hi \(user.name),\n\nThank you for adding your avatar on TinyFaces.\nAfter reviewing your submission our team accepted your tiny face.\n\nKind regards,\n\nTinyFaces 👩🏻👨🏾👦🏼"
         )
     
-        let client = try SMTPClient<TCPClientStream>.init(host: "smtp-relay.sendinblue.com", port: 587, securityLayer: .tls(nil))
+        let client = try SMTPClient<TCPClientStream>.init(host: host, port: port, securityLayer: .none)
         let (code, reply) = try client.send(email, using: credentials)
         print("Successfully sent email: \(code) \(reply)")
         
         return true
 
+    }
+    
+    static func sendRejected(user: User, reason: String) throws -> Bool {
+        
+        let to = EmailAddress(name: user.name, address: user.email)
+        
+        let email = Email(
+            from: from,
+            to: to,
+            subject: "Your avatar on TinyFaces got rejected.",
+            body: "Hi \(user.name),\n\nThank you for adding your avatar on TinyFaces.\nUnfortunately after reviewing your submission our team rejected your avatar.\n\nBecause: \(reason)\n\nFeel free to submit your Facebook profile again once you've changed your profile picture to something which would fit our guidelines.\n\nKind regards,\n\nTinyFaces 👩🏻👨🏾👦🏼"
+        )
+        
+        let client = try SMTPClient<TCPClientStream>.init(host: host, port: port, securityLayer: .none)
+        let (code, reply) = try client.send(email, using: credentials)
+        print("Successfully sent email: \(code) \(reply)")
+        
+        return true
+        
     }
 
 }

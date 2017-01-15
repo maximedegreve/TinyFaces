@@ -1,8 +1,9 @@
 # TinyFaces 👦🏼👨🏾👩🏻
+Free stock avatars for everyone
 
 <img src="/Public/images/github-header.png?raw=true" width="888">
 
-Avatars & Random data for your designs
+Tiny Faces is a free crowd-sourced avatar gallery to use in your personal or commercial projects
 
 Also check out [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFaces-Sketch-Plugin)
 
