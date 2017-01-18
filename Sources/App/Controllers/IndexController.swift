@@ -11,7 +11,7 @@ final class IndexController {
     func index(request: Request) throws -> ResponseRepresentable{
         
         let userQuery = try User.query()
-        userQuery.limit = Limit(count: 36, offset: 0)
+        userQuery.limit = Limit(count: 42, offset: 0)
         let users = try userQuery.filter("approved", .equals, true).sort("quality", .descending).all()
         
         
