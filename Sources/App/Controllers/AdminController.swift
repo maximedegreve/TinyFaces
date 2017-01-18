@@ -9,6 +9,8 @@
 import Vapor
 import Foundation
 import HTTP
+import FluentMySQL
+import Fluent
 
 
 final class AdminController {
@@ -84,10 +86,13 @@ final class AdminController {
             return Response(redirect: "../")
         }
         
-        let notApproved = try User.query().filter("approved", .equals, false).all().makeNode()
+        
+        let notApproved = try User.query().filter("approved", .equals, false)
+        notApproved.limit = Limit(count: 20, offset: 0)
+        let final = try notApproved.all().makeNode()
         
         return try drop.view.make("admin/admin", [
-            "users": notApproved
+            "users": final
             ])
                 
     }
