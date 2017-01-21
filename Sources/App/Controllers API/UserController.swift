@@ -6,10 +6,11 @@ import Fluent
 final class UserController: ResourceRepresentable {
 	
 	fileprivate let defaultAmount = 20
+    fileprivate let defaultQuality = 10
 	
 	func index(request: Request) throws -> ResponseRepresentable {
 		
-		let amount: Int
+		var amount = defaultAmount
 		
 		if let amountParameter = request.data["amount"]?.int {
 			
@@ -19,13 +20,21 @@ final class UserController: ResourceRepresentable {
 			
 			amount = amountParameter
 			
-		} else {
-			
-			amount = defaultAmount
-			
 		}
+        
+        var quality = defaultQuality
+        
+        if let qualityParameter = request.data["min-quality"]?.int {
+            
+            guard qualityParameter >= 0 && qualityParameter <= 10 else {
+                throw Abort.badRequest
+            }
+            
+            quality = qualityParameter
+            
+        }
 		
-		let users = try User.random(limit: Limit(count: amount, offset: 0))
+		let users = try User.random(limit: Limit(count: amount, offset: 0), minQuality: quality)
 		return try users.makeJSON(request: request)
 	}
 	
