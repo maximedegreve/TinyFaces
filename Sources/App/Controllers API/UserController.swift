@@ -25,9 +25,8 @@ final class UserController: ResourceRepresentable {
 			
 		}
 		
-		let face = try User.query().filter("approved", .equals, true).sort("quality", .descending)
-		face.limit = Limit(count: amount, offset: 0)
-		return try face.all().makeJSON(request: request)
+		let users = try User.random(limit: Limit(count: amount, offset: 0))
+		return try users.makeJSON(request: request)
 	}
 	
 	func makeResource() -> Resource<User> {

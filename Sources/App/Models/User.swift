@@ -113,6 +113,30 @@ extension User {
     func approvedCount() throws -> Int {
         return try User.query().filter("approved", .equals, true).count()
     }
+    
+    static func random(limit: Limit) throws -> [User]{
+        
+        /* Fluent doesn't support RAND(). So we need to use raw queries for now... */
+        
+        if let mysql = drop.database?.driver as? MySQLDriver {
+            
+            let results = try mysql.raw("SELECT * FROM users WHERE approved = 1 ORDER BY rand() LIMIT \(limit.count)")
+            
+            guard case .array(let array) = results else {
+                return [User]()
+            }
+            
+            let users = try array.map {
+                try User(node: $0)
+            }
+            
+            return users
+        }
+        
+        return [User]()
+        
+    }
+
 
 }
 
