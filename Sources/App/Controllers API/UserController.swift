@@ -7,6 +7,7 @@ final class UserController: ResourceRepresentable {
 	
 	fileprivate let defaultAmount = 20
     fileprivate let defaultQuality = 10
+    fileprivate let defaultGender: String? = nil
 	
 	func index(request: Request) throws -> ResponseRepresentable {
 		
@@ -24,7 +25,7 @@ final class UserController: ResourceRepresentable {
         
         var quality = defaultQuality
         
-        if let qualityParameter = request.data["min-quality"]?.int {
+        if let qualityParameter = request.data["min_quality"]?.int {
             
             guard qualityParameter >= 0 && qualityParameter <= 10 else {
                 throw Abort.badRequest
@@ -33,8 +34,10 @@ final class UserController: ResourceRepresentable {
             quality = qualityParameter
             
         }
-		
-		let users = try User.random(limit: Limit(count: amount, offset: 0), minQuality: quality)
+        
+        let gender = request.data["gender"]?.string
+
+		let users = try User.random(limit: Limit(count: amount, offset: 0), minQuality: quality, gender: gender)
 		return try users.makeJSON(request: request)
 	}
 	
