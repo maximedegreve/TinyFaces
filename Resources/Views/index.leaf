@@ -58,7 +58,7 @@
 
               <div class="padding-xxs">
                 <div class="aspectRatio aspectRatio--100" >
-                  <div class="aspectRatio-content borderRadius-m backgroundSize-cover" style="background-image: url(#(avatar))"></div>
+                  <div class="aspectRatio-content borderRadius-m backgroundSize-cover backgroundPosition-centerCenter" style="background-image: url(#(avatar))"></div>
                   </div>
               </div>
 
