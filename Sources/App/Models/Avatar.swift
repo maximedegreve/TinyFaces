@@ -41,7 +41,7 @@ final class Avatar: Model {
             portString = ":" + String(port)
         }
         
-        let imageURL = "\(request.uri.scheme)://\(request.uri.host)\(portString)/\(url)"
+        let imageURL = "https://\(request.uri.host)\(portString)/\(url)"
         
         return try JSON(node: [
             "url": imageURL,
