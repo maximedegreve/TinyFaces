@@ -15,7 +15,7 @@ final class UserController: ResourceRepresentable {
 		
 		if let amountParameter = request.data["amount"]?.int {
 			
-			guard amountParameter > 0 && amountParameter <= 20 else {
+			guard amountParameter > 0 && amountParameter <= 24 else {
 				throw Abort.badRequest
 			}
 			
