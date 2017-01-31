@@ -38,6 +38,7 @@ final class UserController: ResourceRepresentable {
         let gender = request.data["gender"]?.string
 
 		let users = try User.random(limit: Limit(count: amount, offset: 0), minQuality: quality, gender: gender)
+        
 		return try users.makeJSON(request: request)
 	}
 	

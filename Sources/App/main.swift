@@ -3,6 +3,7 @@ import VaporMySQL
 import Sessions
 import Foundation
 import HTTP
+import CorsMiddleware
 
 let drop = Droplet()
 
@@ -16,6 +17,10 @@ drop.preparations.append(User.self)
 drop.preparations.append(Avatar.self)
 drop.preparations.append(FirstName.self)
 drop.preparations.append(LastName.self)
+
+// Middelware
+let cors = CorsMiddleware()
+drop.middleware.append(cors)
 
 // Seed Data
 let seed = SeedController()
