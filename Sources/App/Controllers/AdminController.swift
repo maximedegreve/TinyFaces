@@ -133,7 +133,10 @@ final class AdminController {
                         try userEdited.save()
                         
                         for (sizeName, url) in sizesURLs {
-                            var avatar = Avatar(url: toPublicURLString(url: url), size: sizeName, userId: userEdited.id!)
+                            
+                            guard let localURL = URL(string: url) else { throw Abort.badRequest }
+                            let sizeImage = try AdminImageProcessor.getSizeOfImage(url: localURL)
+                            var avatar = Avatar(url: toPublicURLString(url: url), size: sizeName, userId: userEdited.id!,width: sizeImage.width, height: sizeImage.height)
                             try avatar.save()
                         }
                         

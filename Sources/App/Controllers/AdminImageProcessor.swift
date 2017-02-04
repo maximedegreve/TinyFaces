@@ -22,6 +22,16 @@ final class AdminImageProcessor {
     
     static let avatarsPath = URL(fileURLWithPath: drop.workDir).appendingPathComponent("Public/data/avatars", isDirectory: true)
     
+    static func getSizeOfImage(url: URL) throws -> (width: Int, height: Int) {
+        
+        guard let image = Image(url: url) else {
+            throw Abort.badRequest
+        }
+        
+        return image.size
+        
+    }
+    
     static func createDifferentSizesOfImage(url: URL) -> [String : String]? {
         
         let originalImage = Image(url: url)
