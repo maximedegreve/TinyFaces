@@ -70,6 +70,8 @@ final class Avatar: Model {
             faces.parent(User.self, optional: false, unique: false)
             faces.string("url", length: 250, optional: false, unique: true)
             faces.string("size", length: 250, optional: false, unique: false)
+            faces.int("width", optional: false, unique: false, default: 0)
+            faces.int("height", optional: false, unique: false, default: 0)
         }
 
     }
@@ -93,43 +95,4 @@ extension Avatar {
         return try parent(userId)
     }
 
-}
-
-struct AvatarAddWidthHeight: Preparation {
-    
-    static func prepare(_ database: Database) throws {
-        try database.modify("avatars", closure: { avatar in
-            avatar.int("width", optional: false, unique: false, default: 0)
-            avatar.int("height", optional: false, unique: false, default: 0)
-        })
-    }
-    
-    static func revert(_ database: Database) throws {
-        
-    }
-    
-    static func populate() {
-        
-        do {
-            
-            let avatars = try Avatar.query().filter("width", .equals, 0).filter("height", .equals, 0).all()
-            
-            for avatar in avatars{
-                
-                guard let localURL = URL(string: "Public/" + avatar.url) else { throw Abort.badRequest }
-                let sizeImage = try AdminImageProcessor.getSizeOfImage(url: localURL)
-                
-                var avatarEdited = avatar
-                avatarEdited.width = sizeImage.width
-                avatarEdited.height = sizeImage.height
-                try avatarEdited.save()
-                
-            }
-            
-        } catch let error {
-            Swift.print(error)
-        }
-        
-    }
-    
 }

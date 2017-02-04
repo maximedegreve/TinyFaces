@@ -15,7 +15,6 @@ let memory = MemorySessions()
 try drop.addProvider(VaporMySQL.Provider.self)
 drop.preparations.append(User.self)
 drop.preparations.append(Avatar.self)
-drop.preparations.append(AvatarAddWidthHeight.self)
 drop.preparations.append(FirstName.self)
 drop.preparations.append(LastName.self)
 
@@ -27,17 +26,11 @@ drop.middleware.append(cors)
 let seed = SeedController()
 seed.addRoutes(drop: drop)
 
-// Post Migration Data Generator
-let migrations = MigrationsController()
-migrations.addRoutes(drop: drop)
-
 // Sessions
-
 let sessions = SessionsMiddleware(sessions: memory)
 drop.middleware.append(sessions)
 
 // Web Side
-
 let index = IndexController()
 index.addRoutes(drop: drop)
 
