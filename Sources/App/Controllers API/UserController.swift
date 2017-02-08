@@ -10,7 +10,7 @@ final class UserController: ResourceRepresentable {
     fileprivate let defaultGender: String? = nil
 	
 	func index(request: Request) throws -> ResponseRepresentable {
-		
+        
 		var amount = defaultAmount
 		
 		if let amountParameter = request.data["amount"]?.int {

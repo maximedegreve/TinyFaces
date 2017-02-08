@@ -43,6 +43,10 @@ newFace.addRoutes(drop: drop)
 let admin = AdminController()
 admin.addRoutes(drop: drop)
 
+drop.get("terms") { request in
+    return try drop.view.make("terms")
+}
+
 // API Side
 
 drop.resource("api/users", UserController())
