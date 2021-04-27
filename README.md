@@ -3,7 +3,7 @@ Free stock avatars for everyone
 
 <img src="/Public/images/github-header.png?raw=true" width="888">
 
-**Important Notice:** While this still works this is all built on [Vapor 1.5](https://docs.vapor.codes/1.5/). Vapor has come a long way in the past years and this isn't the best practice anymore. Check out [Vapor 4](https://docs.vapor.codes/4.0/) if you are into Server Side Swift.
+**Important Notice:** This this still works but is all built on [Vapor 1.5](https://docs.vapor.codes/1.5/). Vapor has come a long way in the past years and this isn't the best practice anymore. Check out [Vapor 4](https://docs.vapor.codes/4.0/) if you are into Server Side Swift.
 
 Tiny Faces is a free crowd-sourced avatar gallery to use in your personal or commercial projects
 
