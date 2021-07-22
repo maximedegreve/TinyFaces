@@ -55,9 +55,7 @@ public func configure(_ app: Application) throws {
             tlsConfiguration: .forClient(certificateVerification: .none),
             connectionPoolTimeout: .seconds(10)), as: .mysql)
     }
-    
-    app.migrations.add(CreatePlatform())
-    app.migrations.add(CreateGender())
+
     app.migrations.add(CreateSource())
     app.migrations.add(CreateAvatar())
     try app.autoMigrate().wait()
