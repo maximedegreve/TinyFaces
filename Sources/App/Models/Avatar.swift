@@ -33,7 +33,7 @@ final class Avatar: Model, Content {
 
     init() { }
 
-    init(url: String, sourceId: Source, gender: Gender, quality: Int, approved: Bool) {
+    init(url: String, sourceId: Int, gender: Gender, quality: Int, approved: Bool) {
         self.$source.id = sourceId
         self.url = url
         self.gender = gender

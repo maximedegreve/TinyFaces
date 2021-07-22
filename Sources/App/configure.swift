@@ -56,7 +56,9 @@ public func configure(_ app: Application) throws {
             connectionPoolTimeout: .seconds(10)), as: .mysql)
     }
     
-    app.migrations.add(CreateSources())
+    app.migrations.add(CreatePlatform())
+    app.migrations.add(CreateGender())
+    app.migrations.add(CreateSource())
     app.migrations.add(CreateAvatar())
     try app.autoMigrate().wait()
 

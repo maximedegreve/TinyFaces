@@ -8,7 +8,7 @@ final class DataController {
         struct RequestData: Error, Content {
             var amount: Int = 20
             var quality: Int = 10
-            var gender: String?
+            var gender: Gender?
         }
 
         let requestData = try request.content.decode(RequestData.self)
