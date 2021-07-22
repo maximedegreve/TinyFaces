@@ -7,7 +7,7 @@ final class Avatar: Model, Content {
     @ID(custom: .id)
     var id: Int?
     
-    @Parent(key: "source")
+    @Parent(key: "source_id")
     var source: Source
     
     @Field(key: "url")
@@ -21,6 +21,15 @@ final class Avatar: Model, Content {
     
     @Field(key: "approved")
     var approved: Bool
+    
+    @Timestamp(key: "created_at", on: .create)
+    var createdAt: Date?
+
+    @Timestamp(key: "updated_at", on: .update)
+    var updatedAt: Date?
+
+    @Timestamp(key: "deleted_at", on: .delete)
+    var deletedAt: Date?
 
     init() { }
 

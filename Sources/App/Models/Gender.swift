@@ -14,7 +14,6 @@ enum Gender: String, Codable {
     case Bigender = "Bigender"
     case Cis = "Cis"
     case Cisgender = "Cisgender"
-    case Cis = "Cis"
     case CisFemale = "Cis Female"
     case CisMale = "Cis Male"
     case CisMan = "Cis Man"

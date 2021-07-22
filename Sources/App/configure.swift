@@ -1,67 +1,64 @@
-import Authentication
-import FluentMySQL
+import Fluent
+import FluentMySQLDriver
 import Vapor
+import Leaf
 
-/// Called before your application initializes.
-public func configure(_: inout Config, _: inout Environment, _ services: inout Services) throws {
-    // Register providers first
-    try services.register(FluentMySQLProvider())
-    try services.register(AuthenticationProvider())
-
-    // Register routes to the router
-    let router = EngineRouter.default()
-    try routes(router)
-    services.register(router, as: Router.self)
-
-    let serverConfig = NIOServerConfig.default(workerCount: 1)
-    services.register(serverConfig)
-
-    let poolConfig = DatabaseConnectionPoolConfig(maxConnections: 8)
-    services.register(poolConfig)
-
-    // Register middleware
-    var middlewares = MiddlewareConfig()
+public func configure(_ app: Application) throws {
 
     let corsConfiguration = CORSMiddleware.Configuration(
         allowedOrigin: .all,
         allowedMethods: [.GET, .POST, .PUT, .OPTIONS, .DELETE, .PATCH],
         allowedHeaders: [.accept, .authorization, .contentType, .origin, .xRequestedWith, .userAgent, .accessControlAllowOrigin]
     )
+    let cors = CORSMiddleware(configuration: corsConfiguration)
+    let error = ErrorMiddleware.default(environment: app.environment)
+    let files = FileMiddleware(publicDirectory: app.directory.publicDirectory)
 
-    let corsMiddleware = CORSMiddleware(configuration: corsConfiguration)
-    middlewares.use(corsMiddleware)
-    middlewares.use(ErrorMiddleware.self)
-    middlewares.use(FileMiddleware.self)
-    services.register(middlewares)
+    app.passwords.use(.bcrypt)
+    app.views.use(.leaf)
 
-    // Configure a MySQL database
-    var databases = DatabasesConfig()
-    // databases.enableLogging(on: .mysql)
+    app.middleware = .init()
+    app.middleware.use(cors)
+    app.middleware.use(error)
+    app.middleware.use(files)
 
-    var databaseConfig: MySQLDatabaseConfig
-    if let url = Environment.jawsDBUrl {
-        databaseConfig = try MySQLDatabaseConfig(url: url)!
+    //app.logger.logLevel = .debug
+
+    let encoder = JSONEncoder()
+    encoder.dateEncodingStrategy = .secondsSince1970
+    ContentConfiguration.global.use(encoder: encoder, for: .json)
+
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .secondsSince1970
+    ContentConfiguration.global.use(decoder: decoder, for: .json)
+    
+    if
+        let mysqlUrl = Environment.mysqlUrl,
+        let url = URL(string: mysqlUrl) {
+
+        let mysqlConfig = MySQLConfiguration(
+            hostname: url.host!,
+            port: url.port!,
+            username: url.user!,
+            password: url.password!,
+            database: url.path.split(separator: "/").last.flatMap(String.init),
+            tlsConfiguration: .forClient(certificateVerification: .none)
+        )
+        app.databases.use(.mysql(configuration: mysqlConfig, maxConnectionsPerEventLoop: 4, connectionPoolTimeout: .seconds(10)), as: .mysql)
+
     } else {
-        databaseConfig = MySQLDatabaseConfig(hostname: "127.0.0.1",
-                                             port: 3306,
-                                             username: Environment.developmentMySQLUsername,
-                                             password: Environment.developmentMySQLPassword,
-                                             database: Environment.developmentMySQLDatabase,
-                                             transport: .unverifiedTLS)
+        app.databases.use(.mysql(
+            hostname: Environment.get("DATABASE_HOST") ?? "localhost",
+            username: Environment.get("DATABASE_USERNAME") ?? "vapor_username",
+            password: Environment.get("DATABASE_PASSWORD") ?? "vapor_password",
+            database: Environment.get("DATABASE_NAME") ?? "vapor_database",
+            tlsConfiguration: .forClient(certificateVerification: .none),
+            connectionPoolTimeout: .seconds(10)), as: .mysql)
     }
+    
+    app.migrations.add(CreateSources())
+    app.migrations.add(CreateAvatar())
+    try app.autoMigrate().wait()
 
-    // Register the configured MySQL database to the database config.
-    let mysql = MySQLDatabase(config: databaseConfig)
-    databases.add(database: mysql, as: .mysql)
-    services.register(databases)
-
-    // Global Config
-    var contentConfig = ContentConfig.default()
-    services.register(contentConfig)
-
-    // Configure migrations
-    var migrations = MigrationConfig()
-    migrations.add(model: Team.self, database: DatabaseIdentifier<Team.Database>.mysql)
-
-    services.register(migrations)
+    try routes(app)
 }
