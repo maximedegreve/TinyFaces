@@ -13,7 +13,7 @@ Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/Ti
 - Install [Xcode](https://developer.apple.com/xcode/)
 - Install [Vapor Toolbox](https://docs.vapor.codes/4.0/install/macos/)
 - Install [Docker Desktop](https://www.docker.com)
-- Run `docker-compose up`
+- Run `docker-compose up db`
 - Run `Package.swift` using Xcode
 
 ## 🚧 Building
