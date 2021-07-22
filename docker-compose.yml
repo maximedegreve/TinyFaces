@@ -28,7 +28,7 @@ x-shared_environment: &shared_environment
 
 services:
   app:
-    image: leaderboard:latest
+    image: tinyfaces:latest
     build:
       context: .
     environment:
@@ -40,7 +40,7 @@ services:
     # user: '0' # uncomment to run as root for testing purposes even though Dockerfile defines 'vapor' user.
     command: ["serve", "--env", "production", "--hostname", "0.0.0.0", "--port", "8080"]
   migrate:
-    image: leaderboard:latest
+    image: tinyfaces:latest
     build:
       context: .
     environment:
@@ -51,7 +51,7 @@ services:
     deploy:
       replicas: 0
   revert:
-    image: leaderboard:latest
+    image: tinyfaces:latest
     build:
       context: .
     environment:

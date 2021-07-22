@@ -1,6 +1,8 @@
 Packages
 .build
-.DS_Store
+xcuserdata
 *.xcodeproj
-/Public/data/avatars/*
-/Config/secrets/*
+DerivedData/
+.DS_Store
+.env
+Config/dns-conf/digitalocean.ini
