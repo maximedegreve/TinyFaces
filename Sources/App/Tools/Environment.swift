@@ -22,9 +22,7 @@ extension Environment {
     static var cloudinaryUrl: String? {
         Environment.get("CLOUDINARY_URL")
     }
-    
-    // SendInBlue:
-    
+        
     static var sendInBlueKey: String? {
         Environment.get("SEND_IN_BLUE_KEY")
     }

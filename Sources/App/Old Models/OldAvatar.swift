@@ -8,7 +8,7 @@ final class OldAvatar: Model, Content {
     var id: Int?
     
     @Parent(key: "user_id")
-    var userId: Source
+    var userId: OldUser
     
     @Field(key: "url")
     var url: String

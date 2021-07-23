@@ -58,6 +58,7 @@ public func configure(_ app: Application) throws {
 
     app.migrations.add(CreateSource())
     app.migrations.add(CreateAvatar())
+    app.migrations.add(TransferOldData())
     try app.autoMigrate().wait()
 
     try routes(app)
