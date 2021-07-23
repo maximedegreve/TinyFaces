@@ -9,6 +9,6 @@ import Foundation
 
 final class CloudinaryPresets {
 
-    public static let avatarMaxSize = "h_1024,w_1024"
+    public static let avatarMaxSize = "h_2000,w_2000"
 
 }

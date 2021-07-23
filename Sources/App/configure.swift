@@ -59,8 +59,8 @@ public func configure(_ app: Application) throws {
     app.migrations.add(PrepareOldDatabase())
     app.migrations.add(CreateSource())
     app.migrations.add(CreateAvatar())
-    app.migrations.add(CreateFirstName())
-    app.migrations.add(CreateLastName())
+    app.migrations.add(CreateFirstName(app: app))
+    app.migrations.add(CreateLastName(app: app))
     app.migrations.add(TransferOldData(app: app))
     try app.autoMigrate().wait()
 
