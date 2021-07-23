@@ -15,7 +15,7 @@ Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/Ti
 - Install [Docker Desktop](https://www.docker.com)
 - Run `docker-compose up db`
 - Run `Package.swift` using Xcode
-- Change your Xcode scheme to: `Schemes > TinyFaces > Edit Scheme > Run > Options > Working Directory > [x]`
+- Change your Xcode working directory to your root folder: `Schemes > TinyFaces > Edit Scheme > Run > Options > Working Directory > [x]`
 
 ## 🚧 Building
 

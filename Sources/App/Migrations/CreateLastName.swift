@@ -17,7 +17,7 @@ struct CreateLastName: Migration {
             .field("updated_at", .datetime)
             .field("deleted_at", .datetime)
             .create().flatMap { () in
-                return seed(on: database, filePath: "/Data/LastNames.txt")
+                return seed(on: database, filePath: "/Resources/Data/LastNames.txt")
             }
     }
     
@@ -28,13 +28,20 @@ struct CreateLastName: Migration {
             return database.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "File not found for seeding."))
         }
         
-        let txtLines = txtFileContents.components(separatedBy: "\r").filter{!$0.isEmpty}
+        let txtLines = txtFileContents.components(separatedBy: "\n").filter{!$0.isEmpty}
+        return save(names: txtLines, index: 0, on: database)
+    }
+    
+    func save(names: [String], index: Int, on database: Database)  -> EventLoopFuture<Void> {
         
-        return txtLines.compactMap { name in
-            let newName = LastName(name: name)
-            return newName.save(on: database)
-        }.flatten(on: database.eventLoop)
-
+        guard let name = names[safe: index] else {
+            return database.eventLoop.future()
+        }
+        
+        let newName = LastName(name: name)
+        return newName.save(on: database).flatMap { () in
+            return save(names: names, index: index + 1, on: database)
+        }
     }
 
     func revert(on database: Database) -> EventLoopFuture<Void> {
