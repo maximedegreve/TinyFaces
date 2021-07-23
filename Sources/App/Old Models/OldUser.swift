@@ -26,6 +26,6 @@ final class OldUser: Model, Content {
     var approved: Bool
     
     @Field(key: "quality")
-    var quality: Bool
+    var quality: Int
 
 }

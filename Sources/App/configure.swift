@@ -22,7 +22,7 @@ public func configure(_ app: Application) throws {
     app.middleware.use(error)
     app.middleware.use(files)
 
-    //app.logger.logLevel = .debug
+    app.logger.logLevel = .debug
 
     let encoder = JSONEncoder()
     encoder.dateEncodingStrategy = .secondsSince1970
@@ -56,9 +56,12 @@ public func configure(_ app: Application) throws {
             connectionPoolTimeout: .seconds(10)), as: .mysql)
     }
 
+    app.migrations.add(PrepareOldDatabase())
     app.migrations.add(CreateSource())
     app.migrations.add(CreateAvatar())
-    app.migrations.add(TransferOldData())
+    app.migrations.add(CreateFirstName())
+    app.migrations.add(CreateLastName())
+    app.migrations.add(TransferOldData(app: app))
     try app.autoMigrate().wait()
 
     try routes(app)

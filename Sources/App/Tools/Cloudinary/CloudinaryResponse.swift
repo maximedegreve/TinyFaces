@@ -9,8 +9,10 @@ import Vapor
 
 struct CloudinaryResponse: Error, Content {
     var secureUrl: String
+    var version: Int
 
     enum CodingKeys: String, CodingKey {
         case secureUrl = "secure_url"
+        case version = "version"
     }
 }

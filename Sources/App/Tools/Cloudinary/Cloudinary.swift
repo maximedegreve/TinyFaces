@@ -15,12 +15,9 @@ final public class Cloudinary {
     private let cloudName: String
     private let url: String
 
-    init() throws {
+    init() {
 
-        guard let cloudinaryUrl = Environment.cloudinaryUrl else {
-            throw Abort(.badRequest, reason: "Missing `CLOUDINARY_URL` environment variable.")
-        }
-        
+        let cloudinaryUrl = Environment.cloudinaryUrl
         let url = URL(string: cloudinaryUrl)!
 
         self.cloudName = url.host!
