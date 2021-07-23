@@ -42,7 +42,7 @@ enum Gender: String, Codable {
     case Trans = "trans"
     case TransS = "trans*"
     case TransFemale = "trans_female"
-    case TransSFemale = "trans_female"
+    case TransSFemale = "trans*_female"
     case TransMale = "trans_male"
     case TransSMale = "trans*_male"
     case TransMan = "trans_man"

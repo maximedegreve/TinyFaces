@@ -30,7 +30,13 @@ final class DataController {
             return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`quality` can't be larger than 10."))
         }
         
-        return Avatar.query(on: request.db).with(\.$source).filter(\.$quality >= quality).limit(amount).all().flatMap { avatars in
+        let baseQuery = Avatar.query(on: request.db).with(\.$source).filter(\.$quality >= quality)
+        
+        if let gender = requestData.gender {
+            baseQuery.filter(\.$gender == gender)
+        }
+        
+        return baseQuery.limit(amount).all().flatMap { avatars in
             return avatars.map { avatar in
                 return request.eventLoop.future(PublicAvatar(avatar: avatar))
             }.flatten(on: request.eventLoop)
