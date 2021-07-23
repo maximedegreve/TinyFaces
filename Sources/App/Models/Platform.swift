@@ -8,6 +8,6 @@
 import Vapor
 
 enum Platform: String, Codable {
-    case Facebook = "Facebook"
-    case Unsplash = "Unsplash"
+    case Facebook = "facebook"
+    case Unsplash = "unsplash"
 }

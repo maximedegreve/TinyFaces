@@ -20,6 +20,7 @@ Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/Ti
 ## 🚧 Building
 
 - Run the `Run` target in Xcode
+- The first time this can take a long time because it will seed the database with random first names and last names.
 - The application should now be running on [http://localhost:8080](http://localhost:8080)
 
 ## 💟 Heroku:

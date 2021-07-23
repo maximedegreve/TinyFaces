@@ -12,8 +12,14 @@ struct TransferOldData: Migration {
     
     func prepare(on database: Database) -> EventLoopFuture<Void> {
 
+        guard let mysql = database as? MySQLDatabase else { return database.eventLoop.makeSucceededFuture(()) }
+                    
         return database.query(OldAvatar.self).filter(\.$size == "original").with(\.$user).all().flatMap { oldAvatars in
-            return migrateOldAvatars(oldAvatars: oldAvatars, database: database)
+            return migrateOldAvatars(oldAvatars: oldAvatars, database: database).flatMap { _ in
+                return mysql.simpleQuery("DROP TABLE `old_avatars`;").flatMap { rows in
+                    return mysql.simpleQuery("DROP TABLE `old_users`;").transform(to: ())
+                }
+            }
         }
 
     }

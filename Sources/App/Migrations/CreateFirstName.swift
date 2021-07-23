@@ -21,7 +21,7 @@ struct CreateFirstName: Migration {
                 .create().flatMap { () in
                     return seed(on: database, gender: .Female, filePath: "/Resources/Data/FirstNamesFemale.txt").flatMap { () in
                         return seed(on: database, gender: .Male, filePath: "/Resources//Data/FirstNamesMale.txt").flatMap { () in
-                            return seed(on: database, gender: .Male, filePath: "/Resources/Data/FirstNamesOther.txt")
+                            return seed(on: database, gender: .Other, filePath: "/Resources/Data/FirstNamesOther.txt")
                         }
                     }
                 }

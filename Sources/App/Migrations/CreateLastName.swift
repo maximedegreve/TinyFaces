@@ -17,19 +17,19 @@ struct CreateLastName: Migration {
             .field("updated_at", .datetime)
             .field("deleted_at", .datetime)
             .create().flatMap { () in
-                return seed(on: database, filePath: "/Resources/Data/LastNames.txt")
+                return seed(on: database, filePath: "/Resources/Data/LastNames.csv")
             }
     }
     
     
     func seed(on database: Database, filePath: String) -> EventLoopFuture<Void> {
         
-        guard let txtFileContents = try? String(contentsOfFile: app.directory.workingDirectory + filePath, encoding: .utf8) else {
+        guard let csvFileContents = try? String(contentsOfFile: app.directory.workingDirectory + filePath, encoding: .utf8) else {
             return database.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "File not found for seeding."))
         }
         
-        let txtLines = txtFileContents.components(separatedBy: "\n").filter{!$0.isEmpty}
-        return save(names: txtLines, index: 0, on: database)
+        let csvLines = csvFileContents.components(separatedBy: "\r").filter{!$0.isEmpty}
+        return save(names: csvLines, index: 0, on: database)
     }
     
     func save(names: [String], index: Int, on database: Database)  -> EventLoopFuture<Void> {
