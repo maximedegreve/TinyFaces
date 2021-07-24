@@ -12,7 +12,7 @@ struct PrepareOldDatabase: Migration {
 
             return mysql.simpleQuery("RENAME TABLE `users` TO `old_users`;").flatMap { rows in
 
-                return mysql.simpleQuery("DROP TABLE `fluent`;").flatMap { rows in
+                return mysql.simpleQuery("DROP TABLE `fluent`;").flatMap { _ in
 
                     return mysql.simpleQuery("DROP TABLE `random_last_names`;").flatMap { _ in
 
