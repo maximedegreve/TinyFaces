@@ -2,7 +2,7 @@ import Fluent
 
 struct CreateSource: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
-        
+
         database.enum("platforms")
             .case("facebook")
             .case("unsplash")

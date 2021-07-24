@@ -6,19 +6,19 @@ final class Source: Model, Content {
 
     @ID(custom: .id)
     var id: Int?
-    
+
     @Field(key: "email")
     var email: String
-    
+
     @Field(key: "name")
     var name: String
-    
+
     @Field(key: "external_id")
     var externalId: String
-    
+
     @Enum(key: "platform")
     var platform: Platform
-    
+
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
 

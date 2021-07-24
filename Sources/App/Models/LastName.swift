@@ -6,7 +6,7 @@ final class LastName: Model, Content {
 
     @ID(custom: .id)
     var id: Int?
-    
+
     @Field(key: "name")
     var name: String
 

@@ -13,4 +13,3 @@ struct SendInBlueEmail: Content {
         case subject
     }
 }
-

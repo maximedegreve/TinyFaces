@@ -6,21 +6,20 @@ final class OldAvatar: Model, Content {
 
     @ID(custom: .id)
     var id: Int?
-    
+
     @OptionalParent(key: "user_id")
     var user: OldUser?
-    
+
     @Field(key: "url")
     var url: String
-    
+
     @Field(key: "size")
     var size: String
-    
+
     @Field(key: "width")
     var width: Int
-    
+
     @Field(key: "height")
     var height: Int
-    
 
 }

@@ -22,7 +22,7 @@ public func configure(_ app: Application) throws {
     app.middleware.use(error)
     app.middleware.use(files)
 
-    app.logger.logLevel = .debug
+    // app.logger.logLevel = .debug
 
     let encoder = JSONEncoder()
     encoder.dateEncodingStrategy = .secondsSince1970
@@ -31,7 +31,7 @@ public func configure(_ app: Application) throws {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .secondsSince1970
     ContentConfiguration.global.use(decoder: decoder, for: .json)
-    
+
     if
         let mysqlUrl = Environment.mysqlUrl,
         let url = URL(string: mysqlUrl) {

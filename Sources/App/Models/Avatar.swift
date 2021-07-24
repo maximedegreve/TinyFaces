@@ -6,22 +6,22 @@ final class Avatar: Model, Content {
 
     @ID(custom: .id)
     var id: Int?
-    
+
     @Parent(key: "source_id")
     var source: Source
-    
+
     @Field(key: "url")
     var url: String
-    
+
     @Enum(key: "gender")
     var gender: Gender
-    
+
     @Field(key: "quality")
     var quality: Int
-    
+
     @Field(key: "approved")
     var approved: Bool
-    
+
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
 

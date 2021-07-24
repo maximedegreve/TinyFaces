@@ -7,7 +7,7 @@ final class PublicSource: Content {
     var platform: Platform
     var createdAt: Date?
     var updatedAt: Date?
-    
+
     init(source: Source) {
         self.id = source.id
         self.name = source.name

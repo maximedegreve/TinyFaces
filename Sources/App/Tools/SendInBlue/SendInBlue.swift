@@ -9,7 +9,7 @@ final class SendInBlue {
         guard let sendInBlueKey = Environment.sendInBlueKey else {
             return client.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "Missing `SEND_IN_BLUE_KEY` environment variable."))
         }
-        
+
         let request = client.post(self.apiUrl) { req in
             req.headers = [
                 "Content-type": "application/json",

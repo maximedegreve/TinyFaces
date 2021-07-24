@@ -6,13 +6,13 @@ final class FirstName: Model, Content {
 
     @ID(custom: .id)
     var id: Int?
-    
+
     @Field(key: "name")
     var name: String
-    
+
     @Enum(key: "gender")
     var gender: Gender
-    
+
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
 
