@@ -40,7 +40,8 @@
       <h2 class="c-silver fontSize-l lineHeight-l fontWeight-3 display-inlineBlock marginBottom-m">
         Tiny Faces is a free crowd-sourced avatar gallery to use in your personal or commercial projects
       </h2>
-      <a class="button button--l button--flat bg-marvel" href="/add">Add your face</a>
+      <a class="button button--l button--flat bg-marvel is-disabled" href="/add">Add your face</a>
+      <p class="marginTop-m c-silver fontSize-s">Submissions are temporarly disabled</p>
     </div>
   </div>
 
