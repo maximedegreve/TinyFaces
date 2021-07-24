@@ -9,6 +9,9 @@ func routes(_ app: Application) throws {
 
     // MARK: Pages
     app.get(use: homeController.index)
+    app.get("terms") { req -> EventLoopFuture<View> in
+        return req.view.render("terms")
+    }
 
     // MARK: API
     app.get("data", use: dataController.index)
