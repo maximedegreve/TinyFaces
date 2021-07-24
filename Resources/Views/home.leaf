@@ -6,8 +6,7 @@
   <script src="scripts/highlight.pack.js"></script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script>
-  //hljs.configure({useBR: true});
-  hljs.initHighlightingOnLoad();
+    hljs.initHighlightingOnLoad();
   </script>
   <style>
     .grid--s {
@@ -58,7 +57,7 @@
             #for(avatar in avatars):
               <div class="padding-xxs">
                 <div class="aspectRatio aspectRatio--100" >
-                  <div class="aspectRatio-content borderRadius-m backgroundSize-cover backgroundPosition-centerCenter" style="background-image: url(#(avatar.url))"></div>
+                  <div class="aspectRatio-content borderRadius-m backgroundSize-cover backgroundPosition-centerCenter" style="background-image: url(#(avatar))"></div>
                   </div>
               </div>
             #endfor
