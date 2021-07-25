@@ -29,27 +29,27 @@ final class DataController {
         guard quality < 11 else {
             return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`quality` can't be larger than 10."))
         }
-        
+
         return LastName.query(on: request.db).limit(amount).sort(.sql(raw: "rand()")).all().flatMap { lastNames in
-            
+
             let baseQuery = Avatar.query(on: request.db).join(FirstName.self, on: \Avatar.$gender == \FirstName.$gender, method: .left).with(\.$source).filter(\.$quality >= quality).filter(\.$approved == true)
 
             if let gender = requestData.gender {
                 baseQuery.filter(\.$gender == gender)
             }
-                    
+
             return baseQuery.limit(amount).sort(.sql(raw: "rand()")).all().flatMapThrowing { avatars in
-                
+
                 return try avatars.enumerated().map({ (index, element) throws in
-                    
+
                     let firstName = (try? element.joined(FirstName.self).name) ?? "Jane"
                     let lastName = lastNames[safe: index]?.name ?? "Doe"
                     return PublicAvatar(avatar: element, firstName: firstName, lastName: lastName)
-                    
+
                 })
-                
+
             }
-            
+
         }
 
     }
