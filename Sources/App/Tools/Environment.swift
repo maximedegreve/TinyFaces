@@ -14,15 +14,14 @@ extension Environment {
         Environment.get("URL") ?? "https://tinyfac.es"
     }
 
-
     static var mysqlUrl: String? {
         Environment.get("MYSQL_URL")
     }
 
-    static var cloudinaryUrl: String? {
-        Environment.get("CLOUDINARY_URL")
+    static var cloudinaryUrl: String {
+        Environment.get("CLOUDINARY_URL") ?? "HERE API KEY"
     }
-        
+
     static var sendInBlueKey: String? {
         Environment.get("SEND_IN_BLUE_KEY")
     }
