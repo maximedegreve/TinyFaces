@@ -14,7 +14,7 @@ func routes(_ app: Application) throws {
     }
 
     // MARK: API
-    app.get("data", use: dataController.index)
-    app.get("user", use: dataController.index) // Legacy Endpoint
+    app.get("api", "data", use: dataController.index)
+    app.get("api", "user", use: dataController.index) // Legacy Endpoint
 
 }

@@ -12,12 +12,12 @@ final class PublicAvatar: Content {
     var createdAt: Date?
     var updatedAt: Date?
 
-    init(avatar: Avatar, firstName: String, lastName: String) {
+    init(avatar: Avatar, avatarSize: Int, firstName: String, lastName: String) {
         self.id = avatar.id
         self.source = PublicSource(source: avatar.source)
         self.firstName = firstName
         self.lastName = lastName
-        self.url = avatar.url
+        self.url = Cloudinary().urlWithSize(url: avatar.url, maxSize: avatarSize, maxHeight: avatarSize)
         self.gender = avatar.gender
         self.approved = avatar.approved
         self.createdAt = avatar.createdAt

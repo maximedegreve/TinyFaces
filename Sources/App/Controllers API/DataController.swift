@@ -7,17 +7,32 @@ final class DataController {
 
         let defaultAmount = 20
         let defaultQuality = 10
+        let defaultAvatarMaxSize = 1024
 
         struct RequestData: Error, Content {
             var amount: Int?
             var quality: Int?
             var gender: Gender?
+            var avatarMaxSize: Int?
+            
+            enum CodingKeys: String, CodingKey {
+                case amount
+                case quality
+                case gender
+                case avatarMaxSize = "avatar_max_size"
+            }
+
         }
 
         let requestData = try request.query.decode(RequestData.self)
         let amount = requestData.amount ?? defaultAmount
         let quality = requestData.quality ?? defaultQuality
+        let avatarSize = requestData.avatarMaxSize ?? defaultAvatarMaxSize
 
+        guard avatarSize <= 1024 else {
+            return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`avatar_max_size` can't be larger than 1024."))
+        }
+        
         guard amount <= 20 else {
             return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`amount` can't be larger than 20 at a time."))
         }
@@ -44,7 +59,7 @@ final class DataController {
 
                     let firstName = (try? element.joined(FirstName.self).name) ?? "Jane"
                     let lastName = lastNames[safe: index]?.name ?? "Doe"
-                    return PublicAvatar(avatar: element, firstName: firstName, lastName: lastName)
+                    return PublicAvatar(avatar: element, avatarSize: avatarSize, firstName: firstName, lastName: lastName)
 
                 })
 
