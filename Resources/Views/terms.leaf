@@ -1,10 +1,10 @@
-#extend("base")
+#extend("base"):
 
-#export("head") {
+#export("head"):
   <title>TinyFaces 👦🏼👨🏾👩🏻 - Terms of Service and Privacy Policy</title>
-}
+#endexport
 
-#export("body") {
+#export("body"):
 
   <div class="bg-snow--d padding-l paddingTop-l" style="height:100px">
     <div class="textAlign-center width-100 pageWrap pageWrap--l">
@@ -89,5 +89,6 @@ Permission is granted to temporarily download one copy of the materials (informa
 
 
     </div>
+#endexport
 
-}
+#endextend

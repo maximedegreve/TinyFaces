@@ -1,76 +1,28 @@
-//
-//  FakeName.swift
-//  MarvelFaces
-//
-//  Created by Maxime De Greve on 08/01/2017.
-//
-//
-
+import Fluent
 import Vapor
-import HTTP
-import FluentMySQL
-import Foundation
 
-final class LastName : Model{
-    
-    static var entity = "random_last_names"
+final class LastName: Model, Content {
+    static let schema = "last_names"
 
-    var id: Node?
+    @ID(custom: .id)
+    var id: Int?
+
+    @Field(key: "name")
     var name: String
-    var exists: Bool = false
-    
+
+    @Timestamp(key: "created_at", on: .create)
+    var createdAt: Date?
+
+    @Timestamp(key: "updated_at", on: .update)
+    var updatedAt: Date?
+
+    @Timestamp(key: "deleted_at", on: .delete)
+    var deletedAt: Date?
+
+    init() { }
+
     init(name: String) {
         self.name = name
-    }
-    
-    init(node: Node, in context: Context) throws {
-        id = try node.extract("id")
-        name = try node.extract("name")
-    }
-    
-    func makeNode(context: Context) throws -> Node {
-        return try Node(node: [
-            "id": id,
-            "name": name,
-            ])
-    }
-    
-    public static func revert(_ database: Database) throws {
-        try database.delete("random_last_names")
-    }
-    
-    public static func prepare(_ database: Database) throws {
-        
-        try database.create("random_last_names") { name in
-            name.id()
-            name.string("name", length: 200, optional: false, unique: true)
-        }
-                
-    }
-    
-    public static func seed() {
-
-        do {
-            let namesCount = try LastName.query().count()
-            if namesCount > 0{
-                //return
-            }
-            
-            let csvFileContents = try String(contentsOfFile: drop.resourcesDir + "/Data/LastNames.csv", encoding: .utf8)
-            let csvLines = csvFileContents.components(separatedBy: "\r")
-            for name in csvLines {
-                if name.isEmpty == false {
-                    var name = LastName(name:name)
-                    try name.save()
-                }
-            }
-            
-            Swift.print("Seeding all last names finished.")
-            
-        } catch let error {
-            Swift.print(error)
-        }
-        
     }
 
 }
