@@ -35,8 +35,8 @@ final class DataController {
         if let gender = requestData.gender {
             baseQuery.filter(\.$gender == gender)
         }
-
-        return baseQuery.limit(amount).all().flatMap { avatars in
+                
+        return baseQuery.limit(amount).sort(.sql(raw: "rand()")).all().flatMap { avatars in
             return avatars.map { avatar in
                 return request.eventLoop.future(PublicAvatar(avatar: avatar))
             }.flatten(on: request.eventLoop)
