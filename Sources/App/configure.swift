@@ -56,12 +56,10 @@ public func configure(_ app: Application) throws {
             connectionPoolTimeout: .seconds(10)), as: .mysql)
     }
 
-    app.migrations.add(PrepareOldDatabase())
     app.migrations.add(CreateSource())
     app.migrations.add(CreateAvatar())
     app.migrations.add(CreateFirstName(app: app))
     app.migrations.add(CreateLastName(app: app))
-    app.migrations.add(TransferOldData(app: app))
     try app.autoMigrate().wait()
 
     try routes(app)
