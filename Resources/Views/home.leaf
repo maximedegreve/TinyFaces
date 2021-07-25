@@ -71,7 +71,7 @@
           <p class="c-silver fontSize-l marginBottom-m lineHeight-l fontWeight-3">Just make simple GET request and you're done 😎</p>
           <pre class="marginBottom-s">
             <code class="js">$.ajax({
-              url: 'https://tinyfac.es/api/users',
+              url: 'https://tinyfac.es/api/data',
               dataType: 'json',
               success: function(data) {
                   console.log(data);
