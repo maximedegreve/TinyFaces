@@ -5,7 +5,7 @@ final class DataController {
 
     func index(request: Request) throws -> EventLoopFuture<[PublicAvatar]> {
 
-        let defaultLimit = 20
+        let defaultLimit = 50
         let defaultQuality = 10
         let defaultAvatarMaxSize = 1024
 
@@ -33,8 +33,8 @@ final class DataController {
             return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`avatar_max_size` can't be larger than 1024."))
         }
         
-        guard limit <= 20 else {
-            return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`limit` can't be larger than 20 at a time."))
+        guard limit <= 50 else {
+            return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`limit` can't be larger than 50 at a time."))
         }
 
         guard limit > 0 else {
