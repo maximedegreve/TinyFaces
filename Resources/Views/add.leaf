@@ -17,7 +17,7 @@
 
  <div class="textAlign-center padding-m paddingBottom-l">
  <div class="display-inlineBlock textAlign-left pageWrap pageWrap--l paddingTop-m" style="max-width:700px;">
- <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">By adding your picture you agree that:</h1>
+ <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">By adding your Facebook picture you agree that:</h1>
  <ul class="c-silver list list--unordered fontSize-l lineHeight-l fontWeight-3 display-inlineBlock marginBottom-l marginTop-m " style="padding-left: 0">
    <li>It can be used by anyone in live websites, screenshots, mockups, posters...</li>
    <li>It should never be  used in adult or discriminating related content.</li>
@@ -27,8 +27,9 @@
    <li>This picture doesn’t include any racist or discriminating content.</li>
  </ul>
 
- <a class="button button--l button--flat bg-marvel" href="/submission">I understand</a>
-
+ <div id="fb-root"></div>
+ <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v11.0&appId=#(facebookAppId)&autoLogAppEvents=1" nonce="g1Jegjoa"></script>
+ <div class="fb-login-button" data-width="" data-size="medium" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
  </div>
 
 </div>
