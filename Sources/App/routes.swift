@@ -12,7 +12,7 @@ func routes(_ app: Application) throws {
     // MARK: Pages
     app.get(use: homeController.index)
     app.get("add", use: addController.index)
-    app.get("facebook", "redirect", use: facebookController.redirect)
+    app.get("facebook", "process", use: facebookController.process)
     app.get("terms") { req -> EventLoopFuture<View> in
         return req.view.render("terms")
     }

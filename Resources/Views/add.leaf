@@ -28,8 +28,19 @@
  </ul>
 
  <div id="fb-root"></div>
+ <script>
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      console.log(response)
+      if(response && response.authResponse && response.authResponse.accessToken){
+        fetch('/facebook/process?access_token=' + response.authResponse.accessToken, { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }}).then(response => console.log(response));
+      }
+    });
+  }
+ </script>
+
  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v11.0&appId=#(facebookAppId)&autoLogAppEvents=1" nonce="g1Jegjoa"></script>
- <div class="fb-login-button" data-width="" data-size="medium" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+ <div class="fb-login-button" data-width="" scope="public_profile, user_gender, user_age_range, email"  data-size="medium" data-button-type="continue_with" onlogin="checkLoginState();" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
  </div>
 
 </div>
