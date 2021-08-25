@@ -1,0 +1,64 @@
+#extend("base"):
+
+#export("head"):
+   <title>TinyFaces 👦🏼👨🏾👩🏻 - Add your own photo</title>
+#endexport
+
+#export("body"):
+
+   <div class="bg-snow--d padding-l paddingTop-l" style="height:216px">
+     <div class="textAlign-center width-100 pageWrap pageWrap--l">
+         <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">
+             <div class="marginBottom-xl"><img width="93" height="auto" src="images/logo.png" alt="Marvel Logo"></div>
+             <div class="position-absolute"><img width="119" height="119" src="images/single.png"></div>
+         </div>
+     </div>
+   </div>
+
+ <div class="textAlign-center padding-m paddingBottom-l">
+ <div class="display-inlineBlock textAlign-left pageWrap pageWrap--l paddingTop-m" style="max-width:700px;">
+
+ <div class="marginBottom-s" style="max-width:440px">
+
+   <h1 class="fontSize-xxl lineHeight-xl c-steel marginTop-l">Let's get started</h1>
+   <p class="fontSize-m lineHeight-m c-silver marginBottom-xs marginTop-xs marginBottom-m">Now you understood what you're picture will be used for let's start submitting it.</p>
+
+   <div class="marginBottom-s">
+    <label for="fname" class="fontSize-m color-steel fontWeight-5 marginBottom-s display-block">Your full name</label>
+    <input id="fname" name="fname" class="input input--l input--default width-100" type="text" placeholder="Your full name">
+   </div>
+
+   <div class="marginBottom-m">
+    <label for="email" class="fontSize-m color-steel fontWeight-5 marginBottom-s display-block">Your email</label>
+    <input name="email" id="email" class="input input--l input--default width-100" type="email" placeholder="name@example.com">
+    <div class="fontSize-s c-silver marginTop-xs lineHeight-s">We'll use this to contact you when your photo is accepted or rejected.</div>
+   </div>
+
+   <div class="marginBottom-s">
+     <label for="avatar" class="fontSize-m color-steel fontWeight-5 marginBottom-s display-block">Choose a profile picture:</label>
+     <div class="borderRadius-m borderStyle-solid borderColor-smoke borderWidth-0 borderWidth-1 padding-m">
+       <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+    </div>
+    <div class="fontSize-s c-silver marginTop-xs lineHeight-s">Make sure the picture is high quality and conforms to a minimum standard.</div>
+   </div>
+
+   <div class="marginBottom-l">
+     <label for="proof" class="fontSize-m color-steel fontWeight-5 marginBottom-s display-block">Pick proof of identity:</label>
+     <div class="borderRadius-m borderStyle-solid borderColor-smoke borderWidth-0 borderWidth-1 padding-m">
+       <input type="file" id="proof" name="proof" accept="image/png, image/jpeg">
+     </div>
+     <div class="fontSize-s c-silver marginTop-xs lineHeight-s">This should be a picture of yourself holding a paper with the word TinyFaces. This will be used to match it to your profile picture. Identity cards, passports or driving licenses will be rejected.</div>
+   </div>
+
+   <div>
+    <a class="button button--l button--flat bg-marvel" href="/login-with-facebook?redirect=/new-face">Add my avatar</a>
+   </div>
+
+ </div>
+
+ </div>
+
+</div>
+#endexport
+
+#endextend

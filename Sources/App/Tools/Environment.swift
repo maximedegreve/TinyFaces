@@ -19,7 +19,7 @@ extension Environment {
     }
 
     static var cloudinaryUrl: String {
-        Environment.get("CLOUDINARY_URL") ?? "HERE API KEY"
+        Environment.get("CLOUDINARY_URL") ?? "cloudinary://138178815636837:6vkmvxx2lENXR8xev1hvsRunooc@tinyfac-es"
     }
 
     static var sendInBlueKey: String? {
