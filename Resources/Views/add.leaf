@@ -33,7 +33,7 @@
     FB.getLoginStatus(function(response) {
       console.log(response)
       if(response && response.authResponse && response.authResponse.accessToken){
-        fetch('/facebook/process?access_token=' + response.authResponse.accessToken, { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }}).then(response => console.log(response));
+        fetch('/facebook/process?access_token=' + response.authResponse.accessToken, { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }}).then(response => response.json()).then(data => window.location.replace("/status/" + data.avatar_id));
       }
     });
   }

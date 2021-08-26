@@ -22,11 +22,17 @@ final class StatusController {
             }
                         
             struct StatusContext: Encodable {
-                var approved: Bool
+                var title: String
+                var subtitle: String
             }
             
-            let view = request.view.render("status", StatusContext(approved: avatar.approved))
-            return view.encodeResponse(for: request)
+            if(avatar.approved){
+                let context = StatusContext(title: "Your avatar was added to the queue to be approved.", subtitle: "We will notify you by email once your avatar got approved. If we reject it we will give more information regarding this.")
+                return request.view.render("status", context).encodeResponse(for: request)
+            }
+            
+            let context = StatusContext(title: "Your avatar was approved and added to the API", subtitle: "If at any point you have any questions don't hesitate to contact us.")
+            return request.view.render("status", context).encodeResponse(for: request)
             
         }
 
