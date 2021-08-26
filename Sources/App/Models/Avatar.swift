@@ -53,7 +53,10 @@ extension Avatar {
                 return req.eventLoop.future(avatar)
             }
             
-            return Cloudinary().upload(file: externalUrl, eager: CloudinaryPresets.avatarMaxSize, publicId: nil, folder: "facebook", transformation: nil, format: "jpg", client: req.client).flatMap { cloudinaryResponse in
+            let isProduction = req.application.environment == .production
+            let folder = isProduction ? "facebook" : "facebook-dev"
+            
+            return Cloudinary().upload(file: externalUrl, eager: CloudinaryPresets.avatarMaxSize, publicId: nil, folder: folder, transformation: nil, format: "jpg", client: req.client).flatMap { cloudinaryResponse in
                 
                 let newAvatar = Avatar(url: cloudinaryResponse.secureUrl, sourceId: sourceId, gender: gender, quality: quality, approved: approved)
                 return newAvatar.save(on: req.db).transform(to: newAvatar)
