@@ -2,8 +2,8 @@
 
 #export("head"):
   <title>TinyFaces 👦🏼👨🏾👩🏻 - Avatars & Random data for your designs</title>
-  <link rel="stylesheet" href="styles/default.css">
   <script src="scripts/highlight.pack.js"></script>
+  <link rel="stylesheet" href="styles/hljs.css">
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script>
     hljs.initHighlightingOnLoad();
