@@ -26,7 +26,7 @@ final class StatusController {
                 var subtitle: String
             }
             
-            if(avatar.approved){
+            if(!avatar.approved){
                 let context = StatusContext(title: "Your avatar was added to the queue to be approved.", subtitle: "We will notify you by email once your avatar got approved. If we reject it we will give more information regarding this.")
                 return request.view.render("status", context).encodeResponse(for: request)
             }
