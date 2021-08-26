@@ -19,11 +19,15 @@ extension Environment {
     }
 
     static var cloudinaryUrl: String {
-        Environment.get("CLOUDINARY_URL") ?? "HERE API KEY"
+        Environment.get("CLOUDINARY_URL")!
     }
 
-    static var sendInBlueKey: String? {
-        Environment.get("SEND_IN_BLUE_KEY")
+    static var sendInBlueKey: String {
+        Environment.get("SEND_IN_BLUE_KEY")!
+    }
+
+    static var facebookAppId: String {
+        Environment.get("FACEBOOK_APP_ID")!
     }
 
     // Only for development

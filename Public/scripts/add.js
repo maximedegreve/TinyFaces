@@ -1,0 +1,64 @@
+function process() {
+  setLoading();
+  FB.getLoginStatus(function(response) {
+    if (
+      response &&
+      response.authResponse &&
+      response.authResponse.accessToken
+    ) {
+      fetch(
+        "/facebook/process?access_token=" + response.authResponse.accessToken,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          }
+        }
+      )
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            setError(data.reason || "Something went wrong...");
+            return;
+          }
+          window.location.replace("/status/" + data.avatar_id);
+        })
+        .catch(error => {
+          setError(error);
+        });
+    } else {
+      setError("Something went wrong...");
+    }
+  });
+}
+
+function facebookButton() {
+  return document.getElementById("fb-btn");
+}
+
+function loadingDiv() {
+  return document.getElementById("loading");
+}
+
+function errorDiv() {
+  return document.getElementById("error");
+}
+
+function reset() {
+  facebookButton().style.display = "none";
+  errorDiv().style.display = "none";
+  loading.style.display = "none";
+}
+
+function setLoading() {
+  facebookButton().style.display = "none";
+  errorDiv().style.display = "none";
+  loadingDiv().style.display = "block";
+}
+
+function setError(error) {
+  facebookButton().style.display = "block";
+  errorDiv().style.display = "block";
+  errorDiv().innerHTML = error;
+  loadingDiv().style.display = "none";
+}

@@ -6,9 +6,7 @@ final class SendInBlue {
 
     func sendEmail(email: SendInBlueEmail, client: Client) -> EventLoopFuture<Bool> {
 
-        guard let sendInBlueKey = Environment.sendInBlueKey else {
-            return client.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "Missing `SEND_IN_BLUE_KEY` environment variable."))
-        }
+        let sendInBlueKey = Environment.sendInBlueKey
 
         let request = client.post(self.apiUrl) { req in
             req.headers = [

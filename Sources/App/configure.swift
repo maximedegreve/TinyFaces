@@ -32,6 +32,9 @@ public func configure(_ app: Application) throws {
     decoder.dateDecodingStrategy = .secondsSince1970
     ContentConfiguration.global.use(decoder: decoder, for: .json)
 
+    var tlsConfiguration = TLSConfiguration.makeClientConfiguration()
+    tlsConfiguration.certificateVerification = .none
+
     if
         let mysqlUrl = Environment.mysqlUrl,
         let url = URL(string: mysqlUrl) {
@@ -42,7 +45,7 @@ public func configure(_ app: Application) throws {
             username: url.user!,
             password: url.password!,
             database: url.path.split(separator: "/").last.flatMap(String.init),
-            tlsConfiguration: .forClient(certificateVerification: .none)
+            tlsConfiguration: tlsConfiguration
         )
         app.databases.use(.mysql(configuration: mysqlConfig, maxConnectionsPerEventLoop: 4, connectionPoolTimeout: .seconds(10)), as: .mysql)
 
@@ -52,7 +55,7 @@ public func configure(_ app: Application) throws {
             username: Environment.get("DATABASE_USERNAME") ?? "vapor_username",
             password: Environment.get("DATABASE_PASSWORD") ?? "vapor_password",
             database: Environment.get("DATABASE_NAME") ?? "vapor_database",
-            tlsConfiguration: .forClient(certificateVerification: .none),
+            tlsConfiguration: tlsConfiguration,
             connectionPoolTimeout: .seconds(10)), as: .mysql)
     }
 

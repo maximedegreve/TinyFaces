@@ -16,12 +16,20 @@ Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/Ti
 - Run `docker-compose up db`
 - Run `Package.swift` using Xcode
 - Change your Xcode working directory to your root folder: `Schemes > TinyFaces > Edit Scheme > Run > Options > Working Directory > [x]`
+- Add a `.env` file to the local root directory this should have the values below:
+
+```
+CLOUDINARY_URL=cloudinary://KEY:SECRET@CLOUD-NAME
+FACEBOOK_APP_ID=1234
+SEND_IN_BLUE_KEY=1234
+```
 
 ## 🚧 Building
 
 - Run the `Run` target in Xcode
 - The first time this can take a long time because it will seed the database with random first names and last names.
 - The application should now be running on [http://localhost:8080](http://localhost:8080)
+- To test Facebook Login you need run the app on https, use for ngrok this. `ngrok http 8080 -subdomain tinyfaces`
 
 ## 💟 Heroku:
 
@@ -34,6 +42,9 @@ Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/Ti
 URL = https://tinyfac.es
 MYSQL_URL =
 PORT =
+CLOUDINARY_URL = cloudinary://KEY:SECRET@CLOUD-NAME
+FACEBOOK_APP_ID = 1234
+SEND_IN_BLUE_KEY = 1234
 SWIFT_BUILD_CONFIGURATION = release
 ```
 

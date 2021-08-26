@@ -19,6 +19,9 @@ final class Source: Model, Content {
     @Enum(key: "platform")
     var platform: Platform
 
+    @OptionalChild(for: \.$source)
+    var avatar: Avatar?
+
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
 
@@ -35,6 +38,25 @@ final class Source: Model, Content {
         self.platform = platform
         self.name = name
         self.externalId = externalId
+    }
+
+}
+
+extension Source {
+
+    static func createIfNotExist(req: Request, name: String, email: String, externalId: String, platform: Platform) -> EventLoopFuture<Source> {
+
+        return Source.query(on: req.db).filter(\.$platform == platform).filter(\.$externalId == externalId).first().flatMap { optionalSource -> EventLoopFuture<Source> in
+
+            if let source = optionalSource {
+                return req.eventLoop.future(source)
+            }
+
+            let newSource = Source(email: email, platform: .Facebook, name: name, externalId: externalId)
+            return newSource.save(on: req.db).transform(to: newSource)
+
+        }
+
     }
 
 }
