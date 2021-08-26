@@ -26,7 +26,7 @@
 
   <div class="bg-snow--d textAlign-center paddingTop-xl paddingBottom-xl">
     <div class="display-inlineBlock marginLeft-l marginRight-l" style="max-width:500px;">
-      <div class="display-none breakPointM-display-block marginRight-xl position-fixed pinTR">
+      <div class="display-none breakPointM-display-block marginRight-l position-fixed pinTR">
         <a href="https://github.com/maximedegreve/TinyFaces-Sketch-Plugin" target="=_blank" class="button fontSize-s padding-xs marginRight-xs c-white bg-slate borderRadiusBottom-m">
           <img class="paddingLeft-xxs float-left" width="22" src="images/SketchIcon.png"/>
           <span class="paddingLeft-xs paddingRight-xs lineHeight-m" style="line-height: 20px;">Get our Sketch Plugin</span>
