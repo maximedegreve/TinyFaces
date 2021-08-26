@@ -9,6 +9,7 @@ func routes(_ app: Application) throws {
     let addController = AddController()
     let facebookController = FacebookController()
     let statusController = StatusController()
+    let avatarController = AvatarController()
 
     // MARK: Pages
     app.get(use: homeController.index)
@@ -21,6 +22,6 @@ func routes(_ app: Application) throws {
 
     // MARK: API
     app.get("api", "data", use: dataController.index)
-    app.get("api", "user", use: dataController.index) // Legacy Endpoint
+    app.get("api", "avatar.jpg", use: avatarController.index)
 
 }
