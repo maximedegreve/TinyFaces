@@ -21,6 +21,7 @@ Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/Ti
 ```
 CLOUDINARY_URL=cloudinary://KEY:SECRET@CLOUD-NAME
 FACEBOOK_APP_ID=1234
+SEND_IN_BLUE_KEY=1234
 ```
 
 ## 🚧 Building
@@ -43,6 +44,7 @@ MYSQL_URL =
 PORT =
 CLOUDINARY_URL = cloudinary://KEY:SECRET@CLOUD-NAME
 FACEBOOK_APP_ID = 1234
+SEND_IN_BLUE_KEY = 1234
 SWIFT_BUILD_CONFIGURATION = release
 ```
 
