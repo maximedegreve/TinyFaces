@@ -42,3 +42,26 @@ final class Avatar: Model, Content {
     }
 
 }
+
+extension Avatar {
+
+    static func createIfNotExist(req: Request, sourceId: Int, externalUrl: String, gender: Gender, quality: Int, approved: Bool) -> EventLoopFuture<Avatar> {
+
+        return Avatar.query(on: req.db).filter(\.$source.$id == sourceId).first().flatMap { optionalAvatar -> EventLoopFuture<Avatar> in
+
+            if let avatar = optionalAvatar {
+                return req.eventLoop.future(avatar)
+            }
+            
+            return Cloudinary().upload(file: externalUrl, eager: CloudinaryPresets.avatarMaxSize, publicId: nil, folder: "facebook", transformation: nil, format: "jpg", client: req.client).flatMap { cloudinaryResponse in
+                
+                let newAvatar = Avatar(url: cloudinaryResponse.secureUrl, sourceId: sourceId, gender: gender, quality: quality, approved: approved)
+                return newAvatar.save(on: req.db).transform(to: newAvatar)
+                
+            }
+
+        }
+
+    }
+
+}

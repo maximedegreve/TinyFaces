@@ -26,7 +26,7 @@ final public class Cloudinary {
         self.url = "https://api.cloudinary.com/v1_1/\(cloudName)/image/upload"
 
     }
-    
+
     func urlWithSize(url: String, maxSize: Int, maxHeight: Int) -> String {
         return url.replacingOccurrences(of: "/image/upload/", with: "/image/upload/w_\(maxSize),h_\(maxSize),c_fit/", options: .literal, range: nil)
     }

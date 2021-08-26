@@ -34,7 +34,7 @@ public func configure(_ app: Application) throws {
 
     var tlsConfiguration = TLSConfiguration.makeClientConfiguration()
     tlsConfiguration.certificateVerification = .none
-    
+
     if
         let mysqlUrl = Environment.mysqlUrl,
         let url = URL(string: mysqlUrl) {
