@@ -15,7 +15,7 @@ extension Environment {
     }
 
     static var mysqlUrl: String? {
-        Environment.get("MYSQL_URL")!
+        Environment.get("MYSQL_URL")
     }
 
     static var cloudinaryUrl: String {
