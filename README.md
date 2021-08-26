@@ -16,7 +16,7 @@ Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/Ti
 - Run `docker-compose up db`
 - Run `Package.swift` using Xcode
 - Change your Xcode working directory to your root folder: `Schemes > TinyFaces > Edit Scheme > Run > Options > Working Directory > [x]`
-- Add a `.env` file to the root directory this should have the values below:
+- Add a `.env` file to the local root directory this should have the values below:
 
 ```
 CLOUDINARY_URL=cloudinary://KEY:SECRET@CLOUD-NAME
@@ -41,6 +41,8 @@ FACEBOOK_APP_ID=1234
 URL = https://tinyfac.es
 MYSQL_URL =
 PORT =
+CLOUDINARY_URL = cloudinary://KEY:SECRET@CLOUD-NAME
+FACEBOOK_APP_ID = 1234
 SWIFT_BUILD_CONFIGURATION = release
 ```
 
