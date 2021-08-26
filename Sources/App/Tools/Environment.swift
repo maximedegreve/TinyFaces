@@ -15,23 +15,19 @@ extension Environment {
     }
 
     static var mysqlUrl: String? {
-        Environment.get("MYSQL_URL")
+        Environment.get("MYSQL_URL")!
     }
 
     static var cloudinaryUrl: String {
-        Environment.get("CLOUDINARY_URL") ?? "cloudinary://138178815636837:6vkmvxx2lENXR8xev1hvsRunooc@tinyfac-es"
+        Environment.get("CLOUDINARY_URL")!
     }
 
-    static var sendInBlueKey: String? {
-        Environment.get("SEND_IN_BLUE_KEY")
+    static var sendInBlueKey: String {
+        Environment.get("SEND_IN_BLUE_KEY")!
     }
 
     static var facebookAppId: String {
-        Environment.get("FACEBOOK_APP_ID") ?? "4100774536716138"
-    }
-
-    static var facebookSecret: String {
-        Environment.get("FACEBOOK_SECRET") ?? "a69c56b5eb5a876197cc1fbb638a45c3"
+        Environment.get("FACEBOOK_APP_ID")!
     }
 
     // Only for development
