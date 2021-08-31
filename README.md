@@ -6,7 +6,19 @@ Free stock avatars for everyone
 
 Tiny Faces is a free crowd-sourced avatar gallery to use in your personal or commercial projects
 
-Also check out our [TinyFaces Sketch Plugin](https://github.com/maximedegreve/TinyFaces-Sketch-Plugin)
+Also check out our [Figma Plugin](https://github.com/maximedegreve/TinyFaces-Figma-Plugin) and [Sketch Plugin](https://github.com/maximedegreve/TinyFaces-Sketch-Plugin)
+
+## 🦾 API
+
+There are currently 2 endpoints.
+
+**GET**: https://tinyfac.es/api/data?limit=50&gender=female&quality=0
+**GET**: https://tinyfac.es/api/avatar.jpg&gender=female&quality=0
+
+**Query**
+- `quality` : Filters the result(s) to lower or higher quality images by using a value from 0 to 10.
+- `gender` : Possible values for gender can be found in [Gender.swift](/master/Sources/App/Models/Gender.swift)
+- `limit` : To limit how many results you get back by using a value of 50 or lower. Only works with the data endpoint. When mixed with gender this could return less than n results.
 
 ## 🎒 Before building (dependencies)
 

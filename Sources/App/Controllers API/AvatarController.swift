@@ -1,6 +1,5 @@
 import Vapor
 import Fluent
-import Crypto
 
 final class AvatarController {
 
