@@ -16,7 +16,7 @@ Also check out our [Figma Plugin](https://github.com/maximedegreve/TinyFaces-Fig
 
 **Query**
 - `quality` : Filters the result(s) to lower or higher quality images by using a value from 0 to 10.
-- `gender` : Possible values for gender can be found in [Gender.swift](/master/Sources/App/Models/Gender.swift)
+- `gender` : Possible values for gender can be found in [Gender.swift](/Sources/App/Models/Gender.swift)
 - `limit` : To limit how many results you get back by using a value of 50 or lower. Only works with the data endpoint. When mixed with gender this could return less than n results.
 
 ## 🎒 Before building (dependencies)
