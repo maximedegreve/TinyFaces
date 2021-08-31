@@ -10,10 +10,9 @@ Also check out our [Figma Plugin](https://github.com/maximedegreve/TinyFaces-Fig
 
 ## 🦾 API
 
-There are currently 2 endpoints.
-
-**GET**: https://tinyfac.es/api/data?limit=50&gender=female&quality=0
-**GET**: https://tinyfac.es/api/avatar.jpg&gender=female&quality=0
+**Endpoints**
+- `GET`: https://tinyfac.es/api/data?limit=50&gender=female&quality=0
+- `GET`: https://tinyfac.es/api/avatar.jpg&gender=female&quality=0
 
 **Query**
 - `quality` : Filters the result(s) to lower or higher quality images by using a value from 0 to 10.
