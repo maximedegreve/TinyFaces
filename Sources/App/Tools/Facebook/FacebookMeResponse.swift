@@ -7,7 +7,6 @@ struct FacebookMeAgeRange: Content {
 struct FacebookMeResponse: Content {
     var name: String
     var id: String
-    var birthday: String
     var gender: String?
     var email: String
     var ageRange: FacebookMeAgeRange
@@ -15,7 +14,6 @@ struct FacebookMeResponse: Content {
     enum CodingKeys: String, CodingKey {
         case name
         case id
-        case birthday
         case gender
         case email
         case ageRange = "age_range"
