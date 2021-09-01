@@ -12,7 +12,7 @@ final class Facebook {
                 "Accept": "application/json"
             ]
             try req.query.encode([
-                "fields": "id,name,age_range,email,gender",
+                "fields": "id,name,email,gender",
                 "access_token": accessToken
             ])
         }.flatMapThrowing { response -> FacebookMeResponse in

@@ -20,12 +20,6 @@ final class FacebookController {
 
             return Facebook.picture(accessToken: data.accessToken, id: meResponse.id, request: request).flatMap { pictureResponse in
 
-                guard
-                    let ageRangeMin = meResponse.ageRange.min,
-                    ageRangeMin >= 21 else {
-                    return request.eventLoop.makeFailedFuture(Abort(.conflict, reason: "You have to be at least 21 years old"))
-                }
-
                 return Source.createIfNotExist(req: request, name: meResponse.name, email: meResponse.email, externalId: meResponse.id, platform: .Facebook).flatMap { source in
                     
                     guard let sourceId = source.id else {
