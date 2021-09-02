@@ -5,16 +5,18 @@ final class FacebookController {
 
     struct RequestData: Error, Content {
         var accessToken: String
+        var gender: Gender
 
         enum CodingKeys: String, CodingKey {
             case accessToken = "access_token"
+            case gender
         }
 
     }
 
     func process(request: Request) throws -> EventLoopFuture<Response> {
 
-        let data = try request.query.decode(RequestData.self)
+        let data = try request.content.decode(RequestData.self)
 
         return Facebook.me(accessToken: data.accessToken, request: request).flatMap { meResponse in
 
@@ -26,18 +28,7 @@ final class FacebookController {
                         return request.eventLoop.makeFailedFuture(Abort(.internalServerError, reason: "Missing source id. Contact our support."))
                     }
                     
-                    var gender: Gender = .Other
-                    
-                    if let facebookGender = meResponse.gender{
-                        
-                        if let serverGender = Gender(rawValue: facebookGender) {
-                            gender = serverGender
-                        } else {
-                            return request.eventLoop.makeFailedFuture(Abort(.internalServerError, reason: "Miss match for \(facebookGender). Contact our support."))
-                        }
-                    }
-
-                    return Avatar.createIfNotExist(req: request, sourceId: sourceId, externalUrl: pictureResponse.data.url, gender: gender, quality: 0, approved: false).flatMap { avatar in
+                    return Avatar.createIfNotExist(req: request, sourceId: sourceId, externalUrl: pictureResponse.data.url, gender: data.gender, quality: 0, approved: false).flatMap { avatar in
                         
                         guard let avatarId = avatar.id else {
                             return request.eventLoop.makeFailedFuture(Abort(.internalServerError, reason: "Missing avatar id. Contact our support."))

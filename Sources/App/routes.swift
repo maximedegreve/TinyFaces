@@ -15,7 +15,7 @@ func routes(_ app: Application) throws {
     app.get(use: homeController.index)
     app.get("add", use: addController.index)
     app.get("status", ":avatarId", use: statusController.status)
-    app.get("facebook", "process", use: facebookController.process)
+    app.post("facebook", "process", use: facebookController.process)
     app.get("terms") { req -> EventLoopFuture<View> in
         return req.view.render("terms")
     }

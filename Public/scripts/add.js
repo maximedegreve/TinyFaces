@@ -1,20 +1,28 @@
 function process() {
   setLoading();
   FB.getLoginStatus(function(response) {
+    const genderValue = genderSelect().value;
+    if (!genderValue) {
+      setError("First select your gender");
+      return;
+    }
+
     if (
       response &&
       response.authResponse &&
       response.authResponse.accessToken
     ) {
-      fetch(
-        "/facebook/process?access_token=" + response.authResponse.accessToken,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          }
-        }
-      )
+      fetch("/facebook/process", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          gender: genderValue,
+          access_token: response.authResponse.accessToken
+        })
+      })
         .then(response => response.json())
         .then(data => {
           if (data.error) {
@@ -42,6 +50,10 @@ function loadingDiv() {
 
 function errorDiv() {
   return document.getElementById("error");
+}
+
+function genderSelect() {
+  return document.getElementById("gender");
 }
 
 function reset() {
