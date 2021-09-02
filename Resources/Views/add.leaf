@@ -29,13 +29,26 @@
    <li>This picture doesn’t include any racist or discriminating content.</li>
  </ul>
 
- <div id="fb-btn">
-   <div id="fb-root"></div>
-   <div class="fb-login-button" data-width="" scope="public_profile,user_gender,email"  data-size="medium" data-button-type="continue_with" onlogin="process();" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+  <div class="display-flex">
+    <div class="select select--default select--s marginRight-s" style="max-width: 240px;">
+        <select id="gender">
+              <option disabled selected value>Select your gender</option>
+          #for(gender in genders):
+              <option value="#(gender.value)">#(gender.name)</option>
+          #endfor
+        </select>
+    </div>
+
+    <div id="fb-btn">
+       <div id="fb-root"></div>
+       <div class="fb-login-button" data-width="" scope="public_profile,email"  data-size="medium" data-button-type="continue_with" onlogin="process();" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+    </div>
+  </div>
+
+  <p id="error" class="c-red fontSize-m lineHeight-m fontWeight-4 marginTop-xs display-none">Something went wrong</p>
+  <p id="loading" class="c-steel fontSize-m lineHeight-m fontWeight-4  marginTop-xs display-none">Processing your data...</p>
+
 </div>
- <p id="error" class="c-red fontSize-m lineHeight-m fontWeight-4 marginTop-xs display-none">Something went wrong</p>
- <p id="loading" class="c-steel fontSize-m lineHeight-m fontWeight-4 display-none">Processing your data...</p>
- </div>
 
 </div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v11.0&appId=#(facebookAppId)&autoLogAppEvents=1" nonce="g1Jegjoa"></script>
