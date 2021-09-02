@@ -7,7 +7,7 @@
 
 import Vapor
 
-enum Gender: String, Codable {
+enum Gender: String, Codable, CaseIterable {
     case Agender = "agender"
     case Androgyne = "androgyne"
     case Androgynous = "androgynous"
