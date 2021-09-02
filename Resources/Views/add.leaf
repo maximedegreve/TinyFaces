@@ -41,7 +41,7 @@
 
     <div id="fb-btn">
        <div id="fb-root"></div>
-       <div class="fb-login-button" data-width="" scope="public_profile,user_gender,email"  data-size="medium" data-button-type="continue_with" onlogin="process();" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+       <div class="fb-login-button" data-width="" scope="public_profile,email"  data-size="medium" data-button-type="continue_with" onlogin="process();" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
     </div>
   </div>
 
