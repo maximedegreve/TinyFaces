@@ -56,6 +56,15 @@
         }
       },
       {
+        "package": "gatekeeper",
+        "repositoryURL": "https://github.com/nodes-vapor/gatekeeper.git",
+        "state": {
+          "branch": null,
+          "revision": "9009cfb3eeca0087e0c946ff7a08d2486eb85194",
+          "version": "4.2.0"
+        }
+      },
+      {
         "package": "leaf",
         "repositoryURL": "https://github.com/vapor/leaf.git",
         "state": {
