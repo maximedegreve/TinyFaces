@@ -23,5 +23,8 @@ func routes(_ app: Application) throws {
     // MARK: API
     app.get("api", "data", use: dataController.index)
     app.get("api", "avatar.jpg", use: avatarController.index)
+    
+    // MARK: API Legacy
+    app.get("api", "users", use: dataController.index)
 
 }
