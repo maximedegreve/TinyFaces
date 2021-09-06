@@ -19,9 +19,8 @@ Also check out our [Figma Plugin](https://github.com/maximedegreve/TinyFaces-Fig
 
 **Limitations**
 
-Max requests per second per IP address: `5` .
-
-When you've reached your limit you'll receive an error response with status code `493`.
+- Max requests per second per IP address: `5` 
+- When you've reached your limit you'll receive an error response with status code `493`
 
 ## 🎒 Before building (dependencies)
 
