@@ -1,5 +1,6 @@
 import Fluent
 import Vapor
+import Gatekeeper
 
 func routes(_ app: Application) throws {
 
@@ -20,11 +21,13 @@ func routes(_ app: Application) throws {
         return req.view.render("terms")
     }
 
+    let rateLimited = app.grouped(GatekeeperMiddleware())
+
     // MARK: API
-    app.get("api", "data", use: dataController.index)
-    app.get("api", "avatar.jpg", use: avatarController.index)
+    rateLimited.get("api", "data", use: dataController.index)
+    rateLimited.get("api", "avatar.jpg", use: avatarController.index)
     
     // MARK: API Legacy
-    app.get("api", "users", use: dataController.index)
+    rateLimited.get("api", "users", use: dataController.index)
 
 }

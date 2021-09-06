@@ -2,6 +2,7 @@ import Fluent
 import FluentMySQLDriver
 import Vapor
 import Leaf
+import Gatekeeper
 
 public func configure(_ app: Application) throws {
 
@@ -14,6 +15,7 @@ public func configure(_ app: Application) throws {
     let error = ErrorMiddleware.default(environment: app.environment)
     let files = FileMiddleware(publicDirectory: app.directory.publicDirectory)
 
+    app.caches.use(.memory)
     app.passwords.use(.bcrypt)
     app.views.use(.leaf)
 
@@ -21,6 +23,8 @@ public func configure(_ app: Application) throws {
     app.middleware.use(cors)
     app.middleware.use(error)
     app.middleware.use(files)
+    
+    app.gatekeeper.config = .init(maxRequests: 5, per: .second)
 
     // app.logger.logLevel = .debug
 

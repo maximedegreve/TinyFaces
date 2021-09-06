@@ -17,6 +17,11 @@ Also check out our [Figma Plugin](https://github.com/maximedegreve/TinyFaces-Fig
 - `gender` : Possible values for gender can be found in [Gender.swift](/Sources/App/Models/Gender.swift)
 - `limit` : To limit how many results you get back by using a value of 50 or lower. Only works with the data endpoint. When mixed with gender this could return less than n results.
 
+**Limitations**
+
+Max requests/second for one IP address: `5` .
+When you've reached your limit you'll receive an error response with status code `493`.
+
 ## 🎒 Before building (dependencies)
 
 - Install [Xcode](https://developer.apple.com/xcode/)
