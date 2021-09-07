@@ -24,7 +24,7 @@ public func configure(_ app: Application) throws {
     app.middleware.use(error)
     app.middleware.use(files)
     
-    app.gatekeeper.config = .init(maxRequests: 5, per: .second)
+    app.gatekeeper.config = .init(maxRequests: 60, per: .hour)
 
     // app.logger.logLevel = .debug
 
