@@ -1,7 +1,7 @@
 #extend("base"):
 
 #export("head"):
-  <title>TinyFaces 👦🏼👨🏾👩🏻 - Terms of Service and Privacy Policy</title>
+  <title>TinyFaces 👦🏼👨🏾👩🏻 - Terms and Conditions</title>
 #endexport
 
 #export("body"):
@@ -15,9 +15,7 @@
   </div>
 
 <div class="pageWrap paddingTopBottom-xl marginTop-xl textAlign-center position-relative" style="max-width: 440px;">
-<h1 class="c-slate lineHeight-xxl fontSize-xxl breakPointM-fontSize-xxxl breakPointM-lineHeight-xxxl marginBottom-xs">Terms of Service & Privacy Policy</h1>
-<h3 class="c-silver lineHeight-l fontSize-l fontWeight-3 breakPointM-lineHeight-xl breakPointM-fontSize-xl">Questions or want to delete your avatar? <a class="link link--blue" href="mailto:hello@tinyfac.es">hello@tinyfac.es</a></h3>
-
+<h1 class="c-slate lineHeight-xxl fontSize-xxl breakPointM-fontSize-xxxl breakPointM-lineHeight-xxxl marginBottom-xs">Terms and Conditions</h1>
 </div>
 
 <div class="pageWrap pageWrap--s breakPointM-marginBottom-xl position-relative">

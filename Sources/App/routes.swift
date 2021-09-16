@@ -20,6 +20,9 @@ func routes(_ app: Application) throws {
     app.get("terms") { req -> EventLoopFuture<View> in
         return req.view.render("terms")
     }
+    app.get("privacy") { req -> EventLoopFuture<View> in
+        return req.view.render("privacy")
+    }
 
     let rateLimited = app.grouped(GatekeeperMiddleware())
 
