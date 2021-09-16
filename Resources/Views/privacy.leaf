@@ -25,7 +25,7 @@
 <h2 class="lineHeight-xl fontSize-l fontWeight-4 c-slate marginTop-m">Collection of personal information</h2>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver">You can access and use the Website and Services without telling us who you are or revealing any information by which someone could identify you as a specific, identifiable individual. If, however, you wish to use some of the features offered on the Website, you may be asked to provide certain Personal Information (for example, your name and e-mail address).</p>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m"">We receive and store any information you knowingly provide to us when you create an account, publish content,  or fill any forms on the Website. When required, this information may include the following:</p>
-<ul class="marginTop-m">
+<ul class="marginTopBottom-m">
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Account details (such as user name, unique user ID, password, etc)</li>
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Contact information (such as email address, phone number, etc)</li>
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Basic personal information (such as name, country of residence, etc)</li>
@@ -41,14 +41,14 @@
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m""> Our role may also differ depending on the specific situation involving Personal Information. We act in the capacity of a data controller when we ask you to submit your Personal Information that is necessary to ensure your access and use of the Website and Services. In such instances, we are a data controller because we determine the purposes and means of the processing of Personal Information and we comply with data controllers’ obligations set forth in the GDPR.</p>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m"">We act in the capacity of a data processor in situations when you submit Personal Information through the Website and Services. We do not own, control, or make decisions about the submitted Personal Information, and such Personal Information is processed only in accordance with your instructions. In such instances, the User providing Personal Information acts as a data controller in terms of the GDPR.</p>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m"">In order to make the Website and Services available to you, or to meet a legal obligation, we may need to collect and use certain Personal Information. If you do not provide the information that we request, we may not be able to provide you with the requested products or services. Any of the information we collect from you may be used for the following purposes:</p>
-<ul class="marginTop-m">
+<ul class="marginTopBottom-m">
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Create and manage user accounts</li>
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Deliver products or services</li>
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Run and operate the Website and Services</li>
 </ul>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m"">Processing your Personal Information depends on how you interact with the Website and Services, where you are located in the world and if one of the following applies: (i) you have given your consent for one or more specific purposes; this, however, does not apply, whenever the processing of Personal Information is subject to California Consumer Privacy Act or European data protection law; (ii) provision of information is necessary for the performance of an agreement with you and/or for any pre-contractual obligations thereof; (iii) processing is necessary for compliance with a legal obligation to which you are subject; (iv) processing is related to a task that is carried out in the public interest or in the exercise of official authority vested in us; (v) processing is necessary for the purposes of the legitimate interests pursued by us or by a third party. We may also combine or aggregate some of your Personal Information in order to better serve you and to improve and update our Website and Services.</p>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m"">We rely on the following legal bases as defined in the GDPR upon which we collect and process your Personal Information:</p>
-<ul class="marginTop-m">
+<ul class="marginTopBottom-m">
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">User’s consent</li>
 </ul>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m""> Note that under some legislations we may be allowed to process information until you object to such processing by opting out, without having to rely on consent or any other of the legal bases above. In any case, we will be happy to clarify the specific legal basis that applies to the processing, and in particular whether the provision of Personal Information is a statutory or contractual requirement, or a requirement necessary to enter into a contract.</p>
@@ -57,7 +57,7 @@
 <h2 class="lineHeight-xl fontSize-l fontWeight-4 c-slate marginTop-m">Disclosure of information</h2>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m""> Depending on the requested Services or as necessary to complete any transaction or provide any Service you have requested, we may share your information with our trusted subsidiaries and joint venture partners, affiliates, contracted companies, and service providers (collectively, “Service Providers”) we rely upon to assist in the operation of the Website and Services available to you and whose privacy policies are consistent with ours or who agree to abide by our policies with respect to Personal Information. We will not share any information with unaffiliated third parties.</p>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m"">Service Providers are not authorized to use or disclose your information except as necessary to perform services on our behalf or comply with legal requirements. Service Providers are given the information they need only in order to perform their designated functions, and we do not authorize them to use or disclose any of the provided information for their own marketing or other purposes. We will share and disclose your information only with the following categories of Service Providers:</p>
-<ul class="marginTop-m">
+<ul class="marginTopBottom-m">
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Data analytics services</li>
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Product engineering and design services</li>
 </ul>
@@ -83,13 +83,13 @@
 <h2 class="lineHeight-xl fontSize-l fontWeight-4 c-slate marginTop-m">California privacy rights</h2>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m"">Consumers residing in California are afforded certain additional rights with respect to their Personal Information under the California Consumer Privacy Act (“CCPA”). If you are a California resident, this section applies to you.</p>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver marginBottom-m"">As described in this Policy in the information collection section above, we have collected the categories of Personal Information listed below in the past twelve (12) months:</p>
-<ul class="marginTop-m">
+<ul class="marginTopBottom-m">
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Personal identifiers (such as email address, phone number, etc)</li>
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Person’s characteristics (such as age, gender, etc)</li>
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Biometric information (facial recognition, fingerprints, etc)</li>
 </ul>
 <p class="lineHeight-xl fontSize-l fontWeight-3 c-silver">As described in this Policy in the disclosure section above, we have disclosed the categories of Personal Information listed below in the past twelve (12) months:</p>
-<ul class="marginTop-m">
+<ul class="marginTopBottom-m">
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Personal identifiers (such as email address, phone number, etc)</li>
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Person’s characteristics (such as age, gender, etc)</li>
 <li class="lineHeight-xl fontSize-l fontWeight-3 c-silver">Biometric information (facial recognition, fingerprints, etc)</li>
