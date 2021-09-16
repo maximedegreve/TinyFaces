@@ -8,7 +8,7 @@
   <body>
     #import("body")
     <div class="pageWrap paddingTopBottom-xl textAlign-center position-relative">
-        <a href="/terms" class="link link--blue">Terms of Service & Privacy Policy</a>
+        <a href="/terms" class="link link--blue">Terms and Conditions</a> & <a href="/privacy" class="link link--blue">Privacy Policy</a>
     </div>
   </body>
   <script>
