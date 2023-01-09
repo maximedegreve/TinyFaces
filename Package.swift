@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
@@ -11,8 +11,9 @@ let package = Package(
         .package(url: "https://github.com/vapor/vapor.git", from: "4.62.0"),
         .package(url: "https://github.com/vapor/fluent.git", from: "4.4.0"),
         .package(url: "https://github.com/vapor/fluent-mysql-driver.git", from: "4.0.2"),
-        .package(url: "https://github.com/vapor/leaf.git", from: "4.0.0"),
         .package(url: "https://github.com/nodes-vapor/gatekeeper.git", from: "4.0.0"),
+        .package(url: "https://github.com/vapor/leaf.git", from: "4.2.4"),
+
     ],
     targets: [
         .target(
