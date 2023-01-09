@@ -33,9 +33,8 @@ Also check out our [Figma Plugin](https://github.com/maximedegreve/TinyFaces-Fig
 - Add a `.env` file to the local root directory this should have the values below:
 
 ```
-CLOUDINARY_URL=cloudinary://KEY:SECRET@CLOUD-NAME
-FACEBOOK_APP_ID=1234
-SEND_IN_BLUE_KEY=1234
+THUMBOR_URL=URL
+THUMBOR_KEY=ABCDEFG
 ```
 
 ## 🚧 Building
@@ -56,9 +55,8 @@ SEND_IN_BLUE_KEY=1234
 URL = https://tinyfac.es
 MYSQL_URL =
 PORT =
-CLOUDINARY_URL = cloudinary://KEY:SECRET@CLOUD-NAME
-FACEBOOK_APP_ID = 1234
-SEND_IN_BLUE_KEY = 1234
+THUMBOR_URL=URL
+THUMBOR_KEY=ABCDEFG
 SWIFT_BUILD_CONFIGURATION = release
 ```
 
