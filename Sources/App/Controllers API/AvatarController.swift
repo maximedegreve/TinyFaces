@@ -18,7 +18,8 @@ final class AvatarController {
                 return request.eventLoop.makeFailedFuture(Abort(.notFound, reason: "Not avatar found for your query."))
             }
 
-            return request.eventLoop.future(request.redirect(to: avatar.url))
+            let url = Thumbor().secure(url: avatar.url, size: ThumborSize(width: 1024, height: 1024))
+            return request.eventLoop.future(request.redirect(to: url))
         }
 
     }

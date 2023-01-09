@@ -17,7 +17,7 @@ final class PublicAvatar: Content {
         self.source = PublicSource(source: avatar.source)
         self.firstName = firstName
         self.lastName = lastName
-        self.url = Cloudinary().urlWithSize(url: avatar.url, maxSize: avatarSize, maxHeight: avatarSize)
+        self.url = Thumbor().secure(url: avatar.url, size: ThumborSize(width: avatarSize, height: avatarSize))
         self.gender = avatar.gender
         self.approved = avatar.approved
         self.createdAt = avatar.createdAt
