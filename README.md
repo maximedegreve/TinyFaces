@@ -37,6 +37,8 @@ THUMBOR_URL=URL
 THUMBOR_KEY=ABCDEFG
 ```
 
+Sadly we can't share our Thumbor setup and therefore you need to run a instance yourself for this to work.
+
 ## 🚧 Building
 
 - Run the `Run` target in Xcode
