@@ -44,7 +44,6 @@ Sadly we can't share our Thumbor setup and therefore you need to run a instance 
 - Run the `Run` target in Xcode
 - The first time this can take a long time because it will seed the database with random first names and last names.
 - The application should now be running on [http://localhost:8080](http://localhost:8080)
-- To test Facebook Login you need run the app on https, use for ngrok this. `ngrok http 8080 -subdomain tinyfaces`
 
 ## 💟 Heroku:
 
