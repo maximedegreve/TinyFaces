@@ -30,8 +30,8 @@ final class Analytic: Model, Content {
             return request.logger.warning("⚠️ Missing IP in request: \(request.description)")
         }
         
-        let existing = try await Analytic.query(on: request.db).filter(\.$ip == ip).filter(\.$date == Date()).first()
-        let analytic = existing ?? Analytic(date: Date(), requests: 0, ip: ip)
+        let existing = try await Analytic.query(on: request.db).filter(\.$ip == ip).filter(\.$date == Date().startOfDay).first()
+        let analytic = existing ?? Analytic(date: Date().startOfDay, requests: 0, ip: ip)
         
         analytic.requests = analytic.requests + 1
         try await analytic.save(on: request.db)
