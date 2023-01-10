@@ -26,7 +26,7 @@ final class Analytic: Model, Content {
     
     static func log(request: Request) async throws {
         
-        guard let ip = request.remoteAddress?.ipAddress else {
+        guard let ip = request.peerAddress?.ipAddress else {
             return request.logger.warning("⚠️ Missing IP in request: \(request.description)")
         }
         
