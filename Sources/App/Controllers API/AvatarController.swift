@@ -3,7 +3,9 @@ import Fluent
 
 final class AvatarController {
 
-    func index(request: Request) throws -> EventLoopFuture<Response> {
+    func index(request: Request) async throws -> Response {
+
+        try await Analytic.log(request: request)
 
         struct RequestData: Content {
             var quality: Int?
@@ -12,15 +14,14 @@ final class AvatarController {
         
         let data = try request.query.decode(RequestData.self)
         
-        return randomAvatar(request: request, gender: data.gender, quality: data.quality ?? 0).flatMap { optionalAvatar in
-            
-            guard let avatar = optionalAvatar else {
-                return request.eventLoop.makeFailedFuture(Abort(.notFound, reason: "Not avatar found for your query."))
-            }
-
-            let url = Thumbor().secure(url: avatar.url, size: ThumborSize(width: 1024, height: 1024))
-            return request.eventLoop.future(request.redirect(to: url))
+        let optionalAvatar = try await randomAvatar(request: request, gender: data.gender, quality: data.quality ?? 0).get()
+        
+        guard let avatar = optionalAvatar else {
+            throw Abort(.notFound, reason: "Not avatar found for your query.")
         }
+
+        let url = Thumbor().secure(url: avatar.url, size: ThumborSize(width: 1024, height: 1024))
+        return request.redirect(to: url)
 
     }
     
