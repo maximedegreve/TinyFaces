@@ -3,7 +3,9 @@ import Fluent
 
 final class DataController {
 
-    func index(request: Request) throws -> EventLoopFuture<[PublicAvatar]> {
+    func index(request: Request) async throws -> [PublicAvatar] {
+
+        try await Analytic.log(request: request)
 
         let defaultLimit = 50
         let defaultQuality = 10
@@ -30,40 +32,33 @@ final class DataController {
         let avatarSize = requestData.avatarMaxSize ?? defaultAvatarMaxSize
 
         guard avatarSize <= 1024 else {
-            return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`avatar_max_size` can't be larger than 1024."))
+            throw Abort(.badRequest, reason: "`avatar_max_size` can't be larger than 1024.")
         }
 
         guard limit <= 50 else {
-            return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`limit` can't be larger than 50 at a time."))
+            throw Abort(.badRequest, reason: "`limit` can't be larger than 50 at a time.")
         }
 
         guard limit > 0 else {
-            return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`limit` has to be at least 1."))
+            throw Abort(.badRequest, reason: "`limit` has to be at least 1.")
         }
 
         guard quality <= 10 else {
-            return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "`quality` can't be larger than 10."))
+            throw Abort(.badRequest, reason: "`quality` can't be larger than 10.")
         }
 
         let gender = requestData.gender
 
-        return self.randomFirstNames(request: request, gender: gender, limit: limit).flatMap { firstNames in
+        let firstNames = try await self.randomFirstNames(request: request, gender: gender, limit: limit).get()
+        let lastNames = try await self.randomLastNames(request: request, limit: limit).get()
+        let avatars = try await self.randomAvatars(request: request, gender: gender, limit: limit, quality: quality).get()
+        
+        return avatars.enumerated().compactMap { (index, element) in
 
-            return self.randomLastNames(request: request, limit: limit).flatMap { lastNames in
-
-                return self.randomAvatars(request: request, gender: gender, limit: limit, quality: quality).flatMap { avatars in
-
-                    return avatars.enumerated().compactMap { (index, element) in
-
-                        let firstName = firstNames[safe: index]?.name ?? "Jane"
-                        let lastName = lastNames[safe: index]?.name ?? "Doe"
-                        let avatar = PublicAvatar(avatar: element, avatarSize: avatarSize, firstName: firstName, lastName: lastName)
-                        return request.eventLoop.future(avatar)
-
-                    }.flatten(on: request.eventLoop)
-
-                }
-            }
+            let firstName = firstNames[safe: index]?.name ?? "Jane"
+            let lastName = lastNames[safe: index]?.name ?? "Doe"
+            let avatar = PublicAvatar(avatar: element, avatarSize: avatarSize, firstName: firstName, lastName: lastName)
+            return avatar
 
         }
 

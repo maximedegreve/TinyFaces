@@ -68,6 +68,7 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateFirstName(app: app))
     app.migrations.add(CreateLastName(app: app))
     app.migrations.add(MoveCloudinary())
+    app.migrations.add(CreateAnalytic())
     try app.autoMigrate().wait()
 
     try routes(app)
