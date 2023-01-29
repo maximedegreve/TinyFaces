@@ -64,6 +64,24 @@
       }
     },
     {
+      "identity" : "google-cloud-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor-community/google-cloud-kit.git",
+      "state" : {
+        "revision" : "17b2eec3df26c6535a90b5650dee53670494f4d9",
+        "version" : "1.0.0-rc.9"
+      }
+    },
+    {
+      "identity" : "jwt-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/jwt-kit.git",
+      "state" : {
+        "revision" : "87ce13a1df913ba4d51cf00606df7ef24d455571",
+        "version" : "4.7.0"
+      }
+    },
+    {
       "identity" : "leaf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/leaf.git",
@@ -124,6 +142,15 @@
       "state" : {
         "revision" : "9cc30f8cef132e91a07e36005612b37f918731fc",
         "version" : "3.16.0"
+      }
+    },
+    {
+      "identity" : "stripe-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor-community/stripe-kit.git",
+      "state" : {
+        "revision" : "58ea4f4ad77f86aad54da22d1d86f610c50712ac",
+        "version" : "17.0.1"
       }
     },
     {

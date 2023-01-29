@@ -8,6 +8,7 @@ func routes(_ app: Application) throws {
     let dataController = DataController()
     let homeController = HomeController()
     let avatarController = AvatarController()
+    let stripeWebhookController = StripeWebhookController()
 
     // MARK: Pages
     app.get(use: homeController.index)
@@ -20,11 +21,14 @@ func routes(_ app: Application) throws {
 
     let rateLimited = app.grouped(GatekeeperMiddleware())
 
-    // MARK: API
+    // MARK: Public API
     rateLimited.get("api", "data", use: dataController.index)
     rateLimited.get("api", "avatar.jpg", use: avatarController.index)
     
-    // MARK: API Legacy
+    // MARK: Legacy API
     rateLimited.get("api", "users", use: dataController.index)
-
+    
+    // MARK: Private API
+    app.get("stripe", "webhook", use: stripeWebhookController.index)
+    
 }

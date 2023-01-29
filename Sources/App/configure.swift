@@ -3,6 +3,7 @@ import FluentMySQLDriver
 import Vapor
 import Leaf
 import Gatekeeper
+import GoogleCloudKit
 
 public func configure(_ app: Application) throws {
 
@@ -27,6 +28,8 @@ public func configure(_ app: Application) throws {
     app.gatekeeper.config = .init(maxRequests: 60, per: .hour)
 
     // app.logger.logLevel = .debug
+    
+    let credentialsConfig = GoogleCloudCredentialsConfiguration()
 
     let encoder = JSONEncoder()
     encoder.dateEncodingStrategy = .secondsSince1970

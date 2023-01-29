@@ -29,6 +29,10 @@ extension Environment {
     static var sendInBlueKey: String {
         Environment.get("SEND_IN_BLUE_KEY")!
     }
+    
+    static var stripeKey: String {
+        Environment.get("STRIPE_KEY")!
+    }
 
     // Only for development
 

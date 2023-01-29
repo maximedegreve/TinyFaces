@@ -13,7 +13,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-mysql-driver.git", from: "4.2.0"),
         .package(url: "https://github.com/nodes-vapor/gatekeeper.git", from: "4.2.0"),
         .package(url: "https://github.com/vapor/leaf.git", from: "4.2.4"),
-
+        .package(url: "https://github.com/vapor-community/google-cloud-kit.git", from: "1.0.0-alpha.1"),
+        .package(url: "https://github.com/vapor-community/stripe-kit.git", from: "17.0.0")
     ],
     targets: [
         .target(
@@ -24,6 +25,8 @@ let package = Package(
                 .product(name: "FluentMySQLDriver", package: "fluent-mysql-driver"),
                 .product(name: "Leaf", package: "leaf"),
                 .product(name: "Gatekeeper", package: "gatekeeper"),
+                .product(name: "GoogleCloudKit", package: "google-cloud-kit"),
+                .product(name: "StripeKit", package: "stripe-kit"),
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of
