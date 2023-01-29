@@ -45,9 +45,10 @@ Sadly we can't share our Thumbor setup and therefore you need to run a instance 
 - The first time this can take a long time because it will seed the database with random first names and last names.
 - The application should now be running on [http://localhost:8080](http://localhost:8080)
 
-If you want to test payments you need install and login to [Stripe CLI](https://stripe.com/docs/stripe-cli).
+If you want to test Stripe webhooks you need install and login to [Stripe CLI](https://stripe.com/docs/stripe-cli).
 
-```stripe listen --forward-to 127.0.0.1:8080/stripe/webhook```
+- ```stripe listen --forward-to 127.0.0.1:8080/stripe/webhook```
+- Replace `STRIPE_SECRET_KEY` in your `.env` with what the CLI returns
 
 ## 💟 Heroku:
 
