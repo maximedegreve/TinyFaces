@@ -27,7 +27,7 @@ Also check out our [Figma Plugin](https://github.com/maximedegreve/TinyFaces-Fig
 - Install [Xcode](https://developer.apple.com/xcode/)
 - Install [Vapor Toolbox](https://docs.vapor.codes/4.0/install/macos/)
 - Install [Docker Desktop](https://www.docker.com)
-- Run `docker-compose up db`
+- Run `docker-compose up db` or `./Launch.sh`
 - Run `Package.swift` using Xcode
 - Change your Xcode working directory to your root folder: `Schemes > TinyFaces > Edit Scheme > Run > Options > Working Directory > [x]`
 - Add a `.env` file to the local root directory this should have the values below:
@@ -47,7 +47,7 @@ Sadly we can't share our Thumbor setup and therefore you need to run a instance 
 
 If you want to test payments you need install and login to [Stripe CLI](https://stripe.com/docs/stripe-cli).
 
-`stripe listen --forward-to localhost:8080/stripe/webhook`
+```stripe listen --forward-to 127.0.0.1:8080/stripe/webhook```
 
 ## 💟 Heroku:
 
@@ -62,6 +62,8 @@ MYSQL_URL =
 PORT =
 THUMBOR_URL=URL
 THUMBOR_KEY=ABCDEFG
+STRIPE_SECRET_KEY=
+STRIPE_PUBLISH_KEY=
 SWIFT_BUILD_CONFIGURATION = release
 ```
 

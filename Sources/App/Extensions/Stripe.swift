@@ -5,7 +5,7 @@ extension Application {
     public var stripe: StripeClient {
         return .init(httpClient: self.http.client.shared,
                      eventLoop: self.eventLoopGroup.next(),
-                     apiKey: Environment.stripeKey)
+                     apiKey: Environment.stripeSecretKey)
     }
 }
 
@@ -19,7 +19,7 @@ extension Request {
         } else {
             let new = StripeClient(httpClient: self.application.http.client.shared,
                                    eventLoop: self.eventLoop,
-                                   apiKey: Environment.stripeKey)
+                                   apiKey: Environment.stripeSecretKey)
             self.application.storage[StripeKey.self] = new
             return new
         }

@@ -29,6 +29,6 @@ func routes(_ app: Application) throws {
     rateLimited.get("api", "users", use: dataController.index)
     
     // MARK: Private API
-    app.get("stripe", "webhook", use: stripeWebhookController.index)
+    app.post("stripe", "webhook", use: stripeWebhookController.index)
     
 }

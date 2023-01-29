@@ -13,8 +13,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-mysql-driver.git", from: "4.2.0"),
         .package(url: "https://github.com/nodes-vapor/gatekeeper.git", from: "4.2.0"),
         .package(url: "https://github.com/vapor/leaf.git", from: "4.2.4"),
-        .package(url: "https://github.com/vapor-community/google-cloud-kit.git", from: "1.0.0-alpha.1"),
-        .package(url: "https://github.com/vapor-community/stripe-kit.git", from: "17.0.0")
+        .package(url: "https://github.com/vapor-community/google-cloud-kit.git", from: "1.0.0-rc.9"),
+        .package(url: "https://github.com/maximedegreve/stripe-kit.git", branch: "patch-1")
     ],
     targets: [
         .target(

@@ -30,8 +30,11 @@ extension Environment {
         Environment.get("SEND_IN_BLUE_KEY")!
     }
     
-    static var stripeKey: String {
-        Environment.get("STRIPE_KEY")!
+    static var stripePublishableKey: String {
+        Environment.get("STRIPE_PUBLISH_KEY")!
+    }
+    static var stripeSecretKey: String {
+        Environment.get("STRIPE_SECRET_KEY")!
     }
 
     // Only for development

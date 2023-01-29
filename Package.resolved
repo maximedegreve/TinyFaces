@@ -147,10 +147,10 @@
     {
       "identity" : "stripe-kit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vapor-community/stripe-kit.git",
+      "location" : "https://github.com/maximedegreve/stripe-kit.git",
       "state" : {
-        "revision" : "58ea4f4ad77f86aad54da22d1d86f610c50712ac",
-        "version" : "17.0.1"
+        "branch" : "patch-1",
+        "revision" : "fe1dda7d385bc55a3c4f3b569b4d5e400082e2cf"
       }
     },
     {
