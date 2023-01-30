@@ -4,7 +4,6 @@ import StripeKit
 
 final class StripeWebhookController {
 
-    // stripe trigger checkout.session.completed
     func index(request: Request) async throws -> Response {
 
         let optionalBuffer = request.body.data
@@ -27,13 +26,96 @@ final class StripeWebhookController {
         let event = try request.content.decode(StripeEvent.self)
         
         switch (event.type, event.data?.object) {
-            case (.paymentIntentSucceeded, .paymentIntent(let paymentIntent)):
-                print("Payment capture method: \(paymentIntent)")
-                return Response(status: .ok)
+            case (.checkoutSessionCompleted, .checkoutSession(let checkoutCompletion)):
+                return try await checkoutCompleted(request: request, session: checkoutCompletion)
+        case (.invoicePaymentSucceeded, .invoice(let invoice)):
+                return try await invoiceUpdate(request: request, invoice: invoice)
             default:
                 return Response(status: .ok)
         }
 
+    }
+    
+    func invoiceUpdate(request: Request, invoice: StripeInvoice) async throws -> Response {
+        
+        guard let stripeSubscription = invoice.$subscription else {
+            Swift.print("Missing subscription object")
+            return Response(status: .ok)
+        }
+        
+        guard
+            let subscriptionPlanId = stripeSubscription.items?.data?.first?.plan?.id,
+            let currentPeriodEnd = stripeSubscription.currentPeriodEnd,
+            let cancelAtPeriodEnd = stripeSubscription.cancelAtPeriodEnd,
+            let status = stripeSubscription.status?.rawValue else {
+            Swift.print("Subscription items missing")
+            return Response(status: .ok)
+        }
+        
+        guard let subscription = try await Subscription.query(on: request.db).filter(\.$stripeId, .equal, stripeSubscription.id).first() else {
+            Swift.print("Subscription not found")
+            return Response(status: .ok)
+        }
+                                
+        subscription.currentPeriodEnd = currentPeriodEnd
+        subscription.cancelAtPeriodEnd = cancelAtPeriodEnd
+        subscription.stripeId = stripeSubscription.id
+        subscription.stripePlanId = subscriptionPlanId
+        subscription.stripeStatus = status
+        subscription.canceledAt = stripeSubscription.canceledAt
+        
+        try await subscription.save(on: request.db)
+        
+        return Response(status: .ok)
+
+    }
+    
+    func checkoutCompleted(request: Request, session: StripeSession) async throws -> Response {
+        
+        guard let stripeSubscription = session.$subscription else {
+            Swift.print("Missing subscription object")
+            return Response(status: .ok)
+        }
+        
+        guard let customerEmail = session.customerEmail else {
+            Swift.print("Missing customer email")
+            return Response(status: .ok)
+        }
+        
+        guard let customerId = session.customer else {
+            Swift.print("Missing client reference id")
+            return Response(status: .ok)
+        }
+        
+        guard
+            let subscriptionPlanId = stripeSubscription.items?.data?.first?.plan?.id,
+            let currentPeriodEnd = stripeSubscription.currentPeriodEnd,
+            let cancelAtPeriodEnd = stripeSubscription.cancelAtPeriodEnd,
+            let status = stripeSubscription.status?.rawValue else {
+            Swift.print("Subscription items missing")
+            return Response(status: .ok)
+        }
+        
+        let user = try await User.createIfNotExist(db: request.db, email: customerEmail, stripeCustomerId: customerId)
+        
+        let userId = try user.requireID()
+        
+        let optionalSubscription = try await Subscription.query(on: request.db).filter(\.$stripeId, .equal, stripeSubscription.id).first()
+                
+        let subscription = optionalSubscription ?? Subscription()
+                
+        subscription.currentPeriodEnd = currentPeriodEnd
+        subscription.cancelAtPeriodEnd = cancelAtPeriodEnd
+        subscription.$user.id = userId
+        subscription.stripeId = stripeSubscription.id
+        subscription.stripePlanId = subscriptionPlanId
+        subscription.stripeStatus = status
+        subscription.canceledAt = stripeSubscription.canceledAt
+        
+        try await subscription.save(on: request.db)
+        
+        return Response(status: .ok)
+        
     }
 
 }

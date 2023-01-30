@@ -36,6 +36,10 @@ extension Environment {
     static var stripeSecretKey: String {
         Environment.get("STRIPE_SECRET_KEY")!
     }
+    
+    static var stripePricingTableId: String {
+        Environment.get("STRIPE_PRICINGTABLE_ID")!
+    }
 
     // Only for development
 

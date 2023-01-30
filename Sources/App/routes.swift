@@ -8,10 +8,13 @@ func routes(_ app: Application) throws {
     let dataController = DataController()
     let homeController = HomeController()
     let avatarController = AvatarController()
+    let pricingController = PricingController()
     let stripeWebhookController = StripeWebhookController()
 
     // MARK: Pages
     app.get(use: homeController.index)
+    app.get("pricing", use: pricingController.index)
+
     app.get("terms") { req -> EventLoopFuture<View> in
         return req.view.render("terms")
     }
