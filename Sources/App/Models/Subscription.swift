@@ -13,8 +13,8 @@ final class Subscription: Model, Content {
     @Field(key: "stripe_id")
     var stripeId: String
 
-    @Field(key: "stripe_plan_id")
-    var stripePlanId: String
+    @Field(key: "stripe_product_id")
+    var stripeProductId: String
     
     @Field(key: "stripe_status")
     var stripeStatus: String
@@ -25,7 +25,7 @@ final class Subscription: Model, Content {
     @Field(key: "current_period_end")
     var currentPeriodEnd: Date
     
-    @Field(key: "canceledAt")
+    @Field(key: "canceled_at")
     var canceledAt: Date?
 
     @Timestamp(key: "created_at", on: .create)
@@ -39,10 +39,10 @@ final class Subscription: Model, Content {
 
     init() { }
     
-    init(userId: User.IDValue, stripeId: String, stripePlanId: String, stripeStatus: String, cancelAtPeriodEnd: Bool, currentPeriodEnd: Date) {
+    init(userId: User.IDValue, stripeId: String, stripeProductId: String, stripeStatus: String, cancelAtPeriodEnd: Bool, currentPeriodEnd: Date) {
         self.$user.id = userId
         self.stripeId = stripeId
-        self.stripePlanId = stripePlanId
+        self.stripeProductId = stripeProductId
         self.stripeStatus = stripeStatus
         self.cancelAtPeriodEnd = cancelAtPeriodEnd
         self.currentPeriodEnd = currentPeriodEnd

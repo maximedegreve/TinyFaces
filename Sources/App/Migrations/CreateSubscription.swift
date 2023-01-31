@@ -15,11 +15,14 @@ struct CreateSubscription: Migration {
                 .field(.id, .int, .identifier(auto: true), .required)
                 .field("user_id", .int, .required, .references("users", "id"))
                 .field("stripe_id", .string, .required)
-                .field("stripe_plan_id", .string, .required)
+                .field("stripe_product_id", .string, .required)
                 .field("stripe_status", .string, .required)
                 .field("cancel_at_period_end", .bool, .required)
                 .field("current_period_end", .datetime, .required)
                 .field("canceled_at", .datetime)
+                .field("created_at", .datetime)
+                .field("updated_at", .datetime)
+                .field("deleted_at", .datetime)
                 .create()
 
     }

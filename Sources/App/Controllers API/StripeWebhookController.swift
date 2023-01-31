@@ -14,7 +14,7 @@ final class StripeWebhookController {
         }
         
         let payload = Data(buffer: buffer)
-        try StripeClient.verifySignature(payload: payload, header: signature, secret: Environment.stripeSecretKey)
+        try StripeClient.verifySignature(payload: payload, header: signature, secret: Environment.stripeWebhookSecret)
         
         // Stripe dates come back from the Stripe API as epoch and the StripeModels convert these into swift `Date` types.
         // Use a date and key decoding strategy to successfully parse out the `created` property and snake case strpe properties.
@@ -44,7 +44,7 @@ final class StripeWebhookController {
         }
         
         guard
-            let subscriptionPlanId = stripeSubscription.items?.data?.first?.plan?.id,
+            let productId = stripeSubscription.items?.data?.first?.plan?.product,
             let currentPeriodEnd = stripeSubscription.currentPeriodEnd,
             let cancelAtPeriodEnd = stripeSubscription.cancelAtPeriodEnd,
             let status = stripeSubscription.status?.rawValue else {
@@ -60,7 +60,7 @@ final class StripeWebhookController {
         subscription.currentPeriodEnd = currentPeriodEnd
         subscription.cancelAtPeriodEnd = cancelAtPeriodEnd
         subscription.stripeId = stripeSubscription.id
-        subscription.stripePlanId = subscriptionPlanId
+        subscription.stripeProductId = productId
         subscription.stripeStatus = status
         subscription.canceledAt = stripeSubscription.canceledAt
         
@@ -72,31 +72,25 @@ final class StripeWebhookController {
     
     func checkoutCompleted(request: Request, session: StripeSession) async throws -> Response {
         
-        guard let stripeSubscription = session.$subscription else {
-            Swift.print("Missing subscription object")
-            return Response(status: .ok)
-        }
-        
-        guard let customerEmail = session.customerEmail else {
-            Swift.print("Missing customer email")
-            return Response(status: .ok)
-        }
-        
-        guard let customerId = session.customer else {
-            Swift.print("Missing client reference id")
+        let stripeSessionSubscription = try await request.stripe.sessions.retrieve(id: session.id, expand: ["subscription"]).get()
+    
+        guard let stripeSubscription = stripeSessionSubscription.$subscription else {
+            Swift.print("Subscription is missing")
             return Response(status: .ok)
         }
         
         guard
-            let subscriptionPlanId = stripeSubscription.items?.data?.first?.plan?.id,
             let currentPeriodEnd = stripeSubscription.currentPeriodEnd,
             let cancelAtPeriodEnd = stripeSubscription.cancelAtPeriodEnd,
-            let status = stripeSubscription.status?.rawValue else {
-            Swift.print("Subscription items missing")
+            let status = stripeSubscription.status?.rawValue,
+            let productId = stripeSubscription.items?.data?.first?.plan?.product,
+            let stripeCustomerEmail = stripeSessionSubscription.customerDetails?.email,
+            let stripeCustomerId = stripeSessionSubscription.customer else {
             return Response(status: .ok)
         }
+                
         
-        let user = try await User.createIfNotExist(db: request.db, email: customerEmail, stripeCustomerId: customerId)
+        let user = try await User.createIfNotExist(db: request.db, email: stripeCustomerEmail, stripeCustomerId: stripeCustomerId)
         
         let userId = try user.requireID()
         
@@ -108,7 +102,7 @@ final class StripeWebhookController {
         subscription.cancelAtPeriodEnd = cancelAtPeriodEnd
         subscription.$user.id = userId
         subscription.stripeId = stripeSubscription.id
-        subscription.stripePlanId = subscriptionPlanId
+        subscription.stripeProductId = productId
         subscription.stripeStatus = status
         subscription.canceledAt = stripeSubscription.canceledAt
         

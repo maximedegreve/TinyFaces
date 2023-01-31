@@ -16,6 +16,9 @@ struct CreateUser: Migration {
                 .field("name", .string, .required)
                 .field("email", .string, .required)
                 .field("stripe_customer_id", .string)
+                .field("created_at", .datetime)
+                .field("updated_at", .datetime)
+                .field("deleted_at", .datetime)
                 .unique(on: "stripe_customer_id")
                 .create()
 
