@@ -17,7 +17,7 @@ final class PublicAvatar: Content {
         self.source = PublicSource(source: avatar.source)
         self.firstName = firstName
         self.lastName = lastName
-        self.url = Thumbor().secure(url: avatar.url, size: ThumborSize(width: avatarSize, height: avatarSize))
+        self.url = Cloudflare().url(uuid: avatar.url, width: 1024, height: 1024, fit: .cover)
         self.gender = avatar.gender
         self.approved = avatar.approved
         self.createdAt = avatar.createdAt

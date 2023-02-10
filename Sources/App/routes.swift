@@ -21,6 +21,8 @@ func routes(_ app: Application) throws {
     let rateLimited = app.grouped(GatekeeperMiddleware())
 
     // MARK: API
+    app.get("api", "update", use: avatarController.update)
+
     rateLimited.get("api", "data", use: dataController.index)
     rateLimited.get("api", "avatar.jpg", use: avatarController.index)
     
