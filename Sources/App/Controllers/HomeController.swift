@@ -12,7 +12,7 @@ final class HomeController {
         return Avatar.query(on: request.db).filter(\.$approved == true).sort(\.$quality, .descending).limit(42).all().flatMap { avatars in
 
             let urls = avatars.map { avatar in
-                return Thumbor().secure(url: avatar.url, size: ThumborSize(width: 174, height: 174))
+                return Cloudflare().url(uuid: avatar.url, width: 174, height: 174, fit: .cover)
             }
 
             return request.view.render("home", HomeContext(avatars: urls))

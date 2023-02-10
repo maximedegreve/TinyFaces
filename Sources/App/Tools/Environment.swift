@@ -29,6 +29,20 @@ extension Environment {
     static var sendInBlueKey: String {
         Environment.get("SEND_IN_BLUE_KEY")!
     }
+    
+    // Cloudflare
+    
+    static var cloudflareAccountHash: String {
+        Environment.get("CLOUDFLARE_ACCOUNT_HASH")!
+    }
+    
+    static var cloudflareBearerToken: String {
+        Environment.get("CLOUDFLARE_BEARER_TOKEN")!
+    }
+    
+    static var cloudflareAccountIdentifier: String {
+        Environment.get("CLOUDFLARE_ACCOUNT_IDENTIFIER")!
+    }
 
     // Only for development
 
