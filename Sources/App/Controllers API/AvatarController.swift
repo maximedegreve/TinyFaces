@@ -2,20 +2,6 @@ import Vapor
 import Fluent
 
 final class AvatarController {
-
-    func update(request: Request) async throws -> Response {
-        
-        let avatars = try await Avatar.query(on: request.db).filter(\.$url, .contains(inverse: false, .anywhere), "storage.googleapis.com").all()
-        
-        for avatar in avatars {
-            let uploaded = try await Cloudflare().upload(url: avatar.url, metaData: ["type": "tiny-avatar", "gender": avatar.gender.rawValue, "approved": avatar.approved, "quality": avatar.quality], client: request.client)
-            avatar.url = uploaded.result.id
-            try await avatar.save(on: request.db)
-        }
-        
-        
-        return Response(status: .ok)
-    }
     
     func index(request: Request) async throws -> Response {
 
