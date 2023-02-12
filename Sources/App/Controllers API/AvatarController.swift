@@ -2,7 +2,7 @@ import Vapor
 import Fluent
 
 final class AvatarController {
-
+    
     func index(request: Request) async throws -> Response {
 
         try await Analytic.log(request: request)
@@ -20,7 +20,7 @@ final class AvatarController {
             throw Abort(.notFound, reason: "Not avatar found for your query.")
         }
 
-        let url = Thumbor().secure(url: avatar.url, size: ThumborSize(width: 1024, height: 1024))
+        let url = Cloudflare().url(uuid: avatar.url, width: 1024, height: 1024, fit: .cover)
         return request.redirect(to: url)
 
     }
