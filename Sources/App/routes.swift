@@ -6,21 +6,17 @@ func routes(_ app: Application) throws {
 
     // MARK: Controllers
     let dataController = DataController()
-    let homeController = HomeController()
+    let adminController = AdminController()
     let avatarController = AvatarController()
     let pricingController = PricingController()
     let stripeWebhookController = StripeWebhookController()
 
     // MARK: Pages
-    app.get(use: homeController.index)
+    app.get { _ in
+        return "TinyFaces API (\(app.environment.name))"
+    }
+    
     app.get("pricing", use: pricingController.index)
-
-    app.get("terms") { req -> EventLoopFuture<View> in
-        return req.view.render("terms")
-    }
-    app.get("privacy") { req -> EventLoopFuture<View> in
-        return req.view.render("privacy")
-    }
 
     let rateLimited = app.grouped(GatekeeperMiddleware())
 

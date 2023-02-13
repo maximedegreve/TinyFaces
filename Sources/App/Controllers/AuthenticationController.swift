@@ -103,7 +103,7 @@ final class AuthenticationController {
         let requestData = try request.content.decode(SettingsRequestData.self)
 
         // 💿 Fetch authentication code
-        guard var authCodeData = request.session.data["magic-code"] else {
+        guard let authCodeData = request.session.data["magic-code"] else {
             throw AuthenticationError.noAuthCodeForSession
         }
         
@@ -142,6 +142,7 @@ final class AuthenticationController {
                 expiration: .init(value: fourtheenDays),
                 userId: authCode.userId,
                 email: user.email,
+                admin: user.admin,
                 stripeCustomerId: user.stripeCustomerId
             )
 

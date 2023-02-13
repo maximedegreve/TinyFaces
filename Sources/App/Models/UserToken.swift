@@ -6,6 +6,7 @@ struct UserToken: JWTPayload {
     var expiration: ExpirationClaim
     var userId: Int
     var email: String
+    var admin: Bool
     var stripeCustomerId: String?
     
     enum CodingKeys: String, CodingKey {
@@ -14,6 +15,7 @@ struct UserToken: JWTPayload {
         case userId = "user_id"
         case stripeCustomerId = "stripe_customer_id"
         case email = "email"
+        case admin = "admin"
     }
     
     

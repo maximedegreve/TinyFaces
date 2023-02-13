@@ -2,6 +2,7 @@ import Vapor
 
 enum GenericError: AppError {
     case userNotFound
+    case notAdmin
 }
 
 extension GenericError: AbortError {
@@ -9,6 +10,8 @@ extension GenericError: AbortError {
         switch self {
         case .userNotFound:
             return .notFound
+        case .notAdmin:
+            return .forbidden
         }
     }
 
@@ -16,6 +19,8 @@ extension GenericError: AbortError {
         switch self {
         case .userNotFound:
             return "No matching user found for the supplied token"
+        case .notAdmin:
+            return "Only admins can access this endpoint"
         }
     }
 
@@ -23,6 +28,8 @@ extension GenericError: AbortError {
         switch self {
         case .userNotFound:
             return "generic-1"
+        case .notAdmin:
+            return "generic-2"
         }
     }
 
@@ -30,6 +37,8 @@ extension GenericError: AbortError {
         switch self {
         case .userNotFound:
             return ["Authenticate again to ensure the correct user is embedded in your token."]
+        case .notAdmin:
+            return ["Sign in with a admin account to access this."]
         }
     }
 

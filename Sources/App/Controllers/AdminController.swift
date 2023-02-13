@@ -3,15 +3,21 @@ import Fluent
 
 final class AdminController {
 
-    func index(request: Request) throws -> EventLoopFuture<View> {
+    func index(request: Request) async throws -> [AvatarAI] {
+
+        let user = try request.jwt.verify(as: UserToken.self)
+        
+        guard user.admin else {
+            throw GenericError.notAdmin
+        }
 
         struct HomeContext: Encodable {
             var avatars: [AvatarAI]
         }
+        
+        let results = try await AvatarAI.query(on: request.db).limit(10).all()
 
-        return AvatarAI.query(on: request.db).filter(\.$approved == true).limit(42).all().flatMap { avatars in
-            return request.view.render("home", HomeContext(avatars: avatars))
-        }
+        return results
 
     }
 
