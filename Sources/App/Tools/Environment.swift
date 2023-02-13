@@ -18,12 +18,8 @@ extension Environment {
         Environment.get("MYSQL_URL")
     }
     
-    static var thumborKey: String {
-        Environment.get("THUMBOR_KEY")!
-    }
-    
-    static var thumborUrl: String {
-        Environment.get("THUMBOR_URL")!
+    static var signer: String {
+        Environment.get("SIGNER") ?? "RznZVJsxNFuOJSM6CBqwolzix4nRFb"
     }
 
     static var sendInBlueKey: String {

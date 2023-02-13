@@ -10,6 +10,9 @@ final class User: Model, Content {
     @Field(key: "name")
     var name: String
     
+    @Field(key: "admin")
+    var admin: Bool
+    
     @Field(key: "email")
     var email: String
     
@@ -27,9 +30,10 @@ final class User: Model, Content {
 
     init() { }
 
-    init(name: String, email: String, stripeCustomerId: String?) {
+    init(name: String, email: String, stripeCustomerId: String?, admin: Bool) {
         self.name = name
         self.email = email
+        self.admin = admin
         self.stripeCustomerId = stripeCustomerId
     }
     
@@ -56,7 +60,7 @@ extension User {
         let parts = email.components(separatedBy: "@")
         let name = parts.first ?? "Your name"
         
-        let newUser = User(name: name, email: email, stripeCustomerId: stripeCustomerId)
+        let newUser = User(name: name, email: email, stripeCustomerId: stripeCustomerId, admin: false)
         try await newUser.save(on: db)
         
         return newUser

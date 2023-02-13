@@ -14,6 +14,7 @@ struct CreateUser: Migration {
         return database.schema("users")
                 .field(.id, .int, .identifier(auto: true), .required)
                 .field("name", .string, .required)
+                .field("admin", .bool, .required)
                 .field("email", .string, .required)
                 .field("stripe_customer_id", .string)
                 .field("created_at", .datetime)

@@ -15,7 +15,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/leaf.git", from: "4.2.4"),
         .package(url: "https://github.com/vapor/jwt.git", from: "4.2.1"),
         .package(url: "https://github.com/vapor-community/google-cloud-kit.git", from: "1.0.0-rc.9"),
-        .package(url: "https://github.com/maximedegreve/stripe-kit.git", branch: "patch-1")
+        .package(url: "https://github.com/maximedegreve/stripe-kit.git", branch: "patch-1"),
+        .package(url: "https://github.com/m-barthelemy/vapor-queues-fluent-driver.git", from: "3.0.0-beta1")
     ],
     targets: [
         .target(
@@ -29,6 +30,7 @@ let package = Package(
                 .product(name: "Gatekeeper", package: "gatekeeper"),
                 .product(name: "GoogleCloudKit", package: "google-cloud-kit"),
                 .product(name: "StripeKit", package: "stripe-kit"),
+                .product(name: "QueuesFluentDriver", package: "vapor-queues-fluent-driver"),
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of
