@@ -3,7 +3,7 @@ import Fluent
 
 final class PricingController {
 
-    struct PricingResponse: Encodable {
+    struct PricingResponse: Content {
         var tableId: String
         var publishableKey: String
         var clientReferenceId: String

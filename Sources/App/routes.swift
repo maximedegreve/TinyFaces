@@ -16,18 +16,18 @@ func routes(_ app: Application) throws {
         return "TinyFaces API (\(app.environment.name))"
     }
     
-    app.get("pricing", use: pricingController.index)
-
     let rateLimited = app.grouped(GatekeeperMiddleware())
 
     // MARK: Public API
-    rateLimited.get("api", "data", use: dataController.index)
-    rateLimited.get("api", "avatar.jpg", use: avatarController.index)
+    rateLimited.get("pricing", use: pricingController.index)
+    rateLimited.get("data", use: dataController.index)
+    rateLimited.get("avatar.jpg", use: avatarController.index)
     
     // MARK: Legacy API
-    rateLimited.get("api", "users", use: dataController.index)
+    rateLimited.get("users", use: dataController.index)
     
     // MARK: Private API
+    rateLimited.get("admin", use: adminController.index)
     app.post("stripe", "webhook", use: stripeWebhookController.index)
     
 }
