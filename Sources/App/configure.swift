@@ -21,12 +21,10 @@ public func configure(_ app: Application) throws {
     
     let cors = CORSMiddleware(configuration: corsConfiguration)
     let error = ErrorMiddleware.default(environment: app.environment)
-    let files = FileMiddleware(publicDirectory: app.directory.publicDirectory)
 
     app.middleware = .init()
     app.middleware.use(cors)
     app.middleware.use(error)
-    app.middleware.use(files)
     
     // 🔑 JWT
     app.jwt.signers.use(.hs256(key: Environment.signer))
