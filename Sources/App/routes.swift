@@ -32,6 +32,8 @@ func routes(_ app: Application) throws {
     
     // MARK: Private API
     rateLimited.get("admin", use: adminController.index)
+    rateLimited.post("admin", use: adminController.upload)
+    rateLimited.delete("admin", use: adminController.delete)
     app.post("stripe", "webhook", use: stripeWebhookController.index)
     
 }

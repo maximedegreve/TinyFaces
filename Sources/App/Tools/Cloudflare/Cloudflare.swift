@@ -16,7 +16,7 @@ final public class Cloudflare {
 
     init() {}
 
-    func upload(url: String, metaData: [String: Any], client: Client) async throws -> CloudflareUrlResponse {
+    func upload(url: String, metaData: [String: Any], client: Client) async throws -> CloudflareResponse {
 
         let data = try JSONSerialization.data(withJSONObject: metaData, options: .prettyPrinted)
         let jsonString = String(data: data, encoding: .utf8)
@@ -29,7 +29,35 @@ final public class Cloudflare {
             try req.content.encode(body, as: .formData)
         }
         
-        return try response.content.decode(CloudflareUrlResponse.self)
+        return try response.content.decode(CloudflareResponse.self)
+
+    }
+    
+    func upload(file: File, metaData: [String: Any], client: Client) async throws -> CloudflareResponse {
+
+        let data = try JSONSerialization.data(withJSONObject: metaData, options: .prettyPrinted)
+        let jsonString = String(data: data, encoding: .utf8)
+        
+        let body = CloudflareRequest(file: file, metadata: jsonString)
+
+        let fileUploadUrl = URI("\(apiUrl)\(accountIdentifier)/images/v1")
+        let response = try await client.post(fileUploadUrl) { req in
+            req.headers.bearerAuthorization = BearerAuthorization(token: bearerToken)
+            try req.content.encode(body, as: .formData)
+        }
+        
+        return try response.content.decode(CloudflareResponse.self)
+
+    }
+    
+    func delete(identifier: String, client: Client) async throws -> CloudflareResponse {
+
+        let deleteUrl = URI("\(apiUrl)\(accountIdentifier)/images/v1/\(identifier)")
+        let response = try await client.delete(deleteUrl) { req in
+            req.headers.bearerAuthorization = BearerAuthorization(token: bearerToken)
+        }
+        
+        return try response.content.decode(CloudflareResponse.self)
 
     }
     

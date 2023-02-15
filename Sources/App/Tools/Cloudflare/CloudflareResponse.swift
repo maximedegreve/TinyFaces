@@ -7,8 +7,8 @@
 
 import Vapor
 
-struct CloudflareUrlResponse: Error, Content {
-    var result: CloudflareImage
+struct CloudflareResponse: Error, Content {
+    var result: CloudflareImage?
     var success: Bool
     var errors: [CloudflareError]?
     var messages: [CloudflareMessage]?
