@@ -23,7 +23,7 @@ public func configure(_ app: Application) throws {
     app.middleware.use(cors, at: .beginning)
 
     // 🏋️ Sessions
-    app.sessions.configuration.cookieName = "layers"
+    app.sessions.configuration.cookieName = "tinyfaces"
     app.sessions.use(.memory)
     app.middleware.use(app.sessions.middleware)
 
