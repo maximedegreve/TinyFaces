@@ -20,12 +20,19 @@ public func configure(_ app: Application) throws {
     )
     
     let cors = CORSMiddleware(configuration: corsConfiguration)
-    let error = ErrorMiddleware.default(environment: app.environment)
+    app.middleware.use(cors, at: .beginning)
 
-    app.middleware = .init()
-    app.middleware.use(cors)
-    app.middleware.use(error)
-    
+    // 🏋️ Sessions
+    app.sessions.configuration.cookieName = "layers"
+    app.sessions.use(.memory)
+    app.middleware.use(app.sessions.middleware)
+
+    // 💂‍♂️ Cache
+    app.caches.use(.memory)
+
+    // 🚨 Custom errors
+    app.middleware.use(ErrorMiddleware.custom(environment: app.environment))
+
     // 🔑 JWT
     app.jwt.signers.use(.hs256(key: Environment.signer))
 
@@ -33,18 +40,12 @@ public func configure(_ app: Application) throws {
     app.views.use(.leaf)
     
     // 👮 Rate limit
-    app.caches.use(.fluent)
     app.gatekeeper.config = .init(maxRequests: 30, per: .minute)
-    app.gatekeeper.keyMakers.use(.hostname)
     app.middleware.use(GatekeeperMiddleware())
     
     // 🤓 Debug
     // app.logger.logLevel = .debug
-    
-    // 🏋️ Sessions
-    app.sessions.configuration.cookieName = "layers"
-    app.sessions.use(.memory)
-    
+
     // 📆 Date encoding
     let encoder = JSONEncoder()
     encoder.dateEncodingStrategy = .secondsSince1970

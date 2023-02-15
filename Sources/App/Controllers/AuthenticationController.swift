@@ -55,8 +55,8 @@ final class AuthenticationController {
         let magicCode = AuthenticationCode(code: code, userId: userId, expiryDate: expiryDate, tries: 0, isNewUser: isNewUser)
 
         // 💿 Save to session
-        let json = try JSONEncoder().encode(magicCode).base64String()
-        request.session.data["magic-code"] = json
+        let expiresIn = CacheExpirationTime.minutes(flowLifetime)
+        try await request.cache.set(session, to: magicCode, expiresIn: expiresIn)
 
         // 📧 Build email
         let sender = SendInBlueContact(name: "Laye.rs", email: "no-reply@laye.rs")
@@ -103,12 +103,9 @@ final class AuthenticationController {
         let requestData = try request.content.decode(SettingsRequestData.self)
 
         // 💿 Fetch authentication code
-        guard let authCodeData = request.session.data["magic-code"] else {
+        guard var authCode = try await request.cache.get(requestData.session, as: AuthenticationCode.self) else {
             throw AuthenticationError.noAuthCodeForSession
         }
-        
-        let buffer = ByteBuffer(bytes: authCodeData.base64Bytes())
-        var authCode = try JSONDecoder().decode(AuthenticationCode.self, from: buffer)
         
         // 👮‍♂️ Check if code was tries too much
         guard authCode.tries < 3 else {
