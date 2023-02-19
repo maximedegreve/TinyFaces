@@ -16,15 +16,23 @@ final class AdminController {
         }
         
         let results = try await AvatarAI.query(on: request.db).limit(10).all()
-
-        return results
+        let mapped: [AvatarAI] = results.compactMap({ avatarAI in
+            let url = Cloudflare().url(uuid: avatarAI.url, variant: "public")
+            guard let signedUrl = Cloudflare().generateSignedUrl(url: url) else {
+                return nil
+            }
+            avatarAI.url = signedUrl
+            return avatarAI
+        })
+            
+        return mapped
 
     }
 
     func upload(request: Request) async throws -> AvatarAI {
 
         struct Response: Error, Content {
-            var avatar: File
+            var avatar: Data
         }
 
         let user = try request.jwt.verify(as: UserToken.self)
@@ -34,9 +42,9 @@ final class AdminController {
         }
         
         let response = try request.content.decode(Response.self, using: FormDataDecoder())
-        let metaData = ["type": "ai-avatar"]
+        let metaData = ["type": "avatarai"]
 
-        let upload = try await Cloudflare().upload(file: response.avatar, metaData: metaData, client: request.client)
+        let upload = try await Cloudflare().upload(file: response.avatar, metaData: metaData, requireSignedURLs: true, client: request.client)
 
         guard let resultId = upload.result?.id else {
             throw AdminError.failedUpload
