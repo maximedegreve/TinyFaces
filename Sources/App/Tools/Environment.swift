@@ -51,6 +51,10 @@ extension Environment {
         Environment.get("CLOUDFLARE_BEARER_TOKEN")!
     }
     
+    static var cloudflareImagesKey: String {
+        Environment.get("CLOUDFLARE_IMAGES_KEY")!
+    }
+        
     static var cloudflareAccountIdentifier: String {
         Environment.get("CLOUDFLARE_ACCOUNT_IDENTIFIER")!
     }

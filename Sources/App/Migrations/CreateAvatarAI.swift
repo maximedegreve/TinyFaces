@@ -22,7 +22,13 @@ struct CreateAvatarAI: AsyncMigration {
             .case("middle_adult")
             .case("old_adult")
             .create()
-    
+        
+        let styles = try await database.enum("styles")
+            .case("colorful")
+            .case("neutral")
+            .case("urban")
+            .create()
+
         let origins = try await database.enum("origins")
             .case("alaskan")
             .case("balkan")
@@ -55,6 +61,7 @@ struct CreateAvatarAI: AsyncMigration {
             .field("url", .string, .required)
             .field("approved", .bool, .required)
             .field("gender", genders)
+            .field("style", styles)
             .field("age_group", ageGroups)
             .field("origin", origins)
             .field("created_at", .datetime)
@@ -67,6 +74,7 @@ struct CreateAvatarAI: AsyncMigration {
     func revert(on database: Database) async throws {
         try await database.schema("avatars_ai").delete()
         try await database.enum("origins").delete()
+        try await database.enum("styles").delete()
         try await database.enum("age_groups").delete()
         try await database.enum("genders").delete()
     }

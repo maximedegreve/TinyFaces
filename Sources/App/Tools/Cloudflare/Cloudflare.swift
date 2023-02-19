@@ -11,6 +11,7 @@ import Crypto
 
 final public class Cloudflare {
     private let bearerToken = Environment.cloudflareBearerToken
+    private let imageKey = Environment.cloudflareImagesKey
     private let accountIdentifier = Environment.cloudflareAccountIdentifier
     private let apiUrl = "https://api.cloudflare.com/client/v4/accounts/"
 
@@ -27,7 +28,6 @@ final public class Cloudflare {
         let response = try await client.post(fileUploadUrl) { req in
             req.headers.bearerAuthorization = BearerAuthorization(token: bearerToken)
             try req.content.encode(body, as: .formData)
-            Swift.print(req)
         }
         
         return try response.content.decode(CloudflareResponse.self)
@@ -110,7 +110,7 @@ final public class Cloudflare {
             return nil
         }
         
-        guard let key: Data = bearerToken.data(using: .utf8) else {
+        guard let key: Data = imageKey.data(using: .utf8) else {
             return nil
         }
         

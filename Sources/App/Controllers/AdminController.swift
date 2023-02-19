@@ -3,7 +3,15 @@ import Fluent
 
 final class AdminController {
 
-    func index(request: Request) async throws -> [AvatarAI] {
+    struct AdminContext: Content {
+        var avatars: [AvatarAI]
+        var styles: [AvatarStyle]
+        var genders: [Gender]
+        var origins: [AvatarOrigin]
+        var ageGroups: [AvatarAgeGroup]
+    }
+    
+    func index(request: Request) async throws -> AdminContext {
 
         let user = try request.jwt.verify(as: UserToken.self)
         
@@ -11,10 +19,6 @@ final class AdminController {
             throw GenericError.notAdmin
         }
 
-        struct HomeContext: Encodable {
-            var avatars: [AvatarAI]
-        }
-        
         let results = try await AvatarAI.query(on: request.db).limit(10).all()
         let mapped: [AvatarAI] = results.compactMap({ avatarAI in
             let url = Cloudflare().url(uuid: avatarAI.url, variant: "small")
@@ -25,7 +29,7 @@ final class AdminController {
             return avatarAI
         })
             
-        return mapped
+        return AdminContext(avatars: mapped, styles: AvatarStyle.allCases, genders: Gender.allCases, origins: AvatarOrigin.allCases, ageGroups: AvatarAgeGroup.allCases)
 
     }
 
