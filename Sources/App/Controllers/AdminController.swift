@@ -2,7 +2,7 @@ import Vapor
 import Fluent
 
 final class AdminController {
-
+    
     struct AdminContext: Content {
         var avatars: [AvatarAI]
         var styles: [AvatarStyle]
@@ -13,14 +13,45 @@ final class AdminController {
     
     func index(request: Request) async throws -> AdminContext {
 
+        enum AdminResultType: String, Content {
+            case unreviewed = "unreviewed"
+            case reviewed = "reviewed"
+            case all = "all"
+        }
+
+        struct AdminResults: Content {
+            var type: AdminResultType
+        }
+ 
         let user = try request.jwt.verify(as: UserToken.self)
         
         guard user.admin else {
             throw GenericError.notAdmin
         }
 
-        let results = try await AvatarAI.query(on: request.db).limit(10).all()
-        let mapped: [AvatarAI] = results.compactMap({ avatarAI in
+            
+        let data = try request.query.decode(AdminResults.self)
+
+        let results = AvatarAI.query(on: request.db)
+
+        switch data.type {
+        case .unreviewed:
+            results.group(.or) { avatar in
+                avatar.filter(\.$style, .equal, nil).filter(\.$ageGroup, .equal, nil).filter(\.$gender, .equal, nil).filter(\.$approved, .equal, false)
+            }
+            break;
+        case .reviewed:
+            results.group(.and) { avatar in
+                avatar.filter(\.$style, .notEqual, nil).filter(\.$ageGroup, .notEqual, nil).filter(\.$gender, .notEqual, nil).filter(\.$approved, .notEqual, false)
+            }
+            break;
+        default:
+            break;
+        }
+            
+        let resultsWithLimit = try await results.limit(10).all()
+        
+        let mapped: [AvatarAI] = resultsWithLimit.compactMap({ avatarAI in
             let url = Cloudflare().url(uuid: avatarAI.url, variant: "small")
             guard let signedUrl = Cloudflare().generateSignedUrl(url: url) else {
                 return nil
