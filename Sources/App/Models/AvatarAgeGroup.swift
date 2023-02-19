@@ -7,7 +7,7 @@
 
 import Vapor
 
-enum AgeGroup: String, Codable, CaseIterable {
+enum AvatarAgeGroup: String, Codable, CaseIterable {
     case baby = "baby" // 0-1
     case toddler = "toddler" // 1-4
     case child = "child" // 4-10

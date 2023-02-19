@@ -13,8 +13,14 @@ final class AvatarAI: Model, Content {
     @OptionalEnum(key: "gender")
     var gender: Gender?
     
+    @OptionalEnum(key: "origin")
+    var origin: AvatarOrigin?
+    
     @OptionalEnum(key: "age_group")
-    var ageGroup: AgeGroup?
+    var ageGroup: AvatarAgeGroup?
+    
+    @OptionalEnum(key: "style")
+    var style: AvatarStyle?
 
     @Field(key: "approved")
     var approved: Bool

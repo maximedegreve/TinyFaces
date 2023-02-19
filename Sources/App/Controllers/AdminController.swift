@@ -17,7 +17,7 @@ final class AdminController {
         
         let results = try await AvatarAI.query(on: request.db).limit(10).all()
         let mapped: [AvatarAI] = results.compactMap({ avatarAI in
-            let url = Cloudflare().url(uuid: avatarAI.url, variant: "public")
+            let url = Cloudflare().url(uuid: avatarAI.url, variant: "small")
             guard let signedUrl = Cloudflare().generateSignedUrl(url: url) else {
                 return nil
             }
