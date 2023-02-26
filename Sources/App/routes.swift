@@ -31,9 +31,10 @@ func routes(_ app: Application) throws {
     rateLimited.get("users", use: dataController.index)
     
     // MARK: Private API
-    rateLimited.on(.GET, "admin", use: adminController.index)
-    rateLimited.on(.POST, "admin", "upload", body: .collect(maxSize: "10mb"), use: adminController.upload)
-    rateLimited.on(.DELETE, "admin", "delete", use: adminController.delete)
+    app.on(.GET, "admin", use: adminController.index)
+    app.on(.POST, "admin", "upload", body: .collect(maxSize: "10mb"), use: adminController.upload)
+    app.on(.PUT, "admin", ":id", use: adminController.put)
+    app.on(.DELETE, "admin", ":id", use: adminController.delete)
     app.post("stripe", "webhook", use: stripeWebhookController.index)
     
 }

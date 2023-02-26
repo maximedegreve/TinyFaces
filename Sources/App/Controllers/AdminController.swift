@@ -9,6 +9,7 @@ final class AdminController {
         var genders: [Gender]
         var origins: [AvatarOrigin]
         var ageGroups: [AvatarAgeGroup]
+        var metadata: PageMetadata
     }
     
     func index(request: Request) async throws -> AdminContext {
@@ -49,9 +50,9 @@ final class AdminController {
             break;
         }
             
-        let resultsWithLimit = try await results.limit(10).all()
+        let paginatedResults = try await results.paginate(for: request)
         
-        let mapped: [AvatarAI] = resultsWithLimit.compactMap({ avatarAI in
+        let paginateResultsWithUrls: [AvatarAI] = paginatedResults.items.compactMap({ avatarAI in
             let url = Cloudflare().url(uuid: avatarAI.url, variant: "small")
             guard let signedUrl = Cloudflare().generateSignedUrl(url: url) else {
                 return nil
@@ -59,9 +60,46 @@ final class AdminController {
             avatarAI.url = signedUrl
             return avatarAI
         })
-            
-        return AdminContext(avatars: mapped, styles: AvatarStyle.allCases, genders: Gender.allCases, origins: AvatarOrigin.allCases, ageGroups: AvatarAgeGroup.allCases)
+        
+                    
+        return AdminContext(avatars: paginateResultsWithUrls, styles: AvatarStyle.allCases, genders: Gender.allCases, origins: AvatarOrigin.allCases, ageGroups: AvatarAgeGroup.allCases, metadata: paginatedResults.metadata)
 
+    }
+    
+    func put(request: Request) async throws -> Response {
+        
+        let user = try request.jwt.verify(as: UserToken.self)
+        
+        guard user.admin else {
+            throw GenericError.notAdmin
+        }
+        
+        let id = request.parameters.get("id")!
+
+        guard let avatar = try await AvatarAI.find(Int(id), on: request.db) else {
+            throw AdminError.avatarNotFound
+        }
+        
+        struct UpdateData: Error, Content {
+            var gender: Gender?
+            var origin: AvatarOrigin?
+            var ageGroup: AvatarAgeGroup?
+            var style: AvatarStyle?
+            var approved: Bool
+        }
+        
+        let data = try request.content.decode(UpdateData.self)
+        
+        avatar.gender = data.gender
+        avatar.origin = data.origin
+        avatar.ageGroup = data.ageGroup
+        avatar.style = data.style
+        avatar.approved = data.approved
+        
+        try await avatar.save(on: request.db)
+        
+        return Response(status: .ok)
+        
     }
 
     func upload(request: Request) async throws -> AvatarAI {
@@ -100,13 +138,9 @@ final class AdminController {
             throw GenericError.notAdmin
         }
         
-        struct RequestData: Content {
-            var id: Int
-        }
-        
-        let data = try request.query.decode(RequestData.self)
-        
-        guard let avatar = try await AvatarAI.find(data.id, on: request.db) else {
+        let id = request.parameters.get("id")!
+
+        guard let avatar = try await AvatarAI.find(Int(id), on: request.db) else {
             throw AdminError.avatarNotFound
         }
         
