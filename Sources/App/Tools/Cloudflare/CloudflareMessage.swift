@@ -11,4 +11,3 @@ struct CloudflareMessage: Content {
     var code: Int
     var message: String
 }
-

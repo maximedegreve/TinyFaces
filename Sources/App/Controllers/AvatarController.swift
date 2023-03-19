@@ -2,7 +2,7 @@ import Vapor
 import Fluent
 
 final class AvatarController {
-    
+
     func index(request: Request) async throws -> Response {
 
         try await Analytic.log(request: request)
@@ -11,11 +11,11 @@ final class AvatarController {
             var quality: Int?
             var gender: Gender?
         }
-        
+
         let data = try request.query.decode(RequestData.self)
-        
+
         let optionalAvatar = try await randomAvatar(request: request, gender: data.gender, quality: data.quality ?? 0).get()
-        
+
         guard let avatar = optionalAvatar else {
             throw Abort(.notFound, reason: "Not avatar found for your query.")
         }
@@ -24,7 +24,7 @@ final class AvatarController {
         return request.redirect(to: url)
 
     }
-    
+
     func randomAvatar(request: Request, gender: Gender?, quality: Int) -> EventLoopFuture<Avatar?> {
 
         let baseQuery = Avatar.query(on: request.db).with(\.$source).filter(\.$quality >= quality).filter(\.$approved == true)

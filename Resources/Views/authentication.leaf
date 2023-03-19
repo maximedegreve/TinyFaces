@@ -1,0 +1,6 @@
+<body>
+Hi #(name),<br />
+
+Here is your magic code to sign in:
+#(code1)#(code2)#(code3)#(code4)#(code5)#(code6)
+</body>

@@ -8,6 +8,7 @@
 import Vapor
 
 struct CloudflareRequest: Error, Content {
-    var url: String
+    var file: Data
     var metadata: String?
+    var requireSignedURLs: Bool
 }

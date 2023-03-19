@@ -1,9 +1,9 @@
 import Vapor
 import Fluent
 
-final class DataController {
+final class DataAIController {
 
-    func index(request: Request) async throws -> [PublicAvatar] {
+    func index(request: Request) async throws -> [PublicAvatarAI] {
 
         try await Analytic.log(request: request)
 
@@ -52,21 +52,21 @@ final class DataController {
         let firstNames = try await self.randomFirstNames(request: request, gender: gender, limit: limit).get()
         let lastNames = try await self.randomLastNames(request: request, limit: limit).get()
         let avatars = try await self.randomAvatars(request: request, gender: gender, limit: limit, quality: quality).get()
-        
+
         return avatars.enumerated().compactMap { (index, element) in
 
             let firstName = firstNames[safe: index]?.name ?? "Jane"
             let lastName = lastNames[safe: index]?.name ?? "Doe"
-            let avatar = PublicAvatar(avatar: element, avatarSize: avatarSize, firstName: firstName, lastName: lastName)
+            let avatar = PublicAvatarAI(avatar: element, avatarSize: avatarSize, firstName: firstName, lastName: lastName)
             return avatar
 
         }
 
     }
 
-    func randomAvatars(request: Request, gender: Gender?, limit: Int, quality: Int) -> EventLoopFuture<[Avatar]> {
+    func randomAvatars(request: Request, gender: Gender?, limit: Int, quality: Int) -> EventLoopFuture<[AvatarAI]> {
 
-        let baseQuery = Avatar.query(on: request.db).with(\.$source).filter(\.$quality >= quality).filter(\.$approved == true)
+        let baseQuery = AvatarAI.query(on: request.db)
 
         if let gender = gender {
             baseQuery.filter(\.$gender == gender)

@@ -9,10 +9,10 @@ final class HomeController {
             var avatars: [String]
         }
 
-        return Avatar.query(on: request.db).filter(\.$approved == true).sort(\.$quality, .descending).limit(42).all().flatMap { avatars in
+        return AvatarAI.query(on: request.db).limit(42).sort(.sql(raw: "rand()")).all().flatMap { avatars in
 
-            let urls = avatars.map { avatar in
-                return Cloudflare().url(uuid: avatar.url, width: 174, height: 174, fit: .cover)
+            let urls = avatars.compactMap { avatar in
+                return PublicAvatarAI(avatar: avatar, avatarSize: 174, firstName: "", lastName: "").url
             }
 
             return request.view.render("home", HomeContext(avatars: urls))

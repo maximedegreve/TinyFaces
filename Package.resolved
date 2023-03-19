@@ -64,6 +64,33 @@
       }
     },
     {
+      "identity" : "google-cloud-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor-community/google-cloud-kit.git",
+      "state" : {
+        "revision" : "17b2eec3df26c6535a90b5650dee53670494f4d9",
+        "version" : "1.0.0-rc.9"
+      }
+    },
+    {
+      "identity" : "jwt",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/jwt.git",
+      "state" : {
+        "revision" : "506d238a707c0e7c1d2cf690863902eaf3bc4e94",
+        "version" : "4.2.1"
+      }
+    },
+    {
+      "identity" : "jwt-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/jwt-kit.git",
+      "state" : {
+        "revision" : "87ce13a1df913ba4d51cf00606df7ef24d455571",
+        "version" : "4.7.0"
+      }
+    },
+    {
       "identity" : "leaf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/leaf.git",
@@ -109,6 +136,15 @@
       }
     },
     {
+      "identity" : "queues",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/queues.git",
+      "state" : {
+        "revision" : "c95c891c3c04817eac1165587fb02457c749523a",
+        "version" : "1.11.1"
+      }
+    },
+    {
       "identity" : "routing-kit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/routing-kit.git",
@@ -124,6 +160,15 @@
       "state" : {
         "revision" : "9cc30f8cef132e91a07e36005612b37f918731fc",
         "version" : "3.16.0"
+      }
+    },
+    {
+      "identity" : "stripe-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/maximedegreve/stripe-kit.git",
+      "state" : {
+        "branch" : "patch-1",
+        "revision" : "fe1dda7d385bc55a3c4f3b569b4d5e400082e2cf"
       }
     },
     {
@@ -250,6 +295,15 @@
       "state" : {
         "revision" : "888c8b68642c1d340b6b3e9b2b8445fb0f6148c9",
         "version" : "4.68.0"
+      }
+    },
+    {
+      "identity" : "vapor-queues-fluent-driver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/m-barthelemy/vapor-queues-fluent-driver.git",
+      "state" : {
+        "revision" : "e2ce6775850bdbe277cb2e5792d05eff42434f52",
+        "version" : "3.0.0-beta1"
       }
     },
     {
