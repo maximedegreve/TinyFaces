@@ -25,15 +25,19 @@
 #export("body"):
 
   <div class="bg-snow--d textAlign-center paddingTop-xl paddingBottom-xl">
+    <div class="marginRight-m marginTop-m position-fixed pinTR" style="z-index: 2;">
+      <a href="mailto:hello@tinyfac.es" target="=_blank" class="button fontSize-s paddingLeftRight-s c-white bg-silver" style="border-radius: 21px; line-height: 42px; height: 42px;" >Contact</a>
+    </div>
     <div class="display-inlineBlock marginLeft-l marginRight-l" style="max-width:500px;">
       <div class="marginBottom-l"><img width="93" height="auto" src="images/logo.png" alt="TinyFaces Logo"></div>
       <div class="marginBottom-m"><img style="max-width:398px;" class="width-100 height-auto" height="auto" src="images/front.png"/></div>
-      <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-xs display-inlineBlock">Free stock avatars for everyone</h1>
+      <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-xs display-inlineBlock">Free AI stock avatars for everyone</h1>
       <h2 class="c-silver fontSize-l lineHeight-l fontWeight-3 display-inlineBlock marginBottom-m">
-        TinyFaces is an artifical intelligence generated avatar gallery to use in your personal or commercial projects
+        TinyFaces is an artifical intelligence generated avatar library to use in your personal or commercial projects
       </h2>
       
-        <a href="https://github.com/maximedegreve/TinyFaces-Sketch-Plugin" target="=_blank" class="button fontSize-s padding-xs marginRight-xs c-white bg-slate" style="border-radius: 21px; height: 42px;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+        <a href="https://github.com/maximedegreve/TinyFaces-Sketch-Plugin" target="=_blank" class="button fontSize-s padding-xs c-white bg-slate" style="border-radius: 21px; height: 42px;">
           <img class="paddingLeft-xxs float-left" width="22" src="images/SketchIcon.png"/>
           <span class="paddingLeft-xs paddingRight-xs" style="line-height: 22px;">Get our Sketch Plugin</span>
         </a>
@@ -41,6 +45,7 @@
           <img class="paddingLeft-xxs float-left" width="19" src="images/figma.png"/>
           <span class="paddingLeft-xs paddingRight-xs" style="line-height: 22px;">Get our Figma Plugin</span>
         </a>
+        </div>
 
     </div>
   </div>
@@ -84,9 +89,9 @@
           <div class="marginTop-l">
             <h3 class="fontSize-xl c-steel marginBottom-s marginTop-xs display-inlineBlock">Our rules</h3>
             <ol class="c-silver fontWeight-3 fontSize-l list list--unordered lineHeight-l" style="padding-left: 0">
-              <li>You can’t use any of our content next to any adult or discrimating content.</li>
-              <li>You should never use the real name of the person in the photo in your designs.</li>
-              <li>Never use a photo for fake testimonals.</li>
+              <li>Don't use avatar for adult content.</li>
+              <li>Avatars should not be used for any unlawful or malicious purposes, including harassment, discrimination, or other harmful behavior..</li>
+              <li>Only use avatars for personal use unless you pay a <a class="link link--blue" href="mailto:hello@tinyfac.es">commercial license</a>.</li>
               <li>This list of rules might grow in the future and should be checked regularly.</li>
             </ol>
           </div>
