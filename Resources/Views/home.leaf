@@ -25,7 +25,8 @@
 #export("body"):
 
   <div class="bg-snow--d textAlign-center paddingTop-xl paddingBottom-xl">
-    <div class="marginRight-m marginTop-m position-fixed pinTR" style="z-index: 2;">
+    <div class="marginRight-m marginTop-m position-fixed pinTR" style="z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+      <a href="mailto:hello@tinyfac.es" target="=_blank" class="button fontSize-s paddingLeftRight-s c-white bg-silver" style="border-radius: 21px; line-height: 42px; height: 42px;" >Pricing</a>
       <a href="mailto:hello@tinyfac.es" target="=_blank" class="button fontSize-s paddingLeftRight-s c-white bg-silver" style="border-radius: 21px; line-height: 42px; height: 42px;" >Contact</a>
     </div>
     <div class="display-inlineBlock marginLeft-l marginRight-l" style="max-width:500px;">
