@@ -33,7 +33,7 @@ final class AdminController {
             
         let data = try request.query.decode(AdminResults.self)
 
-        let results = AvatarAI.query(on: request.db)
+        let results = AvatarAI.query(on: request.db).sort(\.$createdAt, .descending)
 
         switch data.type {
         case .unreviewed:

@@ -3,23 +3,27 @@ import Vapor
 final class PublicAvatarAI: Content {
 
     var id: Int?
-    var url: String
+    var url: String?
+    var gender: Gender?
     var firstName: String
     var lastName: String
-    var gender: Gender?
     var approved: Bool
     var createdAt: Date?
     var updatedAt: Date?
 
-    init(avatarAI: AvatarAI, firstName: String, lastName: String) {
-        self.id = avatarAI.id
-        self.url = Cloudflare().url(uuid: avatarAI.url, width: 1024, height: 1024, fit: .cover)
+    init(avatar: AvatarAI, avatarSize: Int, firstName: String, lastName: String) {
+        
+        let url = Cloudflare().url(uuid: avatar.url, variant: "small")
+        let signedUrl = Cloudflare().generateSignedUrl(url: url)
+      
+        self.id = avatar.id
         self.firstName = firstName
         self.lastName = lastName
-        self.gender = avatarAI.gender
-        self.approved = avatarAI.approved
-        self.createdAt = avatarAI.createdAt
-        self.updatedAt = avatarAI.updatedAt
+        self.url = signedUrl
+        self.gender = avatar.gender
+        self.approved = avatar.approved
+        self.createdAt = avatar.createdAt
+        self.updatedAt = avatar.updatedAt
     }
 
     enum CodingKeys: String, CodingKey {
