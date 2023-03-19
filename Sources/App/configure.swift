@@ -13,7 +13,7 @@ public func configure(_ app: Application) throws {
 
     // 🌐 Cors
     let corsConfiguration = CORSMiddleware.Configuration(
-        allowedOrigin: .any(["http://localhost:3000", "https://tinyfac.es", "https://api.tinyfac.es"]),
+        allowedOrigin: .all,
         allowedMethods: [.GET, .POST, .PUT, .OPTIONS, .DELETE, .PATCH],
         allowedHeaders: [.accept, .authorization, .contentType, .origin, .xRequestedWith, .userAgent, .referer, .accessControlAllowOrigin, .accessControlAllowCredentials],
         allowCredentials: true
