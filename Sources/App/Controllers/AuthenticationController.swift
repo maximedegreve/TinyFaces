@@ -106,7 +106,7 @@ final class AuthenticationController {
         guard var authCode = try await request.cache.get(requestData.session, as: AuthenticationCode.self) else {
             throw AuthenticationError.noAuthCodeForSession
         }
-        
+
         // 👮‍♂️ Check if code was tries too much
         guard authCode.tries < 3 else {
             request.session.destroy()
@@ -130,7 +130,7 @@ final class AuthenticationController {
         guard let user = try await User.find(authCode.userId, on: request.db) else {
             throw GenericError.userNotFound
         }
-        
+
         // 🎉 Generate JWT token
         let fourtheenDays = Calendar.current.date(byAdding: .day, value: 14, to: Date()) ?? Date()
 
@@ -165,7 +165,7 @@ final class AuthenticationController {
     }
 
    // MARK: Context
-    
+
     struct JWTToken: Content {
         var jwt: String
 

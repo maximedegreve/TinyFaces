@@ -8,7 +8,7 @@ struct UserToken: JWTPayload {
     var email: String
     var admin: Bool
     var stripeCustomerId: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case subject = "sub"
         case expiration = "exp"
@@ -17,8 +17,7 @@ struct UserToken: JWTPayload {
         case email = "email"
         case admin = "admin"
     }
-    
-    
+
     func verify(using signer: JWTSigner) throws {
         try self.expiration.verifyNotExpired()
     }

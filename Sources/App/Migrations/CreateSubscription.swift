@@ -10,7 +10,7 @@ import Fluent
 
 struct CreateSubscription: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
-        
+
         return database.schema("subscriptions")
                 .field(.id, .int, .identifier(auto: true), .required)
                 .field("user_id", .int, .required, .references("users", "id"))

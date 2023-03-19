@@ -13,6 +13,6 @@ enum AvatarAgeGroup: String, Codable, CaseIterable {
     case child = "child" // 4-10
     case teenager = "teenager" // 10-17
     case youngAdult = "young_adult" // 18-40
-    case middleAdult = "middle_adult" //40-64
-    case oldAdult = "old_adult" //65+
+    case middleAdult = "middle_adult" // 40-64
+    case oldAdult = "old_adult" // 65+
 }

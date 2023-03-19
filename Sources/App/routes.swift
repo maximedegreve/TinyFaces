@@ -21,29 +21,29 @@ func routes(_ app: Application) throws {
     app.get("terms") { req -> EventLoopFuture<View> in
         return req.view.render("terms")
     }
-    
+
     app.get("privacy") { req -> EventLoopFuture<View> in
         return req.view.render("privacy")
     }
-    
+
     let rateLimited = app.grouped(GatekeeperMiddleware())
 
     // MARK: Public API
-    rateLimited.get("pricing", use: pricingController.index)
-    rateLimited.get("data", use: dataController.index)
-    rateLimited.get("data-ai", use: dataAIController.index)
-    rateLimited.get("avatar.jpg", use: avatarController.index)
-    rateLimited.post("authenticate", use: authController.authenticate)
-    rateLimited.post("authenticate", "magic", use: authController.magic)
+    rateLimited.on(.GET, "api", "pricing", use: pricingController.index)
+    rateLimited.on(.GET, "api", "data", use: dataController.index)
+    rateLimited.on(.GET, "api", "data-ai", use: dataAIController.index)
+    rateLimited.on(.GET, "api", "avatar.jpg", use: avatarController.index)
+    rateLimited.on(.POST, "api", "authenticate", use: authController.authenticate)
+    rateLimited.on(.POST, "api", "authenticate", "magic", use: authController.magic)
 
     // MARK: Legacy API
-    rateLimited.get("users", use: dataController.index)
-    
+    rateLimited.on(.GET, "users", use: dataController.index)
+
     // MARK: Private API
     app.on(.GET, "admin", use: adminController.index)
     app.on(.POST, "admin", "upload", body: .collect(maxSize: "10mb"), use: adminController.upload)
     app.on(.PUT, "admin", ":id", use: adminController.put)
     app.on(.DELETE, "admin", ":id", use: adminController.delete)
-    app.post("stripe", "webhook", use: stripeWebhookController.index)
-    
+    app.on(.POST, "stripe", "webhook", use: stripeWebhookController.index)
+
 }

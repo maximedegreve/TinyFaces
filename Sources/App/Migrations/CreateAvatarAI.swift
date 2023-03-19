@@ -8,11 +8,11 @@
 import Fluent
 
 struct CreateAvatarAI: AsyncMigration {
-    
+
     func prepare(on database: Database) async throws {
-        
+
         let genders = try await database.enum("genders").read()
-        
+
         let ageGroups = try await database.enum("age_groups")
             .case("baby")
             .case("toddler")
@@ -22,7 +22,7 @@ struct CreateAvatarAI: AsyncMigration {
             .case("middle_adult")
             .case("old_adult")
             .create()
-        
+
         let styles = try await database.enum("styles")
             .case("colorful")
             .case("neutral")
@@ -55,7 +55,7 @@ struct CreateAvatarAI: AsyncMigration {
             .case("white-american")
             .case("hawaiian")
             .create()
-        
+
         return try await database.schema("avatars_ai")
             .field(.id, .int, .identifier(auto: true), .required)
             .field("url", .string, .required)
@@ -68,9 +68,9 @@ struct CreateAvatarAI: AsyncMigration {
             .field("updated_at", .datetime)
             .field("deleted_at", .datetime)
             .create()
-        
+
     }
-    
+
     func revert(on database: Database) async throws {
         try await database.schema("avatars_ai").delete()
         try await database.enum("origins").delete()

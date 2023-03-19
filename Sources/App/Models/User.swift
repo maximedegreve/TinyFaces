@@ -9,13 +9,13 @@ final class User: Model, Content {
 
     @Field(key: "name")
     var name: String
-    
+
     @Field(key: "admin")
     var admin: Bool
-    
+
     @Field(key: "email")
     var email: String
-    
+
     @Field(key: "stripe_customer_id")
     var stripeCustomerId: String?
 
@@ -36,11 +36,11 @@ final class User: Model, Content {
         self.admin = admin
         self.stripeCustomerId = stripeCustomerId
     }
-    
+
     static func find(email: String, db: Database) async throws -> User? {
         return try await User.query(on: db).filter(\.$email == email).first()
     }
-    
+
     static func find(stripeCustomerId: String, db: Database) async throws -> User? {
         return try await User.query(on: db).filter(\.$stripeCustomerId == stripeCustomerId).first()
     }
@@ -48,23 +48,23 @@ final class User: Model, Content {
 }
 
 extension User {
-    
+
     static func createIfNotExist(db: Database, email: String, stripeCustomerId: String?) async throws -> User {
-        
+
         let optionalUser = try await self.find(email: email, db: db)
-        
+
         if let user = optionalUser {
             return user
         }
-        
+
         let parts = email.components(separatedBy: "@")
         let name = parts.first ?? "Your name"
-        
+
         let newUser = User(name: name, email: email, stripeCustomerId: stripeCustomerId, admin: false)
         try await newUser.save(on: db)
-        
+
         return newUser
-        
+
     }
-    
+
 }

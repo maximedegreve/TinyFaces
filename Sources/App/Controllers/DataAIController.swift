@@ -52,7 +52,7 @@ final class DataAIController {
         let firstNames = try await self.randomFirstNames(request: request, gender: gender, limit: limit).get()
         let lastNames = try await self.randomLastNames(request: request, limit: limit).get()
         let avatars = try await self.randomAvatars(request: request, gender: gender, limit: limit, quality: quality).get()
-        
+
         return avatars.enumerated().compactMap { (index, element) in
 
             let firstName = firstNames[safe: index]?.name ?? "Jane"

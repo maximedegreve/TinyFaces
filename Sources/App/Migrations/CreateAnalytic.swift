@@ -10,7 +10,7 @@ import Fluent
 
 struct CreateAnalytic: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
-        
+
         return database.schema("analytics")
                 .field(.id, .int, .identifier(auto: true), .required)
                 .field("ip", .string, .required)

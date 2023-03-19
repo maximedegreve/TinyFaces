@@ -15,16 +15,16 @@ final class Subscription: Model, Content {
 
     @Field(key: "stripe_product_id")
     var stripeProductId: String
-    
+
     @Field(key: "stripe_status")
     var stripeStatus: String
 
     @Field(key: "cancel_at_period_end")
     var cancelAtPeriodEnd: Bool
-    
+
     @Field(key: "current_period_end")
     var currentPeriodEnd: Date
-    
+
     @Field(key: "canceled_at")
     var canceledAt: Date?
 
@@ -38,7 +38,7 @@ final class Subscription: Model, Content {
     var deletedAt: Date?
 
     init() { }
-    
+
     init(userId: User.IDValue, stripeId: String, stripeProductId: String, stripeStatus: String, cancelAtPeriodEnd: Bool, currentPeriodEnd: Date) {
         self.$user.id = userId
         self.stripeId = stripeId

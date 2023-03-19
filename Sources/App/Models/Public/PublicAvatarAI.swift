@@ -12,10 +12,10 @@ final class PublicAvatarAI: Content {
     var updatedAt: Date?
 
     init(avatar: AvatarAI, avatarSize: Int, firstName: String, lastName: String) {
-        
+
         let url = Cloudflare().url(uuid: avatar.url, variant: "small")
         let signedUrl = Cloudflare().generateSignedUrl(url: url)
-      
+
         self.id = avatar.id
         self.firstName = firstName
         self.lastName = lastName

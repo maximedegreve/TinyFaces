@@ -18,7 +18,7 @@ public func configure(_ app: Application) throws {
         allowedHeaders: [.accept, .authorization, .contentType, .origin, .xRequestedWith, .userAgent, .referer, .accessControlAllowOrigin, .accessControlAllowCredentials],
         allowCredentials: true
     )
-    
+
     let cors = CORSMiddleware(configuration: corsConfiguration)
     app.middleware.use(cors, at: .beginning)
 
@@ -26,7 +26,7 @@ public func configure(_ app: Application) throws {
     app.sessions.configuration.cookieName = "tinyfaces"
     app.sessions.use(.memory)
     app.middleware.use(app.sessions.middleware)
-    
+
     // 📁 Files
     let fileMiddleware = FileMiddleware(
         publicDirectory: app.directory.publicDirectory
@@ -44,11 +44,11 @@ public func configure(_ app: Application) throws {
 
     // 📧 Email (Templates)
     app.views.use(.leaf)
-    
+
     // 👮 Rate limit
     app.gatekeeper.config = .init(maxRequests: 30, per: .minute)
     app.middleware.use(GatekeeperMiddleware())
-    
+
     // 🤓 Debug
     // app.logger.logLevel = .debug
 
@@ -102,7 +102,7 @@ public func configure(_ app: Application) throws {
     app.migrations.add(CreateAvatarAI())
     app.migrations.add(JobMetadataMigrate())
     try app.autoMigrate().wait()
-    
+
     // 💼 Register Jobs
     app.queues.use(.fluent())
     app.queues.configuration.workerCount = 4
