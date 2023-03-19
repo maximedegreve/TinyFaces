@@ -6,6 +6,7 @@ func routes(_ app: Application) throws {
 
     // MARK: Controllers
     let dataController = DataController()
+    let dataAIController = DataAIController()
     let adminController = AdminController()
     let avatarController = AvatarController()
     let homeController = HomeController()
@@ -30,6 +31,7 @@ func routes(_ app: Application) throws {
     // MARK: Public API
     rateLimited.get("pricing", use: pricingController.index)
     rateLimited.get("data", use: dataController.index)
+    rateLimited.get("data-ai", use: dataAIController.index)
     rateLimited.get("avatar.jpg", use: avatarController.index)
     rateLimited.post("authenticate", use: authController.authenticate)
     rateLimited.post("authenticate", "magic", use: authController.magic)
