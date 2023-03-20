@@ -64,15 +64,6 @@
       }
     },
     {
-      "identity" : "google-cloud-kit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vapor-community/google-cloud-kit.git",
-      "state" : {
-        "revision" : "17b2eec3df26c6535a90b5650dee53670494f4d9",
-        "version" : "1.0.0-rc.9"
-      }
-    },
-    {
       "identity" : "jwt",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/jwt.git",
