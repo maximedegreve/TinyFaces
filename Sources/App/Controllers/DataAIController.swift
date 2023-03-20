@@ -13,13 +13,11 @@ final class DataAIController {
 
         struct RequestData: Error, Content {
             var limit: Int?
-            var quality: Int?
             var gender: Gender?
             var avatarMaxSize: Int?
 
             enum CodingKeys: String, CodingKey {
                 case limit
-                case quality
                 case gender
                 case avatarMaxSize = "avatar_max_size"
             }
@@ -28,7 +26,6 @@ final class DataAIController {
 
         let requestData = try request.query.decode(RequestData.self)
         let limit = requestData.limit ?? defaultLimit
-        let quality = requestData.quality ?? defaultQuality
         let avatarSize = requestData.avatarMaxSize ?? defaultAvatarMaxSize
 
         guard avatarSize <= 1024 else {
@@ -43,15 +40,11 @@ final class DataAIController {
             throw Abort(.badRequest, reason: "`limit` has to be at least 1.")
         }
 
-        guard quality <= 10 else {
-            throw Abort(.badRequest, reason: "`quality` can't be larger than 10.")
-        }
-
         let gender = requestData.gender
 
         let firstNames = try await self.randomFirstNames(request: request, gender: gender, limit: limit).get()
         let lastNames = try await self.randomLastNames(request: request, limit: limit).get()
-        let avatars = try await self.randomAvatars(request: request, gender: gender, limit: limit, quality: quality).get()
+        let avatars = try await self.randomAvatars(request: request, gender: gender, limit: limit).get()
 
         return avatars.enumerated().compactMap { (index, element) in
 
@@ -64,7 +57,7 @@ final class DataAIController {
 
     }
 
-    func randomAvatars(request: Request, gender: Gender?, limit: Int, quality: Int) -> EventLoopFuture<[AvatarAI]> {
+    func randomAvatars(request: Request, gender: Gender?, limit: Int) -> EventLoopFuture<[AvatarAI]> {
 
         let baseQuery = AvatarAI.query(on: request.db)
 
