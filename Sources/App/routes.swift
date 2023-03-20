@@ -30,6 +30,7 @@ func routes(_ app: Application) throws {
 
     // MARK: License
     app.on(.GET, "license", "commercial", use: licenseController.commercial)
+    app.on(.POST, "license", "commercial", use: licenseController.commercialCalculate)
     app.on(.GET, "license", "non-commercial", use: licenseController.nonCommercial)
 
     let rateLimited = app.grouped(GatekeeperMiddleware())
