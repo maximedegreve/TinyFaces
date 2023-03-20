@@ -1,7 +1,7 @@
 #extend("base"):
 
 #export("head"):
-  <title>TinyFaces 👦🏼👨🏾👩🏻 - Privacy Policy</title>
+  <title>TinyFaces 👦🏼👨🏾👩🏻 - Non-Commercial License</title>
 #endexport
 
 #export("body"):

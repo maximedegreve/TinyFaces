@@ -10,6 +10,7 @@ func routes(_ app: Application) throws {
     let adminController = AdminController()
     let avatarController = AvatarController()
     let homeController = HomeController()
+    let licenseController = LicenseController()
     let authController = AuthenticationController()
 
     let pricingController = PricingController()
@@ -21,10 +22,15 @@ func routes(_ app: Application) throws {
     app.get("terms") { req -> EventLoopFuture<View> in
         return req.view.render("terms")
     }
+    
 
     app.get("privacy") { req -> EventLoopFuture<View> in
         return req.view.render("privacy")
     }
+
+    // MARK: License
+    app.on(.GET, "license", "commercial", use: licenseController.commercial)
+    app.on(.GET, "license", "non-commercial", use: licenseController.nonCommercial)
 
     let rateLimited = app.grouped(GatekeeperMiddleware())
 
