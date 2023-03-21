@@ -1,7 +1,7 @@
 #extend("base"):
 
  #export("head"):
-    <title>TinyFaces 👦🏼👨🏾👩🏻 - Get a commercial license</title>
+    <title>TinyFaces 👦🏼👨🏾👩🏻 - Your quote for a commercial license</title>
  #endexport
 
  #export("body"):
@@ -17,18 +17,23 @@
 
   <div class="textAlign-center padding-m paddingBottom-l">
   <div class="display-inlineBlock textAlign-left pageWrap pageWrap--l paddingTop-m" style="max-width:700px;">
-  <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">Your personal quote</h1>
+  
+  #if(contact):
+      <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">Get in touch for a custom quote</h1>
+      <p class="fontSize-m lineHeight-l fontWeight-3 c-steel">Thank you for considering our services. We have carefully reviewed your project requirements and have prepared a detailed quote for you. After taking into account all the factors involved, we have arrived at a final quote that we believe is fair and competitive.</p>
 
-  <p class="fontSize-m lineHeight-l fontWeight-3 c-steel">Thank you for considering our services. We have carefully reviewed your project requirements and have prepared a detailed quote for you. After taking into account all the factors involved, we have arrived at a final quote that we believe is fair and competitive.</p>
+  #else:
+      <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">Your personal quote</h1>
+      <p class="fontSize-m lineHeight-l fontWeight-3 c-steel">Thank you for considering our services. We have carefully reviewed your project requirements and have prepared a detailed quote for you. After taking into account all the factors involved, we have arrived at a final quote that we believe is fair and competitive.</p>
 
-</p>
+      <p class="fontSize-m lineHeight-l fontWeight-4 c-silver marginTop-xs">Your quote:</p>
+      <p class="fontSize-xxl lineHeight-l fontWeight-4 c-steel  marginTop-xxs">$#(price)<span class="fontWeight-3 fontSize-l c-silver"> / year</span></p>
 
-  <p class="fontSize-m lineHeight-l fontWeight-4 c-silver marginTop-xs">Your quote:</p>
-  <p class="fontSize-xxl lineHeight-l fontWeight-4 c-steel  marginTop-xxs">$#(price)<span class="fontWeight-3 fontSize-l c-silver"> / year</span></p>
-
-  <div class="marginTop-m">
-    <button type="submit" class="button button--m button--flat bg-marvel">Buy license</button>
-  </div>
+      <div class="marginTop-m">
+        <button type="submit" class="button button--m button--flat bg-marvel">Buy license</button>
+      </div>
+  #endif
+  
  </div>
 
  </div>

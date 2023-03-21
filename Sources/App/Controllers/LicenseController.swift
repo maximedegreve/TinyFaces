@@ -49,7 +49,7 @@ final class LicenseController {
             var contact: Bool?
         }
 
-        if let total = requestData.total, total == "contact"  {
+        if let total = requestData.total, total == "more"  {
             return try await request.view.render("license-calculation", CommercialContext(price: nil, contact: true))
         }
                 

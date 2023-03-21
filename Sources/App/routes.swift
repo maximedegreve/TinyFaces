@@ -12,7 +12,6 @@ func routes(_ app: Application) throws {
     let homeController = HomeController()
     let licenseController = LicenseController()
     let authController = AuthenticationController()
-
     let pricingController = PricingController()
     let stripeWebhookController = StripeWebhookController()
 
@@ -23,25 +22,34 @@ func routes(_ app: Application) throws {
         return req.view.render("terms")
     }
     
-
     app.get("privacy") { req -> EventLoopFuture<View> in
         return req.view.render("privacy")
     }
 
-    // MARK: License
-    app.on(.GET, "license", "commercial", use: licenseController.commercial)
-    app.on(.POST, "license", "commercial", use: licenseController.commercialCalculate)
-    app.on(.GET, "license", "non-commercial", use: licenseController.nonCommercial)
-
+    // MARK: Middleware
     let rateLimited = app.grouped(GatekeeperMiddleware())
+    let protected = app.routes.grouped([
+        app.sessions.middleware,
+        User.sessionAuthenticator(),
+        User.guardMiddleware(),
+        User.redirectMiddleware(path: "/authenticate")
+    ])
+
+    // MARK: License
+    protected.on(.GET, "license", "commercial", use: licenseController.commercial)
+    protected.on(.POST, "license", "commercial", use: licenseController.commercialCalculate)
+    app.on(.GET, "license", "non-commercial", use: licenseController.nonCommercial)
 
     // MARK: Public API
     rateLimited.on(.GET, "api", "pricing", use: pricingController.index)
     rateLimited.on(.GET, "api", "data", use: dataController.index)
     rateLimited.on(.GET, "api", "data-ai", use: dataAIController.index)
     rateLimited.on(.GET, "api", "avatar.jpg", use: avatarController.index)
-    rateLimited.on(.POST, "api", "authenticate", use: authController.authenticate)
-    rateLimited.on(.POST, "api", "authenticate", "magic", use: authController.magic)
+    
+    // MARK: Authentication
+    rateLimited.on(.GET, "authenticate", use: authController.index)
+    rateLimited.on(.POST, "authenticate", "magic", use: authController.sendMagicEmail)
+    rateLimited.on(.POST, "authenticate", "confirm", use: authController.confirm)
 
     // MARK: Legacy API
     rateLimited.on(.GET, "users", use: dataController.index)
