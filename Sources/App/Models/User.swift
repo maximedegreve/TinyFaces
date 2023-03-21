@@ -48,6 +48,7 @@ final class User: Model, Content, ModelSessionAuthenticatable {
 
 }
 
+
 extension User {
 
     static func createIfNotExist(db: Database, email: String, stripeCustomerId: String?) async throws -> User {

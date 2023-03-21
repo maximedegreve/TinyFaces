@@ -26,6 +26,7 @@ public func configure(_ app: Application) throws {
     app.sessions.configuration.cookieName = "tinyfaces"
     app.sessions.use(.memory)
     app.middleware.use(app.sessions.middleware)
+    app.middleware.use(User.sessionAuthenticator())
 
     // 📁 Files
     let fileMiddleware = FileMiddleware(

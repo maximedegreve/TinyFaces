@@ -24,7 +24,7 @@ final class AdminController {
             var type: AdminResultType
         }
 
-        let user = try request.jwt.verify(as: UserToken.self)
+        let user = try request.auth.require(User.self)
 
         guard user.admin else {
             throw GenericError.notAdmin
@@ -66,7 +66,7 @@ final class AdminController {
 
     func put(request: Request) async throws -> Response {
 
-        let user = try request.jwt.verify(as: UserToken.self)
+        let user = try request.auth.require(User.self)
 
         guard user.admin else {
             throw GenericError.notAdmin
@@ -106,7 +106,7 @@ final class AdminController {
             var avatar: Data
         }
 
-        let user = try request.jwt.verify(as: UserToken.self)
+        let user = try request.auth.require(User.self)
 
         guard user.admin else {
             throw GenericError.notAdmin
@@ -130,7 +130,7 @@ final class AdminController {
 
     func delete(request: Request) async throws -> Response {
 
-        let user = try request.jwt.verify(as: UserToken.self)
+        let user = try request.auth.require(User.self)
 
         guard user.admin else {
             throw GenericError.notAdmin

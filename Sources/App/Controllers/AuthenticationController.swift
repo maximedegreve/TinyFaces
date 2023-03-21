@@ -93,7 +93,7 @@ final class AuthenticationController {
 
     }
 
-    func confirm(request: Request) async throws -> View {
+    func confirm(request: Request) async throws -> Response {
 
         struct SettingsRequestData: Error, Content {
             var code: String
@@ -140,7 +140,7 @@ final class AuthenticationController {
 
         request.auth.login(user)
                 
-        return try await request.view.render("home")
+        return request.redirect(to: "/dashboard")
 
     }
 

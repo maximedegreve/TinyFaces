@@ -10,6 +10,7 @@ func routes(_ app: Application) throws {
     let adminController = AdminController()
     let avatarController = AvatarController()
     let homeController = HomeController()
+    let dashboardController = DashboardController()
     let licenseController = LicenseController()
     let authController = AuthenticationController()
     let pricingController = PricingController()
@@ -28,14 +29,12 @@ func routes(_ app: Application) throws {
 
     // MARK: Middleware
     let rateLimited = app.grouped(GatekeeperMiddleware())
-    let protected = app.routes.grouped([
-        app.sessions.middleware,
-        User.sessionAuthenticator(),
-        User.guardMiddleware(),
+    let protected = app.grouped([
         User.redirectMiddleware(path: "/authenticate")
     ])
 
     // MARK: License
+    protected.on(.GET, "dashboard", use: dashboardController.index)
     protected.on(.GET, "license", "commercial", use: licenseController.commercial)
     protected.on(.POST, "license", "commercial", use: licenseController.commercialCalculate)
     app.on(.GET, "license", "non-commercial", use: licenseController.nonCommercial)
@@ -55,10 +54,10 @@ func routes(_ app: Application) throws {
     rateLimited.on(.GET, "users", use: dataController.index)
 
     // MARK: Private API
-    app.on(.GET, "admin", use: adminController.index)
-    app.on(.POST, "admin", "upload", body: .collect(maxSize: "10mb"), use: adminController.upload)
-    app.on(.PUT, "admin", ":id", use: adminController.put)
-    app.on(.DELETE, "admin", ":id", use: adminController.delete)
-    app.on(.POST, "stripe", "webhook", use: stripeWebhookController.index)
+    protected.on(.GET, "admin", use: adminController.index)
+    protected.on(.POST, "admin", "upload", body: .collect(maxSize: "10mb"), use: adminController.upload)
+    protected.on(.PUT, "admin", ":id", use: adminController.put)
+    protected.on(.DELETE, "admin", ":id", use: adminController.delete)
+    protected.on(.POST, "stripe", "webhook", use: stripeWebhookController.index)
 
 }
