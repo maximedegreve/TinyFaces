@@ -43,7 +43,7 @@ CLOUDFLARE_ACCOUNT_IDENTIFIER=
 CLOUDFLARE_ACCOUNT_HASH=
 CLOUDFLARE_IMAGES_KEY=
 CLOUDFLARE_BEARER_TOKEN=
-URL=https://tinyfac.es
+URL=https://tinyfaces.ngrok.io
 ```
 
 Sadly we can't share our Thumbor setup and therefore you need to run a instance yourself for this to work.
