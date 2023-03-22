@@ -35,6 +35,19 @@ final class LicenseController {
         return try await request.view.render("license-commercial", CommercialContext(prices: prices))
 
     }
+    
+    func commercialLicenseDoc(request: Request) async throws -> View {
+        
+        let user = try request.auth.require(User.self)
+        let subscription = try await user.activeSubscriptions(req: request).first
+
+        guard subscription != nil else {
+            throw Abort.redirect(to: "/dashboard")
+        }
+        
+        return try await request.view.render("license-commercial-doc")
+
+    }
 
     func commercialCalculate(request: Request) async throws -> View {
 

@@ -36,6 +36,7 @@ func routes(_ app: Application) throws {
     protected.on(.GET, "dashboard", use: dashboardController.index)
     protected.on(.GET, "license", "commercial", use: licenseController.commercial)
     protected.on(.POST, "license", "commercial", use: licenseController.commercialCalculate)
+    protected.on(.GET, "license", "commercial-doc", use: licenseController.commercialLicenseDoc)
     rateLimited.on(.GET, "license", "non-commercial", use: licenseController.nonCommercial)
 
     // MARK: Public API

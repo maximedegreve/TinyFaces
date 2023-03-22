@@ -39,7 +39,6 @@ final class StripeWebhookController {
     func invoiceUpdate(request: Request, invoice: StripeInvoice) async throws -> Response {
 
         guard let stripeSubscription = invoice.$subscription else {
-            Swift.print("Missing subscription object")
             return Response(status: .ok)
         }
 
