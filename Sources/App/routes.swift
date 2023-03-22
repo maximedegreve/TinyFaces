@@ -22,7 +22,7 @@ func routes(_ app: Application) throws {
     app.get("terms") { req -> EventLoopFuture<View> in
         return req.view.render("terms")
     }
-    
+
     app.get("privacy") { req -> EventLoopFuture<View> in
         return req.view.render("privacy")
     }
@@ -44,7 +44,7 @@ func routes(_ app: Application) throws {
     rateLimited.on(.GET, "api", "data", use: dataController.index)
     rateLimited.on(.GET, "api", "data-ai", use: dataAIController.index)
     rateLimited.on(.GET, "api", "avatar.jpg", use: avatarController.index)
-    
+
     // MARK: Authentication
     rateLimited.on(.GET, "authenticate", use: authController.index)
     rateLimited.on(.POST, "authenticate", "magic", use: authController.sendMagicEmail)

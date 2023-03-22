@@ -18,7 +18,7 @@ struct CreateSubscription: Migration {
                 .field("stripe_product_id", .string, .required)
                 .field("stripe_status", .string, .required)
                 .field("cancel_at_period_end", .bool, .required)
-                .field("current_period_end", .datetime, .required)
+                .field("current_period_end", .datetime)
                 .field("canceled_at", .datetime)
                 .field("created_at", .datetime)
                 .field("updated_at", .datetime)

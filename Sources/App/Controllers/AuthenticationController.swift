@@ -12,7 +12,7 @@ final class AuthenticationController {
     func index(request: Request) async throws -> View {
         return try await request.view.render("authentication")
     }
-    
+
     func sendMagicEmail(request: Request) async throws -> View {
 
         struct RequestData: Error, Validatable, Content {
@@ -41,7 +41,7 @@ final class AuthenticationController {
             let fullNameArr = self.getEmailUsername(requestData.email) ?? "Jo Doe"
             let user = User(name: fullNameArr, email: requestData.email, stripeCustomerId: nil, admin: false)
             try await user.save(on: request.db)
-            
+
             try await sendEmail(request: request, user: user, isNewUser: true)
 
         }
@@ -108,7 +108,7 @@ final class AuthenticationController {
         guard let session = request.session.data["magic-code"] else {
             throw AuthenticationError.noAuthCodeForSession
         }
-        
+
         // 💿 Fetch authentication code
         guard var authCode = try await request.cache.get(session, as: AuthenticationCode.self) else {
             throw AuthenticationError.noAuthCodeForSession
@@ -139,7 +139,7 @@ final class AuthenticationController {
         }
 
         request.auth.login(user)
-                
+
         return request.redirect(to: "/dashboard")
 
     }

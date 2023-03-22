@@ -6,6 +6,10 @@
 
  #export("body"):
 
+    <div class="marginRight-m marginTop-m position-fixed pinTR" style="z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+      <a href="mailto:hello@tinyfac.es" class="button fontSize-s paddingLeftRight-s c-white bg-silver" style="border-radius: 21px; line-height: 42px; height: 42px;" >Contact</a>
+    </div>
+
     <div class="bg-snow--d padding-l paddingTop-l" style="height:216px">
       <div class="textAlign-center width-100 pageWrap pageWrap--l">
           <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">
@@ -17,7 +21,21 @@
 
   <div class="textAlign-center padding-m paddingBottom-l">
   <div class="display-inlineBlock textAlign-left pageWrap pageWrap--l paddingTop-m" style="max-width:700px;">
-        test
+  
+  #if(subscription):
+      <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">Congrats! You now have a active license. </h1>
+      <p class="fontSize-m lineHeight-l fontWeight-3 c-steel" style="max-width: 500px;">
+      If you would like to cancel renewal for your license click the button below.
+        </p>
+      <a href="/license-commercial" class="button button--m button--outlined bg-white bg-negative--hover marginTop-s">Cancel renewal</a>
+
+  #else:
+      <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">You currently don't have any active licenses</h1>
+      <p class="fontSize-m lineHeight-l fontWeight-3 c-steel" style="max-width: 500px;">
+      To get quote and buy a license click the button below.
+        </p>
+      <a href="/license/commercial" class="button button--m button--flat bg-marvel marginTop-s">Buy a license</a>
+  #endif
  </div>
 
  </div>
