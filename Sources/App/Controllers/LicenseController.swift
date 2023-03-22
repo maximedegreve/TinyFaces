@@ -9,10 +9,10 @@ struct PriceBracket: Content {
 final class LicenseController {
 
     let prices = [
-        PriceBracket(maxPeople: 3, price: 432),
-        PriceBracket(maxPeople: 10, price: 624),
-        PriceBracket(maxPeople: 25, price: 816),
-        PriceBracket(maxPeople: 50, price: 1008),
+        PriceBracket(maxPeople: 3, price: 60),
+        PriceBracket(maxPeople: 10, price: 160),
+        PriceBracket(maxPeople: 25, price: 380),
+        PriceBracket(maxPeople: 50, price: 980),
         PriceBracket(maxPeople: 100, price: 1152),
         PriceBracket(maxPeople: 150, price: 1296),
         PriceBracket(maxPeople: 250, price: 1584),

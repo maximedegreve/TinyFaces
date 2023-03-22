@@ -26,7 +26,7 @@
   <div class="select select--default select--m marginRight-s marginTop-s" style="max-width: 240px;">
       <select id="total" name="total">
            #for(price in prices):
-               <option value="#(price.maxPeople)">Less than #(price.maxPeople)</option>
+               <option value="#(price.maxPeople)">Up to #(price.maxPeople)</option>
            #endfor
             <option value="more">More</option>
       </select>

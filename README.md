@@ -35,8 +35,15 @@ Also check out our [Figma Plugin](https://github.com/maximedegreve/TinyFaces-Fig
 - Add a `.env` file to the local root directory this should have the values below:
 
 ```
-THUMBOR_URL=URL
-THUMBOR_KEY=ABCDEFG
+STRIPE_SECRET_KEY=
+STRIPE_PUBLISH_KEY=
+STRIPE_PRICE=
+STRIPE_WEBHOOK_SECRET=
+CLOUDFLARE_ACCOUNT_IDENTIFIER=
+CLOUDFLARE_ACCOUNT_HASH=
+CLOUDFLARE_IMAGES_KEY=
+CLOUDFLARE_BEARER_TOKEN=
+URL=https://tinyfac.es
 ```
 
 Sadly we can't share our Thumbor setup and therefore you need to run a instance yourself for this to work.

@@ -24,7 +24,7 @@ Enter your email below to receive a sign-in link to manage your licenses. Withou
   </p>
   <form class="marginTop-s" action="/authenticate/magic" method="POST">
     <label for="email" class="display-block">Email</label>
-    <input name="email" class="input input--m input--default marginTop-xs display-block" style="width: 100%; max-width: 400px;" placeholder="name@domain.com" type="text">
+    <input name="email" type="email" class="input input--m input--default marginTop-xs display-block" style="width: 100%; max-width: 400px;" placeholder="name@domain.com" type="text">
     <button type="submit" class="button button--m button--flat bg-marvel marginTop-s">Send magic link</button>
   </form>
 
