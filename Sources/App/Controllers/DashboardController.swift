@@ -1,7 +1,5 @@
 import Vapor
-import Crypto
 import Fluent
-import JWT
 
 final class DashboardController {
 

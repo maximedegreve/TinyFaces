@@ -25,10 +25,6 @@
 #export("body"):
 
   <div class="bg-snow--d textAlign-center paddingTop-xl paddingBottom-xl">
-    <div class="marginRight-m marginTop-m position-fixed pinTR" style="z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-      <a href="/license/non-commercial" class="button fontSize-s paddingLeftRight-s c-white bg-silver" style="border-radius: 21px; line-height: 42px; height: 42px;" >License</a>
-      <a href="mailto:hello@tinyfac.es" class="button fontSize-s paddingLeftRight-s c-white bg-silver" style="border-radius: 21px; line-height: 42px; height: 42px;" >Contact</a>
-    </div>
     <div class="display-inlineBlock marginLeft-l marginRight-l" style="max-width:500px;">
       <div class="marginBottom-l"><img width="93" height="auto" src="images/logo.png" alt="TinyFaces Logo"></div>
       <div class="marginBottom-m"><img style="max-width:398px;" class="width-100 height-auto" height="auto" src="images/front.png"/></div>

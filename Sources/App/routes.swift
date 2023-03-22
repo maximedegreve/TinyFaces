@@ -13,7 +13,6 @@ func routes(_ app: Application) throws {
     let dashboardController = DashboardController()
     let licenseController = LicenseController()
     let authController = AuthenticationController()
-    let pricingController = PricingController()
     let stripeWebhookController = StripeWebhookController()
 
     // MARK: Pages
@@ -40,7 +39,6 @@ func routes(_ app: Application) throws {
     rateLimited.on(.GET, "license", "non-commercial", use: licenseController.nonCommercial)
 
     // MARK: Public API
-    rateLimited.on(.GET, "api", "pricing", use: pricingController.index)
     rateLimited.on(.GET, "api", "data", use: dataController.index)
     rateLimited.on(.GET, "api", "data-ai", use: dataAIController.index)
     rateLimited.on(.GET, "api", "avatar.jpg", use: avatarController.index)

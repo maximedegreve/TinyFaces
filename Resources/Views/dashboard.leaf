@@ -6,10 +6,6 @@
 
  #export("body"):
 
-    <div class="marginRight-m marginTop-m position-fixed pinTR" style="z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-      <a href="mailto:hello@tinyfac.es" class="button fontSize-s paddingLeftRight-s c-white bg-silver" style="border-radius: 21px; line-height: 42px; height: 42px;" >Contact</a>
-    </div>
-
     <div class="bg-snow--d padding-l paddingTop-l" style="height:216px">
       <div class="textAlign-center width-100 pageWrap pageWrap--l">
           <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">

@@ -30,7 +30,7 @@
       <p class="fontSize-xxl lineHeight-l fontWeight-4 c-steel  marginTop-xxs">$#(price)<span class="fontWeight-3 fontSize-l c-silver"> / year</span></p>
 
       <div class="marginTop-m">
-        <button type="submit" class="button button--m button--flat bg-marvel">Buy license</button>
+        <a href="#(paymentUrl)" class="button button--m button--flat bg-marvel">Buy license</a>
       </div>
   #endif
   

@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="/styles/styleguide.css">
   </head>
   <body>
+    <div class="marginRight-m marginTop-m position-fixed pinTR" style="z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+      <a href="/license/non-commercial" class="button fontSize-s paddingLeftRight-s c-white bg-silver" style="border-radius: 21px; line-height: 42px; height: 42px;" >License</a>
+      <a href="mailto:hello@tinyfac.es" class="button fontSize-s paddingLeftRight-s c-white bg-silver" style="border-radius: 21px; line-height: 42px; height: 42px;" >Contact</a>
+    </div>
     #import("body")
     <div class="pageWrap paddingTopBottom-xl textAlign-center position-relative">
         <a href="/terms" class="link link--dark">Terms and Conditions</a> & <a href="/privacy" class="link link--dark">Privacy Policy</a>

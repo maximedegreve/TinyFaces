@@ -43,14 +43,16 @@ final class LicenseController {
         }
 
         let requestData = try request.content.decode(RequestData.self)
+        let user = try request.auth.require(User.self)
 
         struct CommercialContext: Encodable {
             var price: Int?
             var contact: Bool?
+            var paymentUrl: String?
         }
 
         if let total = requestData.total, total == "more" {
-            return try await request.view.render("license-calculation", CommercialContext(price: nil, contact: true))
+            return try await request.view.render("license-calculation", CommercialContext(price: nil, contact: true, paymentUrl: nil))
         }
 
         guard let total = requestData.total, let totalInt = Int(total) else {
@@ -64,8 +66,18 @@ final class LicenseController {
         guard let bracket = optionalBracket else {
             return try await commercial(request: request)
         }
+        
+        let returnUrl = Environment.apiUrl + "/dashboard"
+        let lineItems = [
+            [
+                "price": Environment.stripePrice,
+                "quantity": bracket.maxPeople
+            ]
+        ]
+        
+        let url = try await request.stripe.sessions.create(cancelUrl: returnUrl, paymentMethodTypes: [.card], successUrl: returnUrl, customerEmail: user.email, lineItems: lineItems, mode: .subscription).get()
 
-        return try await request.view.render("license-calculation", CommercialContext(price: bracket.price, contact: false))
+        return try await request.view.render("license-calculation", CommercialContext(price: bracket.price, contact: false, paymentUrl: url.url))
 
     }
 
