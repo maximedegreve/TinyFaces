@@ -23,7 +23,7 @@ final class Subscription: Model, Content {
     var cancelAtPeriodEnd: Bool
 
     @Field(key: "current_period_end")
-    var currentPeriodEnd: Date
+    var currentPeriodEnd: Date?
 
     @Field(key: "canceled_at")
     var canceledAt: Date?

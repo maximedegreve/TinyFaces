@@ -37,8 +37,8 @@ extension Environment {
         Environment.get("STRIPE_WEBHOOK_SECRET")!
     }
 
-    static var stripePricingTableId: String {
-        Environment.get("STRIPE_PRICINGTABLE_ID")!
+    static var stripePrice: String {
+        Environment.get("STRIPE_PRICE")!
     }
 
     // Cloudflare

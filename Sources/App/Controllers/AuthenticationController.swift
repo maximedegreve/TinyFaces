@@ -9,15 +9,17 @@ final class AuthenticationController {
 
     // MARK: Endpoints
 
-    func authenticate(request: Request) async throws -> Handshake {
+    func index(request: Request) async throws -> View {
+        return try await request.view.render("authentication")
+    }
+
+    func sendMagicEmail(request: Request) async throws -> View {
 
         struct RequestData: Error, Validatable, Content {
             var email: String
-            var timezone: String?
 
             enum CodingKeys: String, CodingKey {
                 case email
-                case timezone
             }
 
             static func validations(_ validations: inout Validations) {
@@ -31,21 +33,24 @@ final class AuthenticationController {
 
         let optionalUser = try await User.query(on: request.db).filter(\.$email, .equal, requestData.email).first()
 
-        // 👩🏻‍🦰 Existing user
         if let user = optionalUser {
-            return try await sendMagicEmail(request: request, user: user, isNewUser: false)
+            // 👩🏻‍🦰 Existing user
+            try await sendEmail(request: request, user: user, isNewUser: false)
+        } else {
+            // 🧑🏽‍🦱 New user
+            let fullNameArr = self.getEmailUsername(requestData.email) ?? "Jo Doe"
+            let user = User(name: fullNameArr, email: requestData.email, stripeCustomerId: nil, admin: false)
+            try await user.save(on: request.db)
+
+            try await sendEmail(request: request, user: user, isNewUser: true)
+
         }
 
-        // 🧑🏽‍🦱 New user
-        let fullNameArr = self.getEmailUsername(requestData.email) ?? "Jo Doe"
-        let user = User(name: fullNameArr, email: requestData.email, stripeCustomerId: nil, admin: false)
-        try await user.save(on: request.db)
-
-        return try await sendMagicEmail(request: request, user: user, isNewUser: true)
+        return try await request.view.render("authentication-magic")
 
     }
 
-    func sendMagicEmail(request: Request, user: User, isNewUser: Bool) async throws -> Handshake {
+    func sendEmail(request: Request, user: User, isNewUser: Bool) async throws {
 
         // 🔄 Generate auth data
         let userId = try user.requireID()
@@ -59,20 +64,20 @@ final class AuthenticationController {
         try await request.cache.set(session, to: magicCode, expiresIn: expiresIn)
 
         // 📧 Build email
-        let sender = SendInBlueContact(name: "Laye.rs", email: "no-reply@laye.rs")
+        let sender = SendInBlueContact(name: "TinyFaces", email: "no-reply@tinyfac.es")
         let contactName = user.name
         let to = SendInBlueContact(name: contactName, email: user.email)
 
         let codeArray = code.uppercased().compactMap { String($0) }
         let emailContext = EmailContext(name: contactName, code1: codeArray[0], code2: codeArray[1], code3: codeArray[2], code4: codeArray[3], code5: codeArray[4], code6: codeArray[5])
-        let emailView = try await request.view.render("authentication", emailContext).get()
+        let emailView = try await request.view.render("authentication-email", emailContext).get()
 
         // 👨‍💻 Send email if production otherwise log it
         switch request.application.environment {
         case .production:
 
             let htmlContent = String(buffer: emailView.data)
-            let email = SendInBlueEmail(sender: sender, to: [to], subject: "🪄 Sign in to your layers account", htmlContent: htmlContent)
+            let email = SendInBlueEmail(sender: sender, to: [to], subject: "🪄 Sign in to your TinyFaces account", htmlContent: htmlContent)
 
             let isSuccess = try await SendInBlue().sendEmail(email: email, client: request.client)
 
@@ -84,26 +89,28 @@ final class AuthenticationController {
             request.logger.log(level: .info, "🪄 Sign in using code: \(code)")
         }
 
-        return Handshake(session: session, email: user.email)
+        request.session.data["magic-code"] = session
 
     }
 
-    func magic(request: Request) async throws -> JWTToken {
+    func confirm(request: Request) async throws -> Response {
 
         struct SettingsRequestData: Error, Content {
             var code: String
-            var session: String
 
             enum CodingKeys: String, CodingKey {
                 case code
-                case session
             }
         }
 
         let requestData = try request.content.decode(SettingsRequestData.self)
 
+        guard let session = request.session.data["magic-code"] else {
+            throw AuthenticationError.noAuthCodeForSession
+        }
+
         // 💿 Fetch authentication code
-        guard var authCode = try await request.cache.get(requestData.session, as: AuthenticationCode.self) else {
+        guard var authCode = try await request.cache.get(session, as: AuthenticationCode.self) else {
             throw AuthenticationError.noAuthCodeForSession
         }
 
@@ -131,24 +138,9 @@ final class AuthenticationController {
             throw GenericError.userNotFound
         }
 
-        // 🎉 Generate JWT token
-        let fourtheenDays = Calendar.current.date(byAdding: .day, value: 14, to: Date()) ?? Date()
+        request.auth.login(user)
 
-        let token = UserToken(
-                subject: "Layers",
-                expiration: .init(value: fourtheenDays),
-                userId: authCode.userId,
-                email: user.email,
-                admin: user.admin,
-                stripeCustomerId: user.stripeCustomerId
-            )
-
-        let signedToken = try request.jwt.sign(token)
-
-        // 🗑️ Delete authentication session
-        request.session.destroy()
-
-        return JWTToken(jwt: signedToken)
+        return request.redirect(to: "/dashboard")
 
     }
 
@@ -172,11 +164,6 @@ final class AuthenticationController {
         enum CodingKeys: String, CodingKey {
             case jwt
         }
-    }
-
-    struct Handshake: Content {
-        var session: String
-        var email: String
     }
 
     struct EmailContext: Content {

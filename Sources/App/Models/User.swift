@@ -1,7 +1,9 @@
 import Fluent
 import Vapor
+import StripeKit
 
-final class User: Model, Content {
+final class User: Model, Content, ModelSessionAuthenticatable {
+
     static let schema = "users"
 
     @ID(custom: .id)
@@ -27,6 +29,9 @@ final class User: Model, Content {
 
     @Timestamp(key: "deleted_at", on: .delete)
     var deletedAt: Date?
+
+    @Children(for: \.$user)
+    var subscriptions: [Subscription]
 
     init() { }
 
@@ -64,6 +69,44 @@ extension User {
         try await newUser.save(on: db)
 
         return newUser
+
+    }
+
+    func activeSubscriptions(req: Request) async throws -> [Subscription] {
+
+        let all = try await self.$subscriptions.query(on: req.db).all()
+
+        return all.filter { sub in
+
+            let status = sub.stripeStatus
+            guard let status = StripeSubscriptionStatus(rawValue: status) else {
+                return false
+            }
+
+            switch status {
+            case .incomplete:
+                return false
+            case .incompleteExpired:
+                return false
+            case .trialing:
+                return false
+            case .active:
+                break
+            case .pastDue:
+                break
+            case .canceled:
+                return false
+            case .unpaid:
+                return false
+            }
+
+            guard let currentPeriodEnd = sub.currentPeriodEnd else {
+                return false
+            }
+
+            return currentPeriodEnd >= Date()
+
+        }
 
     }
 

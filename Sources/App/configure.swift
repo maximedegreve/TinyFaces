@@ -26,6 +26,7 @@ public func configure(_ app: Application) throws {
     app.sessions.configuration.cookieName = "tinyfaces"
     app.sessions.use(.memory)
     app.middleware.use(app.sessions.middleware)
+    app.middleware.use(User.sessionAuthenticator())
 
     // 📁 Files
     let fileMiddleware = FileMiddleware(
@@ -51,15 +52,6 @@ public func configure(_ app: Application) throws {
 
     // 🤓 Debug
     // app.logger.logLevel = .debug
-
-    // 📆 Date encoding
-    let encoder = JSONEncoder()
-    encoder.dateEncodingStrategy = .secondsSince1970
-    ContentConfiguration.global.use(encoder: encoder, for: .json)
-
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .secondsSince1970
-    ContentConfiguration.global.use(decoder: decoder, for: .json)
 
     // 👮‍♂️ TLS
     var tlsConfiguration = TLSConfiguration.makeClientConfiguration()

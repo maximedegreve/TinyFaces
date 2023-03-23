@@ -10,9 +10,9 @@ func routes(_ app: Application) throws {
     let adminController = AdminController()
     let avatarController = AvatarController()
     let homeController = HomeController()
+    let dashboardController = DashboardController()
+    let licenseController = LicenseController()
     let authController = AuthenticationController()
-
-    let pricingController = PricingController()
     let stripeWebhookController = StripeWebhookController()
 
     // MARK: Pages
@@ -26,24 +26,38 @@ func routes(_ app: Application) throws {
         return req.view.render("privacy")
     }
 
+    // MARK: Middleware
     let rateLimited = app.grouped(GatekeeperMiddleware())
+    let protected = app.grouped([
+        User.redirectMiddleware(path: "/authenticate")
+    ])
+
+    // MARK: License
+    protected.on(.GET, "dashboard", use: dashboardController.index)
+    protected.on(.GET, "license", "commercial", use: licenseController.commercial)
+    protected.on(.POST, "license", "commercial", use: licenseController.commercialCalculate)
+    protected.on(.GET, "license", "commercial-doc", use: licenseController.commercialLicenseDoc)
+    rateLimited.on(.GET, "license", "non-commercial", use: licenseController.nonCommercial)
 
     // MARK: Public API
-    rateLimited.on(.GET, "api", "pricing", use: pricingController.index)
     rateLimited.on(.GET, "api", "data", use: dataController.index)
     rateLimited.on(.GET, "api", "data-ai", use: dataAIController.index)
     rateLimited.on(.GET, "api", "avatar.jpg", use: avatarController.index)
-    rateLimited.on(.POST, "api", "authenticate", use: authController.authenticate)
-    rateLimited.on(.POST, "api", "authenticate", "magic", use: authController.magic)
+
+    // MARK: Authentication
+    rateLimited.on(.GET, "authenticate", use: authController.index)
+    rateLimited.on(.POST, "authenticate", "magic", use: authController.sendMagicEmail)
+    rateLimited.on(.POST, "authenticate", "confirm", use: authController.confirm)
 
     // MARK: Legacy API
     rateLimited.on(.GET, "users", use: dataController.index)
 
     // MARK: Private API
-    app.on(.GET, "admin", use: adminController.index)
-    app.on(.POST, "admin", "upload", body: .collect(maxSize: "10mb"), use: adminController.upload)
-    app.on(.PUT, "admin", ":id", use: adminController.put)
-    app.on(.DELETE, "admin", ":id", use: adminController.delete)
+    protected.on(.GET, "admin", use: adminController.index)
+    protected.on(.POST, "admin", "upload", body: .collect(maxSize: "10mb"), use: adminController.upload)
+    protected.on(.PUT, "admin", ":id", use: adminController.put)
+    protected.on(.DELETE, "admin", ":id", use: adminController.delete)
+    protected.on(.GET, "stripe", "portal", use: stripeWebhookController.portalRedirect)
     app.on(.POST, "stripe", "webhook", use: stripeWebhookController.index)
 
 }

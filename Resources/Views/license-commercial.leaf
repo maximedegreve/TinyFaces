@@ -1,0 +1,48 @@
+#extend("base"):
+
+ #export("head"):
+    <title>TinyFaces 👦🏼👨🏾👩🏻 - Get a commercial license</title>
+ #endexport
+
+ #export("body"):
+
+    <div class="bg-snow--d padding-l paddingTop-l" style="height:216px">
+      <div class="textAlign-center width-100 pageWrap pageWrap--l">
+          <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">
+              <div class="marginBottom-xl"><a href="/"><img width="93" height="auto" src="../images/logo.png" alt="TinyFaces Logo"></a></div>
+              <div class="position-absolute"><img width="119" height="119" src="../images/single.png"></div>
+          </div>
+      </div>
+    </div>
+
+  <div class="textAlign-center padding-m paddingBottom-l">
+  <div class="display-inlineBlock textAlign-left pageWrap pageWrap--l paddingTop-m" style="max-width:700px;">
+  <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">Let's calculate a quote</h1>
+
+  <p class="fontSize-m lineHeight-l fontWeight-3 c-silver">Before we can provide you with a quote we have a few questions.</p>
+  <h2 class="fontSize-m fontWeight-4 c-steel marginTop-m">In total, how many people work for the company?</h2>
+
+<form action="/license/commercial" method="post">
+  <div class="select select--default select--m marginRight-s marginTop-s" style="max-width: 240px;">
+      <select id="total" name="total">
+           #for(price in prices):
+               <option value="#(price.maxPeople)">Up to #(price.maxPeople)</option>
+           #endfor
+            <option value="more">More</option>
+      </select>
+  </div>
+
+<div class="marginTop-m">
+  <button type="submit" class="button button--m button--flat bg-marvel">Calculate</button>
+</div>
+</form>
+
+ </div>
+
+ </div>
+ 
+ #endexport
+
+#endextend
+
+

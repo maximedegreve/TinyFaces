@@ -1,0 +1,55 @@
+#extend("base"):
+
+#export("head"):
+  <title>TinyFaces 👦🏼👨🏾👩🏻 - Non-Commercial License</title>
+#endexport
+
+#export("body"):
+
+  <div class="bg-snow--d padding-l paddingTop-l" style="height:100px">
+    <div class="textAlign-center width-100 pageWrap pageWrap--l">
+        <div class="display-inlineBlock textAlign-center width-100" style="max-width:700px;">
+            <div class="marginBottom-xl"><a href="/"><img width="93" height="auto" src="../images/logo.png" alt="TinyFaces Logo"></a></div>
+        </div>
+    </div>
+  </div>
+
+<div class="pageWrap paddingTopBottom-xl marginTop-xl textAlign-center position-relative" style="max-width: 440px;">
+  <h1 class="c-black lineHeight-xxl fontSize-xxl breakPointM-fontSize-xxxl breakPointM-lineHeight-xxxl marginBottom-xs">TINYFACES NON-COMMERCIAL LICENSE AGREEMENT
+   </h1>
+</div>
+
+<div class="pageWrap pageWrap--s breakPointM-marginBottom-xl position-relative">
+
+<p class="lineHeight-xl fontSize-l fontWeight-3 c-slate marginBottom-l">This TinyFaces License Agreement (the "Agreement") is a legal agreement between you ("Licensee") and TinyFaces ("Licensor"). By downloading or using any of the avatar photos from TinyFaces, Licensee agrees to be bound by the terms of this Agreement.</p>
+<ol class="marginTopBottom-m">
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">License Grant<br>
+Licensor hereby grants Licensee a non-exclusive, non-transferable, and limited license to use the avatar photos from TinyFaces solely for personal use. Licensee may not use the avatar photos for any commercial purpose without obtaining a separate commercial use license from Licensor.</li>
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">Commercial Use License<br>
+To use the avatar photos from TinyFaces for any commercial purpose, Licensee must obtain a separate commercial use license from Licensor. Such commercial use license may be subject to additional fees, terms, and conditions. For more information on obtaining a commercial use license, Licensee should visit <a class="link link--blue" href="/license/commercial">tinyfac.es/license/commercial</a>.</li>
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">Restrictions on Use<br>
+Licensee may not modify, adapt, create derivative works, or alter the avatar photos in any way, except to the extent necessary to resize the avatar photo for personal use. Licensee may not use the avatar photos in any way that would infringe upon the rights of any third party. Licensee may not resell, sublicense, or otherwise distribute the avatar photos or create any competing service that would use the avatar photos without prior written permission from Licensor.</li>
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">Ownership<br>
+Licensor retains all ownership and intellectual property rights in and to the avatar photos. Licensee acknowledges that this license agreement does not grant any ownership or intellectual property rights in the avatar photos.</li>
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">Termination<br>
+This license agreement will terminate automatically if Licensee breaches any of the terms or conditions of this Agreement. Upon termination, Licensee must immediately cease all use of the avatar photos and delete all copies of the avatar photos from all storage media.</li>
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">Legal Proceedings<br>
+Licensee acknowledges and agrees that any breach of this Agreement may cause irreparable harm to Licensor for which monetary damages would be inadequate, and Licensor will be entitled to seek equitable relief in addition to any other remedies it may have under applicable law.</li>
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">Governing Law<br>
+This Agreement will be governed by and construed in accordance with the laws of the jurisdiction in which Licensor operates.</li>
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">Disclaimer of Warranties<br>
+The avatar photos are provided "as is" without warranty of any kind, either express or implied, including but not limited to the implied warranties of merchantability and fitness for a particular purpose.</li>
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">Limitation of Liability<br>
+Licensor shall not be liable for any damages arising out of or in connection with the use or inability to use the avatar photos, including but not limited to direct, indirect, incidental, or consequential damages.</li>
+<li class="lineHeight-xl fontSize-l fontWeight-3 c-slate">Entire Agreement<br>
+This Agreement constitutes the entire agreement between Licensee and Licensor and supersedes all prior agreements and understandings, whether written or oral, relating to the subject matter of this Agreement.
+</li>
+</ol>
+<p class="lineHeight-xl fontSize-l fontWeight-3 c-slate marginBottom-l">By downloading or using any of the avatar photos from TinyFaces, Licensee acknowledges that they have read this Agreement, understood it, and agree to be bound by its <a class="link link--blue " href="/terms">terms and conditions</a>. If Licensee does not agree to the <a class="link link--blue " href="/terms">terms and conditions</a> of this Agreement, they should not download or use any avatar photos from TinyFaces.</p>
+
+
+
+    </div>
+#endexport
+
+#endextend

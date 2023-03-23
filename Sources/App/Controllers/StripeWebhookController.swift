@@ -22,24 +22,71 @@ final class StripeWebhookController {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        let event = try request.content.decode(StripeEvent.self, using: decoder)
 
-        let event = try request.content.decode(StripeEvent.self)
-
+        // More info abour required events
+        // https://stripe.com/docs/customer-management/integrate-customer-portal?locale=en-GB
+        
         switch (event.type, event.data?.object) {
             case (.checkoutSessionCompleted, .checkoutSession(let checkoutCompletion)):
                 return try await checkoutCompleted(request: request, session: checkoutCompletion)
         case (.invoicePaymentSucceeded, .invoice(let invoice)):
                 return try await invoiceUpdate(request: request, invoice: invoice)
-            default:
-                return Response(status: .ok)
+        case (.customerSubscriptionUpdated, .subscription(let subscription)):
+            return try await subscriptionUpdate(request: request, subscription: subscription)
+        case (.customerSubscriptionDeleted, .subscription(let subscription)):
+            return try await subscriptionUpdate(request: request, subscription: subscription)
+        default:
+            return Response(status: .ok)
         }
 
+    }
+    
+    func subscriptionUpdate(request: Request, subscription: StripeSubscription) async throws -> Response {
+
+        guard let dbSubscription = try await Subscription.query(on: request.db).filter(\.$stripeId, .equal, subscription.id).first() else {
+            return Response(status: .ok)
+        }
+
+        dbSubscription.stripeStatus = subscription.status?.rawValue ?? StripeSubscriptionStatus.incomplete.rawValue
+        dbSubscription.cancelAtPeriodEnd = subscription.cancelAtPeriodEnd ?? true
+        dbSubscription.currentPeriodEnd = subscription.currentPeriodEnd
+        try await dbSubscription.save(on: request.db)
+        
+        return Response(status: .ok)
+
+        
+    }
+    
+    func portalRedirect(request: Request) async throws -> Response {
+        
+        let user = try request.auth.require(User.self)
+        let subscription = try await user.activeSubscriptions(req: request).first
+
+        guard subscription != nil else {
+            throw Abort.redirect(to: "/dashboard")
+        }
+        
+        let returnUrl = Environment.apiUrl + "/dashboard"
+
+        guard let customerId = user.stripeCustomerId else {
+            throw Abort.redirect(to: "/dashboard")
+        }
+        
+        let session = try await request.stripe.portalSession.create(customer: customerId, returnUrl: returnUrl, configuration: nil, onBehalfOf: nil, expand: nil).get()
+        
+        guard let url = session.url else {
+            throw Abort.redirect(to: "/dashboard")
+        }
+        
+        return request.redirect(to: url)
+        
     }
 
     func invoiceUpdate(request: Request, invoice: StripeInvoice) async throws -> Response {
 
         guard let stripeSubscription = invoice.$subscription else {
-            Swift.print("Missing subscription object")
             return Response(status: .ok)
         }
 

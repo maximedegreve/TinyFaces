@@ -8,7 +8,6 @@ final class DataAIController {
         try await Analytic.log(request: request)
 
         let defaultLimit = 50
-        let defaultQuality = 10
         let defaultAvatarMaxSize = 1024
 
         struct RequestData: Error, Content {
