@@ -35,6 +35,31 @@ final class StripeWebhookController {
         }
 
     }
+    
+    func portalRedirect(request: Request) async throws -> Response {
+        
+        let user = try request.auth.require(User.self)
+        let subscription = try await user.activeSubscriptions(req: request).first
+
+        guard subscription != nil else {
+            throw Abort.redirect(to: "/dashboard")
+        }
+        
+        let returnUrl = Environment.apiUrl + "/dashboard"
+
+        guard let customerId = user.stripeCustomerId else {
+            throw Abort.redirect(to: "/dashboard")
+        }
+        
+        let session = try await request.stripe.portalSession.create(customer: customerId, returnUrl: returnUrl, configuration: nil, onBehalfOf: nil, expand: nil).get()
+        
+        guard let url = session.url else {
+            throw Abort.redirect(to: "/dashboard")
+        }
+        
+        return request.redirect(to: url)
+        
+    }
 
     func invoiceUpdate(request: Request, invoice: StripeInvoice) async throws -> Response {
 

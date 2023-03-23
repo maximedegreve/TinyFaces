@@ -88,7 +88,16 @@ final class LicenseController {
             ]
         ]
         
-        let url = try await request.stripe.sessions.create(cancelUrl: returnUrl, paymentMethodTypes: [.card], successUrl: returnUrl, customerEmail: user.email, lineItems: lineItems, mode: .subscription).get()
+        var customerId = user.stripeCustomerId
+        
+        if customerId == nil {
+            customerId = try await request.stripe.customers.create(email: user.email).get().id
+        }
+        
+        user.stripeCustomerId = customerId
+        try await user.save(on: request.db)
+        
+        let url = try await request.stripe.sessions.create(cancelUrl: returnUrl, paymentMethodTypes: [.card], successUrl: returnUrl, customer: customerId, lineItems: lineItems, mode: .subscription).get()
 
         return try await request.view.render("license-calculation", CommercialContext(price: bracket.price, contact: false, paymentUrl: url.url))
 

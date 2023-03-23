@@ -57,6 +57,7 @@ func routes(_ app: Application) throws {
     protected.on(.POST, "admin", "upload", body: .collect(maxSize: "10mb"), use: adminController.upload)
     protected.on(.PUT, "admin", ":id", use: adminController.put)
     protected.on(.DELETE, "admin", ":id", use: adminController.delete)
+    protected.on(.GET, "stripe", "portal", use: stripeWebhookController.portalRedirect)
     app.on(.POST, "stripe", "webhook", use: stripeWebhookController.index)
 
 }

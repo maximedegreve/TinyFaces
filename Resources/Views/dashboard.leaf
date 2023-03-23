@@ -23,7 +23,8 @@
       <p class="fontSize-m lineHeight-l fontWeight-3 c-steel" style="max-width: 500px;">
       If you would like to cancel renewal for your license click the button below.
         </p>
-      <a href="/license-commercial" class="button button--m button--outlined bg-white bg-negative--hover marginTop-s">Cancel renewal</a>
+      <a href="/license/commercial-doc" class="button button--m button--flat bg-marvel marginTop-s marginRight-xxs">View license</a>
+      <a href="/stripe/portal" class="button button--m button--outlined bg-white bg-marvel--hover marginTop-s">Manage subscription</a>
 
   #else:
       <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">You currently don't have any active licenses</h1>
