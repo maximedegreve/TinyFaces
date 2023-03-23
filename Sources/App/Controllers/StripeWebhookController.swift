@@ -22,18 +22,42 @@ final class StripeWebhookController {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        let event = try request.content.decode(StripeEvent.self, using: decoder)
 
-        let event = try request.content.decode(StripeEvent.self)
-
+        // More info abour required events
+        // https://stripe.com/docs/customer-management/integrate-customer-portal?locale=en-GB
+        
         switch (event.type, event.data?.object) {
             case (.checkoutSessionCompleted, .checkoutSession(let checkoutCompletion)):
                 return try await checkoutCompleted(request: request, session: checkoutCompletion)
         case (.invoicePaymentSucceeded, .invoice(let invoice)):
                 return try await invoiceUpdate(request: request, invoice: invoice)
-            default:
-                return Response(status: .ok)
+        case (.customerSubscriptionUpdated, .subscription(let subscription)):
+            return try await subscriptionUpdate(request: request, subscription: subscription)
+        case (.customerSubscriptionDeleted, .subscription(let subscription)):
+            return try await subscriptionUpdate(request: request, subscription: subscription)
+        default:
+            return Response(status: .ok)
         }
 
+    }
+    
+    func subscriptionUpdate(request: Request, subscription: StripeSubscription) async throws -> Response {
+
+        guard let dbSubscription = try await Subscription.query(on: request.db).filter(\.$stripeId, .equal, subscription.id).first() else {
+            return Response(status: .ok)
+        }
+
+        Swift.print(subscription)
+        dbSubscription.stripeStatus = subscription.status?.rawValue ?? StripeSubscriptionStatus.incomplete.rawValue
+        dbSubscription.cancelAtPeriodEnd = subscription.cancelAtPeriodEnd ?? true
+        dbSubscription.currentPeriodEnd = subscription.currentPeriodEnd
+        try await dbSubscription.save(on: request.db)
+        
+        return Response(status: .ok)
+
+        
     }
     
     func portalRedirect(request: Request) async throws -> Response {
