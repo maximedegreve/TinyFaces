@@ -49,7 +49,6 @@ final class StripeWebhookController {
             return Response(status: .ok)
         }
 
-        Swift.print(subscription)
         dbSubscription.stripeStatus = subscription.status?.rawValue ?? StripeSubscriptionStatus.incomplete.rawValue
         dbSubscription.cancelAtPeriodEnd = subscription.cancelAtPeriodEnd ?? true
         dbSubscription.currentPeriodEnd = subscription.currentPeriodEnd

@@ -9,7 +9,7 @@
     <div class="bg-snow--d padding-l paddingTop-l" style="height:216px">
       <div class="textAlign-center width-100 pageWrap pageWrap--l">
           <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">
-              <div class="marginBottom-xl"><img width="93" height="auto" src="../images/logo.png" alt="TinyFaces Logo"></div>
+              <div class="marginBottom-xl"><a href="/"><img width="93" height="auto" src="../images/logo.png" alt="TinyFaces Logo"></a></div>
               <div class="position-absolute"><img width="119" height="119" src="../images/single.png"></div>
           </div>
       </div>
@@ -20,7 +20,10 @@
   
   #if(contact):
       <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">Get in touch for a custom quote</h1>
-      <p class="fontSize-m lineHeight-l fontWeight-3 c-steel">Thank you for considering our services. We have carefully reviewed your project requirements and have prepared a detailed quote for you. After taking into account all the factors involved, we have arrived at a final quote that we believe is fair and competitive.</p>
+      <p class="fontSize-m lineHeight-l fontWeight-3 c-steel">Thanks for submitting your information for a quote. However, based on your company size, we think a customized solution would work best for you. Please contact us directly to discuss your needs and we'll work together to design a tailored solution.</p>
+      <div class="marginTop-m">
+        <a href="mailto:hello@tinyfac.es" class="button button--m button--flat bg-marvel">Contact us</a>
+      </div>
 
   #else:
       <h1 class="fontSize-xxl lineHeight-xl c-steel marginBottom-xs marginTop-l display-inlineBlock">Your personal quote</h1>

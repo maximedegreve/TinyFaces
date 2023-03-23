@@ -9,7 +9,7 @@
     <div class="bg-snow--d padding-l paddingTop-l" style="height:216px">
       <div class="textAlign-center width-100 pageWrap pageWrap--l">
           <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">
-              <div class="marginBottom-xl"><img width="93" height="auto" src="../images/logo.png" alt="TinyFaces Logo"></div>
+              <div class="marginBottom-xl"><a href="/"><img width="93" height="auto" src="../images/logo.png" alt="TinyFaces Logo"></a></div>
               <div class="position-absolute"><img width="119" height="119" src="../images/single.png"></div>
           </div>
       </div>
