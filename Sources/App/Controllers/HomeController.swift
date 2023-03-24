@@ -12,7 +12,7 @@ final class HomeController {
         return AvatarAI.query(on: request.db).limit(42).sort(.sql(raw: "rand()")).all().flatMap { avatars in
 
             let urls = avatars.compactMap { avatar in
-                return PublicAvatarAI(avatar: avatar, avatarSize: 174, firstName: "", lastName: "").url
+                return PublicAvatarAI(avatar: avatar, avatarSize: .medium, firstName: "", lastName: "").url
             }
 
             return request.view.render("home", HomeContext(avatars: urls))

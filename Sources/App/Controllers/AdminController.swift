@@ -52,7 +52,7 @@ final class AdminController {
         let paginatedResults = try await results.paginate(for: request)
 
         let paginateResultsWithUrls: [AvatarAI] = paginatedResults.items.compactMap({ avatarAI in
-            let url = Cloudflare().url(uuid: avatarAI.url, variant: "small")
+            let url = Cloudflare().url(uuid: avatarAI.url, variant: .medium)
             guard let signedUrl = Cloudflare().generateSignedUrl(url: url) else {
                 return nil
             }

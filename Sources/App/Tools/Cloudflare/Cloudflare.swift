@@ -45,8 +45,8 @@ final public class Cloudflare {
 
     }
 
-    func url(uuid: String, variant: String) -> String {
-        return "https://imagedelivery.net/\(Environment.cloudflareAccountHash)/\(uuid)/\(variant)"
+    func url(uuid: String, variant: CloudflareVariant) -> String {
+        return "https://imagedelivery.net/\(Environment.cloudflareAccountHash)/\(uuid)/\(variant.rawValue)"
     }
 
     func url(uuid: String, width: Int? = nil, height: Int? = nil, trim: CloudflareTrim? = nil, fit: CloudflareFit? = nil) -> String {

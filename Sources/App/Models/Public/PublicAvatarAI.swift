@@ -11,9 +11,9 @@ final class PublicAvatarAI: Content {
     var createdAt: Date?
     var updatedAt: Date?
 
-    init(avatar: AvatarAI, avatarSize: Int, firstName: String, lastName: String) {
+    init(avatar: AvatarAI, avatarSize: CloudflareVariant = .large, firstName: String, lastName: String) {
 
-        let url = Cloudflare().url(uuid: avatar.url, variant: "small")
+        let url = Cloudflare().url(uuid: avatar.url, variant: avatarSize )
         let signedUrl = Cloudflare().generateSignedUrl(url: url)
 
         self.id = avatar.id

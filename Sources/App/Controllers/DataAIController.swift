@@ -8,28 +8,20 @@ final class DataAIController {
         try await Analytic.log(request: request)
 
         let defaultLimit = 50
-        let defaultAvatarMaxSize = 1024
 
         struct RequestData: Error, Content {
             var limit: Int?
             var gender: Gender?
-            var avatarMaxSize: Int?
 
             enum CodingKeys: String, CodingKey {
                 case limit
                 case gender
-                case avatarMaxSize = "avatar_max_size"
             }
 
         }
 
         let requestData = try request.query.decode(RequestData.self)
         let limit = requestData.limit ?? defaultLimit
-        let avatarSize = requestData.avatarMaxSize ?? defaultAvatarMaxSize
-
-        guard avatarSize <= 1024 else {
-            throw Abort(.badRequest, reason: "`avatar_max_size` can't be larger than 1024.")
-        }
 
         guard limit <= 50 else {
             throw Abort(.badRequest, reason: "`limit` can't be larger than 50 at a time.")
@@ -49,7 +41,7 @@ final class DataAIController {
 
             let firstName = firstNames[safe: index]?.name ?? "Jane"
             let lastName = lastNames[safe: index]?.name ?? "Doe"
-            let avatar = PublicAvatarAI(avatar: element, avatarSize: avatarSize, firstName: firstName, lastName: lastName)
+            let avatar = PublicAvatarAI(avatar: element, firstName: firstName, lastName: lastName)
             return avatar
 
         }
