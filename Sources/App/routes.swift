@@ -54,9 +54,12 @@ func routes(_ app: Application) throws {
 
     // MARK: Private API
     protected.on(.GET, "admin", use: adminController.index)
+    protected.on(.GET, "admin", ":id", use: adminController.detail)
     protected.on(.POST, "admin", "upload", body: .collect(maxSize: "10mb"), use: adminController.upload)
-    protected.on(.PUT, "admin", ":id", use: adminController.put)
-    protected.on(.DELETE, "admin", ":id", use: adminController.delete)
+    protected.on(.POST, "admin", ":id", use: adminController.post)
+    protected.on(.GET, "admin", ":id", "delete", use: adminController.delete)
+    
+    // MARK: Stripe
     protected.on(.GET, "stripe", "portal", use: stripeWebhookController.portalRedirect)
     app.on(.POST, "stripe", "webhook", use: stripeWebhookController.index)
 

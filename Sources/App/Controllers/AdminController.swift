@@ -5,14 +5,10 @@ final class AdminController {
 
     struct AdminContext: Content {
         var avatars: [AvatarAI]
-        var styles: [AvatarStyle]
-        var genders: [Gender]
-        var origins: [AvatarOrigin]
-        var ageGroups: [AvatarAgeGroup]
         var metadata: PageMetadata
     }
 
-    func index(request: Request) async throws -> AdminContext {
+    func index(request: Request) async throws -> View {
 
         enum AdminResultType: String, Content {
             case unreviewed = "unreviewed"
@@ -20,21 +16,21 @@ final class AdminController {
             case all = "all"
         }
 
-        struct AdminResults: Content {
-            var type: AdminResultType
-        }
-
         let user = try request.auth.require(User.self)
 
         guard user.admin else {
-            throw GenericError.notAdmin
+            throw Abort.redirect(to: "/dashboard")
         }
 
-        let data = try request.query.decode(AdminResults.self)
+        let typeString = request.parameters.get("type") ?? AdminResultType.all.rawValue
+        
+        guard let type = AdminResultType(rawValue: typeString) else {
+            throw Abort.redirect(to: "/dashboard")
+        }
+        
+        let results = AvatarAI.query(on: request.db)
 
-        let results = AvatarAI.query(on: request.db).sort(\.$createdAt, .descending)
-
-        switch data.type {
+        switch type {
         case .unreviewed:
             results.group(.or) { avatar in
                 avatar.filter(\.$style, .equal, nil).filter(\.$ageGroup, .equal, nil).filter(\.$gender, .equal, nil).filter(\.$approved, .equal, false)
@@ -49,7 +45,7 @@ final class AdminController {
             break
         }
 
-        let paginatedResults = try await results.paginate(for: request)
+        let paginatedResults = try await results.sort(\.$approved).sort(\.$createdAt, .descending).paginate(for: request)
 
         let paginateResultsWithUrls: [AvatarAI] = paginatedResults.items.compactMap({ avatarAI in
             let url = Cloudflare().url(uuid: avatarAI.url, variant: .medium)
@@ -60,16 +56,54 @@ final class AdminController {
             return avatarAI
         })
 
-        return AdminContext(avatars: paginateResultsWithUrls, styles: AvatarStyle.allCases, genders: Gender.allCases, origins: AvatarOrigin.allCases, ageGroups: AvatarAgeGroup.allCases, metadata: paginatedResults.metadata)
+        let context = AdminContext(avatars: paginateResultsWithUrls, metadata: paginatedResults.metadata)
+
+        return try await request.view.render("admin", context)
 
     }
+    
+    struct AdminDetailContext: Content {
+        var avatar: AvatarAI
+        var styles: [AvatarStyle]
+        var genders: [Gender]
+        var origins: [AvatarOrigin]
+        var ageGroups: [AvatarAgeGroup]
+    }
 
-    func put(request: Request) async throws -> Response {
+    func detail(request: Request) async throws -> View {
 
         let user = try request.auth.require(User.self)
 
         guard user.admin else {
-            throw GenericError.notAdmin
+            throw Abort.redirect(to: "/dashboard")
+        }
+                
+        let id = request.parameters.get("id")!
+        let idInt = Int(id)!
+        
+        guard let avatar = try await AvatarAI.find(idInt, on: request.db) else {
+            throw Abort.redirect(to: "/admin")
+        }
+        
+        let url = Cloudflare().url(uuid: avatar.url, variant: .medium)
+        
+        guard let signedUrl = Cloudflare().generateSignedUrl(url: url) else {
+            throw Abort.redirect(to: "/admin")
+        }
+        avatar.url = signedUrl
+        
+        let context = AdminDetailContext(avatar: avatar, styles: AvatarStyle.allCases, genders: Gender.allCases, origins: AvatarOrigin.allCases, ageGroups: AvatarAgeGroup.allCases)
+        
+        return try await request.view.render("admin-detail", context)
+
+    }
+
+    func post(request: Request) async throws -> View {
+
+        let user = try request.auth.require(User.self)
+
+        guard user.admin else {
+            throw Abort.redirect(to: "/dashboard")
         }
 
         let id = request.parameters.get("id")!
@@ -83,7 +117,7 @@ final class AdminController {
             var origin: AvatarOrigin?
             var ageGroup: AvatarAgeGroup?
             var style: AvatarStyle?
-            var approved: Bool
+            var approved: String?
         }
 
         let data = try request.content.decode(UpdateData.self)
@@ -92,15 +126,15 @@ final class AdminController {
         avatar.origin = data.origin
         avatar.ageGroup = data.ageGroup
         avatar.style = data.style
-        avatar.approved = data.approved
+        avatar.approved = data.approved == "on"
 
         try await avatar.save(on: request.db)
 
-        return Response(status: .ok)
+        return try await detail(request: request)
 
     }
 
-    func upload(request: Request) async throws -> AvatarAI {
+    func upload(request: Request) async throws -> Response {
 
         struct Response: Error, Content {
             var avatar: Data
@@ -109,7 +143,7 @@ final class AdminController {
         let user = try request.auth.require(User.self)
 
         guard user.admin else {
-            throw GenericError.notAdmin
+            throw Abort.redirect(to: "/dashboard")
         }
 
         let response = try request.content.decode(Response.self, using: FormDataDecoder())
@@ -123,8 +157,10 @@ final class AdminController {
 
         let avatarAI = AvatarAI(url: resultId, approved: false)
         try await avatarAI.save(on: request.db)
+        
+        let id = try avatarAI.requireID()
 
-        return avatarAI
+        return request.redirect(to: "/admin/\(id)")
 
     }
 
@@ -133,7 +169,7 @@ final class AdminController {
         let user = try request.auth.require(User.self)
 
         guard user.admin else {
-            throw GenericError.notAdmin
+            throw Abort.redirect(to: "/dashboard")
         }
 
         let id = request.parameters.get("id")!
@@ -150,7 +186,7 @@ final class AdminController {
 
         try await avatar.delete(on: request.db)
 
-        return Response(status: .ok)
+        return request.redirect(to: "/admin")
 
     }
 

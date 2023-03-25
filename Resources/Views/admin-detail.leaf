@@ -1,0 +1,90 @@
+#extend("base"):
+
+ #export("head"):
+    <title>TinyFaces 👦🏼👨🏾👩🏻 - Admin</title>
+ #endexport
+
+ #export("body"):
+
+
+     <div class="bg-snow--d padding-l paddingTop-l" style="height:86px">
+      <div class="textAlign-center width-100 pageWrap pageWrap--l">
+          <div class="display-inlineBlock textAlign-left width-100" style="max-width:700px;">
+              <div class="marginBottom-xl"><a href="/"><img width="93" height="auto" src="../images/logo.png" alt="TinyFaces Logo"></a></div>
+          </div>
+      </div>
+    </div>
+
+  <div class="textAlign-center padding-m paddingBottom-l">
+
+  <div class="display-inlineBlock textAlign-left pageWrap pageWrap--l paddingTop-m" style="max-width:700px;">
+  
+  <a class="link link--blue display-block marginBottom-m" href="/admin">Back</a>
+
+    <img src="#(avatar.url)" width="256" height="256" />
+    
+    <form action="/admin/#(avatar.id)" method="POST">
+    <div>
+      <div class="select select--default select--m marginRight-s marginTop-s">
+          <select id="style" name="style">
+              #for(style in styles):
+                  <option value="#(style)" #if(avatar.style == style): selected #endif>#(style)</option>
+              #endfor
+            </select>
+      </div>
+    </div>
+    <div>
+      <div class="select select--default select--m marginRight-s marginTop-s">
+        <select id="gender" name="gender">
+            #for(gender in genders):
+                <option value="#(gender)" #if(avatar.gender == gender): selected #endif>#(gender)</option>
+            #endfor
+        </select>
+      </div>
+    </div>
+    <div>
+      <div class="select select--default select--m marginRight-s marginTop-s">
+        <select id="origin" name="origin">
+            #for(origin in origins):
+                <option value="#(origin)" #if(avatar.origin == origin): selected #endif>#(origin)</option>
+            #endfor
+        </select>
+      </div>
+    </div>
+    <div>
+      <div class="select select--default select--m marginRight-s marginTop-s">
+        <select id="ageGroup" name="ageGroup">
+            #for(ageGroup in ageGroups):
+                <option value="#(ageGroup)" #if(avatar.ageGroup == ageGroup): selected #endif>#(ageGroup)</option>
+            #endfor
+        </select>
+      </div>
+    </div>
+
+  <div>
+    <input name="approved" id="approved" type="checkbox" #if(avatar.approved): checked #endif>
+    Approved
+  </div>
+
+    <div class="marginTop-m">
+      <button type="submit" class="button button--m button--flat bg-marvel">Save</button>
+      <a href="/admin/#(avatar.id)/delete" class="button button--m button--ghost bg-negative--hover" href="#" role="button">Delete</a>
+    </div>
+    
+
+</form>
+
+    <div class="padding-m display-flex flexDirection-row justifyContent-center">
+    <a href="/admin/#(avatar.id-1)" class="button button--m button--ghost bg-marvel--hover margin-xxs" type="button">Previous</a>
+    <a href="/admin/#(avatar.id+1)" class="button button--m button--ghost bg-marvel--hover margin-xxs" type="button">Next</a>
+    </div>
+
+ </div>
+
+ </div>
+ 
+ #endexport
+
+#endextend
+
+
