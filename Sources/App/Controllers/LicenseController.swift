@@ -9,21 +9,9 @@ struct PriceBracket: Content {
 final class LicenseController {
 
     let prices = [
-        PriceBracket(maxPeople: 3, price: 60),
-        PriceBracket(maxPeople: 10, price: 160),
-        PriceBracket(maxPeople: 25, price: 380),
-        PriceBracket(maxPeople: 50, price: 980),
-        PriceBracket(maxPeople: 100, price: 1152),
-        PriceBracket(maxPeople: 150, price: 1296),
-        PriceBracket(maxPeople: 250, price: 1584),
-        PriceBracket(maxPeople: 500, price: 2112),
-        PriceBracket(maxPeople: 750, price: 2688),
-        PriceBracket(maxPeople: 1000, price: 3264),
-        PriceBracket(maxPeople: 1250, price: 3888),
-        PriceBracket(maxPeople: 1500, price: 4560),
-        PriceBracket(maxPeople: 1750, price: 5280),
-        PriceBracket(maxPeople: 2000, price: 6240),
-        PriceBracket(maxPeople: 2500, price: 7200)
+        PriceBracket(maxPeople: 1000, price: 1),
+        PriceBracket(maxPeople: 2000, price: 2),
+        PriceBracket(maxPeople: 200000, price: 3),
     ]
 
     func commercial(request: Request) async throws -> View {
