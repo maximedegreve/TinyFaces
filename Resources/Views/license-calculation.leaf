@@ -30,7 +30,7 @@
       <p class="fontSize-m lineHeight-l fontWeight-3 c-steel">Thank you for considering our services. We have carefully reviewed your project requirements and have prepared a detailed quote for you. After taking into account all the factors involved, we have arrived at a final quote that we believe is fair and competitive.</p>
 
       <p class="fontSize-m lineHeight-l fontWeight-4 c-silver marginTop-xs">Your quote:</p>
-      <p class="fontSize-xxl lineHeight-l fontWeight-4 c-steel  marginTop-xxs">$#(price)<span class="fontWeight-3 fontSize-l c-silver"> / year</span></p>
+      <p class="fontSize-xxl lineHeight-l fontWeight-4 c-steel  marginTop-xxs">$#(price)<span class="fontWeight-3 fontSize-l c-silver"> / month</span> <span class="fontWeight-3 fontSize-s c-silver">(billed yearly)</span></p>
 
       <div class="marginTop-m">
         <a href="#(paymentUrl)" class="button button--m button--flat bg-marvel">Buy license</a>
