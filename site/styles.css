@@ -1,0 +1,265 @@
+/* Original TinyFaces font, self-hosted so the page stays standalone */
+@font-face {
+  font-family: "FaktProSoft";
+  src: url("fonts/FaktSoftPro-Blond.woff") format("woff"),
+    url("fonts/FaktSoftPro-Blond.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FaktProSoft";
+  src: url("fonts/FaktSoftPro-Normal.woff") format("woff"),
+    url("fonts/FaktSoftPro-Normal.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FaktProSoft";
+  src: url("fonts/FaktSoftPro-Medium.woff") format("woff"),
+    url("fonts/FaktSoftPro-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* TinyFaces palette (from the original styleguide) */
+:root {
+  --steel: #273444;
+  --slate: #3c4858;
+  --silver: #8492a6;
+  --snow: #f9fafc;
+  --snow-d: #eff2f7;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--snow-d);
+  color: var(--steel);
+  font-family: "FaktProSoft", "Helvetica Neue", helvetica, arial, sans-serif;
+  font-weight: 400;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hero {
+  width: 100%;
+  background-color: transparent;
+  text-align: center;
+  padding: 64px 40px 72px;
+}
+
+#bg-shader {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 45%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 45%
+  );
+}
+
+#bg-shader.is-active {
+  opacity: 1;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.logo {
+  margin-bottom: 28px;
+}
+
+.logo img {
+  display: inline-block;
+  height: auto;
+}
+
+.illustration {
+  margin-bottom: 24px;
+}
+
+.illustration img {
+  width: 100%;
+  max-width: 398px;
+  height: auto;
+}
+
+h1 {
+  font-size: 26px;
+  line-height: 34px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+  color: var(--steel);
+  margin: 0 0 14px;
+}
+
+h2 {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 300;
+  color: var(--silver);
+  margin: 0 0 22px;
+}
+
+p {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 300;
+  color: var(--silver);
+  margin: 0 0 22px;
+}
+
+p strong {
+  color: inherit;
+  font-weight: 400;
+}
+
+.signoff {
+  margin: 0;
+}
+
+a {
+  color: var(--slate);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--steel);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 10px 0 34px;
+  padding: 0 18px 0 13px;
+  height: 38px;
+  line-height: 38px;
+  border-radius: 19px;
+  background-color: var(--slate);
+  color: var(--white);
+  font-size: 14px;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.button img {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.button:hover {
+  opacity: 0.9;
+  color: var(--white);
+}
+
+/* Subtle staggered entrance on load */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-inner > * {
+  opacity: 0;
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+.hero-inner > .logo {
+  animation-delay: 0.05s;
+}
+
+.illustration {
+  animation-delay: 0.15s;
+}
+
+.hero-inner > h1 {
+  animation-delay: 0.28s;
+}
+
+.hero-inner > h2 {
+  animation-delay: 0.4s;
+}
+
+.hero-inner > p {
+  animation-delay: 0.52s;
+}
+
+.hero-inner > .button {
+  animation-delay: 0.64s;
+}
+
+.hero-inner > .signoff {
+  animation-delay: 0.76s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-inner > * {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 44px 28px 52px;
+  }
+
+  h1 {
+    font-size: 23px;
+    line-height: 30px;
+  }
+
+  h2,
+  p {
+    font-size: 17px;
+  }
+
+  .illustration img {
+    max-width: 280px;
+  }
+}
